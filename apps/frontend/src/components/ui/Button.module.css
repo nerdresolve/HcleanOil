@@ -1,69 +1,112 @@
 .base {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 10px;
   border: 1px solid transparent;
-  border-radius: var(--radius-xs);
-  letter-spacing: 0.02em;
+  border-radius: var(--radius-pill);
+  letter-spacing: 0.01em;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
-  transition: var(--transition-control);
+  overflow: hidden;
+  transition:
+    background-color var(--dur-fast) var(--ease-standard),
+    border-color var(--dur-fast) var(--ease-standard),
+    color var(--dur-fast) var(--ease-standard),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.base:hover {
+  transform: translateY(-1px);
+}
+
+.base:active {
+  transform: translateY(0);
+  transition-duration: var(--dur-instant);
 }
 
 .base:disabled {
   background: var(--control-disabled-bg);
+  background-image: none;
   color: var(--control-disabled-fg);
   cursor: not-allowed;
+  box-shadow: none;
 }
 
-/* sizes */
+.base:disabled:hover {
+  transform: none;
+}
+
+/* ------------------------------------------------------------------ sizes */
+
 .sm {
-  height: 34px;
-  padding: 0 14px;
+  height: 38px;
+  padding: 0 18px;
+  gap: 8px;
   font: var(--fw-semibold) var(--fs-body-sm) / 1 var(--font-display);
 }
 .md {
-  height: 44px;
-  padding: 0 20px;
+  height: 46px;
+  padding: 0 24px;
   font: var(--fw-semibold) var(--fs-body-sm) / 1 var(--font-display);
 }
 .lg {
-  height: 52px;
-  padding: 0 28px;
-  gap: 10px;
-  font: var(--fw-bold) var(--fs-body) / 1 var(--font-display);
+  height: 54px;
+  padding: 0 32px;
+  font: var(--fw-semibold) var(--fs-body) / 1 var(--font-display);
 }
 
-/* variants */
+/* --------------------------------------------------------------- variants */
+
+/* Gradiente sutil entre dois verdes da marca, com um brilho interno no topo —
+   dá volume sem virar botão "brilhante" de e-commerce. */
 .primary {
-  background: var(--control-primary-bg);
-  color: var(--control-primary-fg);
+  background-image: linear-gradient(178deg, #12c56d 0%, #00a855 100%);
+  color: #04150c;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 1px 2px rgba(6, 26, 17, 0.16),
+    0 6px 16px rgba(0, 150, 78, 0.24);
 }
 .primary:hover {
-  background: var(--control-primary-bg-hover);
+  background-image: linear-gradient(178deg, #1ad277 0%, #05b45d 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.34),
+    0 2px 4px rgba(6, 26, 17, 0.16),
+    0 10px 24px rgba(0, 150, 78, 0.3);
 }
 .primary:active {
-  background: var(--control-primary-bg-active);
+  background-image: linear-gradient(178deg, #00a855 0%, #00934a 100%);
+  box-shadow:
+    inset 0 2px 4px rgba(6, 26, 17, 0.2),
+    0 1px 2px rgba(6, 26, 17, 0.14);
 }
 
 .secondary {
-  background: var(--control-secondary-bg);
-  color: var(--control-secondary-fg);
+  background-image: linear-gradient(178deg, var(--hc-green-700) 0%, var(--hc-green-800) 100%);
+  color: var(--hc-paper);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    0 4px 14px rgba(9, 43, 27, 0.22);
 }
 .secondary:hover {
-  background: var(--control-secondary-bg-hover);
+  background-image: linear-gradient(178deg, #175034 0%, var(--hc-green-700) 100%);
 }
 
+/* Contorno: fundo levemente esverdeado no hover, sem inverter para preto. */
 .outline {
   background: transparent;
-  color: var(--control-ghost-fg);
-  border-color: var(--border-strong);
+  color: var(--hc-green-700);
+  border-color: var(--hc-grey-300);
 }
 .outline:hover {
-  background: var(--hc-green-800);
-  color: var(--text-inverse);
+  background: var(--hc-green-050);
+  border-color: var(--hc-green-300);
+  color: var(--hc-green-800);
+  box-shadow: 0 4px 14px rgba(9, 43, 27, 0.08);
 }
 
 .ghost {
@@ -74,17 +117,42 @@
   background: var(--control-ghost-bg-hover);
 }
 
+/* Sobre fundo escuro: vidro fosco em vez de contorno seco. */
 .inverseOutline {
-  background: transparent;
+  background: rgba(247, 247, 247, 0.08);
   color: var(--text-inverse);
-  border-color: var(--border-inverse);
+  border-color: rgba(247, 247, 247, 0.28);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 .inverseOutline:hover {
-  background: rgba(247, 247, 247, 0.1);
+  background: rgba(247, 247, 247, 0.16);
   border-color: var(--hc-green-300);
   color: var(--text-inverse);
 }
 
 .fullWidth {
   width: 100%;
+}
+
+/* Ícone acompanha o movimento do botão. */
+.base svg {
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.base:hover svg:last-child {
+  transform: translateX(3px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .base,
+  .base svg {
+    transition: none;
+  }
+  .base:hover {
+    transform: none;
+  }
+  .base:hover svg:last-child {
+    transform: none;
+  }
 }

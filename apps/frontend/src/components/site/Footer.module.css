@@ -1,7 +1,34 @@
+/* Onda de entrada: fecha a seção clara anterior antes do verde do rodapé. */
+.wave {
+  display: block;
+  width: 100%;
+  height: 72px;
+  margin-bottom: -1px;
+  background: var(--surface-page);
+  pointer-events: none;
+}
+
+.wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
 .footer {
   background: var(--hc-green-900);
+  background-image: radial-gradient(
+    90% 120% at 15% 0%,
+    rgba(0, 191, 99, 0.1),
+    transparent 60%
+  );
   color: var(--text-inverse-muted);
-  padding-block: 64px 32px;
+  padding-block: 56px 32px;
+}
+
+@media (max-width: 640px) {
+  .wave {
+    height: 44px;
+  }
 }
 
 .grid {

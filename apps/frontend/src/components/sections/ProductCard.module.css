@@ -4,15 +4,16 @@
   height: 100%;
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xl);
   overflow: hidden;
   color: inherit;
-  transition: var(--transition-control);
+  transition: var(--transition-control), transform var(--dur-base) var(--ease-out);
 }
 
 .card:hover {
   border-color: var(--hc-green-300);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-4px);
   color: inherit;
 }
 
@@ -22,12 +23,15 @@
   overflow: hidden;
 }
 
+/* As fotos de produto são quadradas; o card recorta para 4:3 com `cover`,
+   sem esticar. */
 .thumb img {
   width: 100%;
   height: auto;
   display: block;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  object-position: center;
   transition: transform var(--dur-slow) var(--ease-out);
 }
 

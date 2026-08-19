@@ -64,7 +64,7 @@ export default function SobrePage() {
             </Prose>
             <div className={s.image}>
               <Image
-                src="/institucional/operacao-cerco-barreira.webp"
+                src="/produtos/barreira-em-operacao.webp"
                 alt="Operação de cerco com barreira de contenção HCLEAN"
                 width={560}
                 height={420}
@@ -120,7 +120,7 @@ export default function SobrePage() {
           <Split reverse>
             <div className={s.image}>
               <Image
-                src="/produtos/materiais-absorventes.webp"
+                src="/produtos/absorventes-sinteticos.webp"
                 alt="Linhas de material absorvente fabricadas pela HCLEAN"
                 width={560}
                 height={560}

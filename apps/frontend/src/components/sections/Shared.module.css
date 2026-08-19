@@ -5,6 +5,10 @@
   overflow: hidden;
   background: var(--hc-green-800);
   color: var(--text-inverse);
+  /* Malha suave por cima do verde chapado, para o topo não ficar plano. */
+  background-image:
+    radial-gradient(120% 90% at 85% 0%, rgba(0, 191, 99, 0.14), transparent 60%),
+    radial-gradient(90% 70% at 0% 100%, rgba(43, 131, 191, 0.16), transparent 62%);
 }
 
 .heroArt {
@@ -21,7 +25,7 @@
 
 .heroInner {
   position: relative;
-  padding-block: 88px;
+  padding-block: 96px 104px;
 }
 
 .heroSplit {
@@ -72,7 +76,31 @@
     gap: 36px;
   }
   .heroInner {
-    padding-block: 56px;
+    padding-block: 56px 64px;
+  }
+}
+
+/* --------------------------------------------------------- wave divider */
+
+/* Onda que fecha as faixas escuras. Fica no fluxo, colada na seção seguinte,
+   para o corte reto entre blocos sumir. */
+.wave {
+  display: block;
+  width: 100%;
+  height: 72px;
+  margin-bottom: -1px;
+  pointer-events: none;
+}
+
+.wave svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@media (max-width: 640px) {
+  .wave {
+    height: 44px;
   }
 }
 
@@ -88,13 +116,8 @@
   padding: 20px;
   text-align: center;
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xl);
   background: var(--hc-grey-100);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(9, 43, 27, 0.05) 0 2px,
-    transparent 2px 10px
-  );
   color: var(--text-faint);
   font: var(--type-body-sm);
 }
@@ -114,6 +137,8 @@
   align-items: center;
 }
 
+/* Inverte a ordem visual sem mexer na ordem do HTML — a leitura por leitor de
+   tela e a navegação por teclado seguem as mesmas. */
 .splitReverse {
   grid-template-columns: 0.9fr 1fr;
 }
@@ -145,17 +170,30 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  padding: 26px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: transform var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out);
+}
+
+.feature:hover {
+  transform: translateY(-3px);
+  border-color: var(--hc-green-200);
+  box-shadow: var(--shadow-md);
 }
 
 .featureIcon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  margin-bottom: 8px;
-  background: var(--hc-green-050);
-  border: 1px solid var(--hc-green-100);
+  width: 48px;
+  height: 48px;
+  margin-bottom: 6px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(140deg, var(--hc-green-050), var(--hc-green-100));
   color: var(--hc-green-600);
 }
 
@@ -197,13 +235,16 @@
 .stat {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .statValue {
   font: var(--fw-bold) var(--fs-h1) / 1.05 var(--font-display);
   letter-spacing: var(--ls-display);
-  color: var(--text-inverse);
+  background: linear-gradient(120deg, var(--hc-green-200), var(--hc-green-300));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 .statLabel {
@@ -221,10 +262,14 @@
   align-items: center;
   justify-content: space-between;
   gap: 40px;
-  padding: 48px;
-  border-radius: var(--radius-sm);
+  padding: 56px;
+  border-radius: var(--radius-xl);
   background: var(--surface-inverse);
+  background-image:
+    radial-gradient(100% 120% at 100% 0%, rgba(0, 191, 99, 0.2), transparent 58%),
+    radial-gradient(80% 100% at 0% 100%, rgba(43, 131, 191, 0.18), transparent 60%);
   color: var(--text-inverse);
+  box-shadow: var(--shadow-lg);
 }
 
 .ctaArt {
@@ -255,6 +300,13 @@
   color: var(--text-inverse-muted);
 }
 
+.ctaEyebrow {
+  font: var(--type-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--hc-green-300);
+}
+
 .ctaActions {
   position: relative;
   display: flex;
@@ -276,8 +328,8 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  font: var(--type-mono);
-  font-size: 12px;
+  font: var(--type-body-sm);
+  font-size: 13px;
   color: rgba(247, 247, 247, 0.6);
 }
 

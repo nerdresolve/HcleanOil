@@ -101,6 +101,36 @@ textarea {
   color: var(--hc-green-800);
 }
 
+/* Revelação ao rolar, em CSS puro (animation-timeline: view) — sem JS e sem
+   biblioteca. Onde o navegador não suporta, o conteúdo simplesmente já aparece
+   visível, então nada depende disso para ser legível. */
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    /* Alvos: cartões de produto, blocos de destaque e cartões em geral —
+       os padrões que se repetem em grade e ganham com a entrada escalonada. */
+    .reveal,
+    main article,
+    main [class*='feature'],
+    main [class*='case'],
+    main [class*='format'] {
+      animation: reveal-in linear both;
+      animation-timeline: view();
+      animation-range: entry 6% cover 24%;
+    }
+  }
+}
+
+@keyframes reveal-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 /* O header é sticky: qualquer alvo de âncora precisa desviar da faixa fixa,
    senão o título fica escondido atrás dela. */
 [id] {

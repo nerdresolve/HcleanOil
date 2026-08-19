@@ -13,9 +13,9 @@ const COLUMNS = [
   {
     title: 'Empresa',
     links: [
-      { href: '/sobre', label: 'Sobre a HCLEAN' },
+      { href: '/sobre', label: 'Quem somos' },
       { href: '/sobre#historia', label: 'Nossa história' },
-      { href: '/sobre#parceria', label: 'Parceria Hidroclean' },
+      { href: '/sobre#operacoes', label: 'Operações reais' },
     ],
   },
   {
@@ -30,8 +30,19 @@ const COLUMNS = [
 
 export function Footer() {
   return (
-    <footer className={s.footer}>
-      <Container>
+    <>
+      {/* Onda de entrada do rodapé: fundo claro da seção anterior, curva na
+          cor do rodapé fechando até a base. */}
+      <div className={s.wave} aria-hidden="true">
+        <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+          <path
+            d="M0,52 C240,110 480,120 720,96 C960,72 1200,18 1440,44 L1440,120 L0,120 Z"
+            fill="var(--hc-green-900)"
+          />
+        </svg>
+      </div>
+      <footer className={s.footer}>
+        <Container>
         <div className={s.grid}>
           <div className={s.brandCol}>
             <Logo height={32} tone="light" />
@@ -67,13 +78,14 @@ export function Footer() {
           ))}
         </div>
 
-        <div className={s.bottom}>
-          <span>
-            © {new Date().getFullYear()} {site.legalName}
-          </span>
-          <span>Parceira técnica da Hidroclean</span>
-        </div>
-      </Container>
-    </footer>
+          <div className={s.bottom}>
+            <span>
+              © {new Date().getFullYear()} {site.legalName}
+            </span>
+            <span>{site.contact.hours}</span>
+          </div>
+        </Container>
+      </footer>
+    </>
   );
 }

@@ -123,12 +123,15 @@
   --page-pad-x-lg: 48px;
   --header-h: 76px;
 
-  /* Shape */
+  /* Shape — o design system original era quase todo quadrado; a escala foi
+     ampliada para tirar o aspecto truncado sem perder o tom técnico. */
   --radius-none: 0px;
-  --radius-xs: 2px;
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 10px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
   --radius-pill: 999px;
   --radius-circle: 50%;
   --border-hairline: 1px;
@@ -168,8 +171,8 @@
 
   --text-strong: var(--hc-green-800);
   --text-body: var(--hc-grey-600);
-  --text-muted: var(--hc-grey-500);
-  --text-faint: var(--hc-grey-400);
+  --text-muted: var(--hc-grey-600);
+  --text-faint: var(--hc-grey-500);
   --text-inverse: var(--hc-paper);
   --text-inverse-muted: rgba(247, 247, 247, 0.72);
   --text-accent: var(--hc-green-300);
@@ -200,6 +203,24 @@
   --field-border-focus: var(--hc-green-300);
   --field-placeholder: var(--hc-grey-400);
   --focus-ring: var(--shadow-focus);
+}
+
+/* Notebook (1280–1500px): a escala de 1440 deixa o conteúdo grande demais e
+   sobra pouco espaço vertical. Reduz tipografia e respiro sem trocar o layout. */
+@media (max-width: 1500px) {
+  :root {
+    --fs-display-1: 60px;
+    --fs-display-2: 44px;
+    --fs-h1: 34px;
+    --fs-h2: 26px;
+    --fs-h3: 21px;
+    --fs-h4: 18px;
+    --fs-body-lg: 17px;
+    --section-y: 72px;
+    --section-y-lg: 96px;
+    --section-y-sm: 52px;
+    --header-h: 68px;
+  }
 }
 
 /* Escala tipográfica reduzida no mobile — o display de 56px não cabe em 360px. */

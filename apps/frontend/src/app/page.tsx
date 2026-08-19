@@ -1,33 +1,22 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
-import { Container, Section, SectionHeading, Grid, Badge } from '@/components/ui/Layout';
+import { Container, Section, SectionHeading, Grid } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import {
-  Hero,
-  HeroSplit,
-  HeroCopy,
-  HeroTitle,
-  HeroLead,
-  HeroText,
-  Actions,
   Split,
   Prose,
   Feature,
-  Pillar,
-  Stat,
+  Wave,
+  BrandWaveArt,
+  BrandLinesArt,
+  BrandRingsArt,
+  BrandDotsArt,
   CTABanner,
 } from '@/components/sections/Shared';
+import { VideoHero } from '@/components/sections/VideoHero';
 import { ProductCard } from '@/components/sections/ProductCard';
-import {
-  categories,
-  caseStudies,
-  faq,
-  pillars,
-  products,
-  proofPoints,
-  site,
-} from '@/data/site';
+import { categories, caseStudies, faq, pillars, products, site } from '@/data/site';
 import s from './home.module.css';
 
 export const metadata: Metadata = {
@@ -35,6 +24,23 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: '/' },
 };
+
+/**
+ * Vídeo de fundo do hero.
+ *
+ * Coloque `hero.mp4` (e opcionalmente `hero.webm`) em `public/video/` e troque
+ * para `{ mp4: '/video/hero.mp4', webm: '/video/hero.webm' }`. Enquanto for
+ * `undefined`, o hero mostra só o poster — que já é a foto real da operação,
+ * então a página nunca fica quebrada esperando o arquivo.
+ */
+const HERO_VIDEO: { mp4?: string; webm?: string } | undefined = undefined;
+
+/** Números exibidos dentro do hero, como no site anterior. */
+const heroStats = [
+  { icon: 'medal' as const, value: '18+', label: 'anos de experiência no mercado' },
+  { icon: 'ruler' as const, value: '500K+', label: 'metros de barreira fabricados' },
+  { icon: 'users' as const, value: '10K+', label: 'emergências atendidas com nossos equipamentos' },
+];
 
 /* O FAQ vira dados estruturados: o Google usa isso para o rich result de
    perguntas, que ocupa mais espaço no resultado de busca. */
@@ -51,54 +57,21 @@ const faqSchema = {
 export default function HomePage() {
   return (
     <>
-      <Hero>
-        <HeroSplit>
-          <HeroCopy>
-            <Badge tone="inverse">Fabricante nacional há mais de 18 anos</Badge>
-            <HeroTitle>Equipamentos de proteção ambiental com qualidade comprovada</HeroTitle>
-            <HeroLead>
-              Durabilidade e resistência que garantem agilidade, segurança e conformidade
-              ambiental no seu dia a dia operacional.
-            </HeroLead>
-            <HeroText>
-              Fabricamos barreiras de contenção, materiais absorventes, kits de emergência
-              e tanques para resposta a derramamentos de óleo e outros contaminantes.
-            </HeroText>
-            <Actions>
-              <ButtonLink href="/produtos" size="lg" iconRight="arrow-right">
-                Conheça nossas soluções
-              </ButtonLink>
-              <ButtonLink href="/contato" size="lg" variant="inverse-outline">
-                Solicitar atendimento técnico
-              </ButtonLink>
-            </Actions>
-          </HeroCopy>
-          <div className={s.heroImage}>
-            <Image
-              src="/institucional/operacao-cerco-barreira.webp"
-              alt="Barreira de contenção HCLEAN em operação de cerco sobre a água"
-              width={640}
-              height={480}
-              priority
-              sizes="(max-width: 900px) 100vw, 45vw"
-            />
-          </div>
-        </HeroSplit>
-      </Hero>
-
-      {/* Números */}
-      <Section tone="inverse" size="sm">
-        <Container>
-          <Grid cols={4}>
-            {proofPoints.map((p) => (
-              <Stat key={p.label} value={p.value} label={p.label} />
-            ))}
-          </Grid>
-        </Container>
-      </Section>
+      <VideoHero
+        title="Equipamentos de proteção ambiental"
+        titleAccent="com qualidade comprovada"
+        lead="Durabilidade, resistência e qualidade que garantem agilidade, segurança e conformidade ambiental no seu dia a dia operacional."
+        poster="/video/hero-poster.webp"
+        posterAlt="Barreira de contenção HCLEAN cercando uma área durante operação de resposta"
+        video={HERO_VIDEO}
+        stats={heroStats}
+        primary={{ href: '/contato', label: 'Fale com um especialista' }}
+        secondary={{ href: '/produtos', label: 'Conheça nossos produtos' }}
+      />
 
       {/* Experiência */}
-      <Section tone="page">
+      <Section tone="page" className={s.experience}>
+        <BrandWaveArt className={s.experienceArt} />
         <Container>
           <Split>
             <Prose>
@@ -112,29 +85,47 @@ export default function HomePage() {
                 inicial, ajudando empresas e equipes operacionais a estarem preparadas
                 para agir com segurança e eficiência.
               </p>
-              <p>
-                Com mais de 18 anos de atuação, construímos nossa experiência junto a
-                operações reais de resposta a derramamentos e proteção ambiental.
-              </p>
+              <ul className={s.highlights}>
+                {[
+                  'Fabricação própria',
+                  'Sob medida',
+                  'Estoque para pronta resposta',
+                  'Atuação nacional',
+                ].map((h) => (
+                  <li key={h} className={s.highlight}>
+                    <Icon name="check" size={15} strokeWidth={2.4} />
+                    {h}
+                  </li>
+                ))}
+              </ul>
               <ButtonLink href="/sobre" variant="outline" iconRight="arrow-right">
                 Conheça a HCLEAN
               </ButtonLink>
             </Prose>
+            {/* Aqui a foto aérea ajuda: mostra a barreira cercando a área,
+                que é exatamente o que o texto ao lado descreve. */}
             <div className={s.sideImage}>
               <Image
-                src="/produtos/materiais-absorventes.webp"
-                alt="Linhas de material absorvente HCLEAN"
-                width={560}
-                height={560}
+                src="/produtos/barreira-em-operacao.webp"
+                alt="Barreira de contenção HCLEAN cercando uma área durante operação de resposta"
+                width={1024}
+                height={680}
                 sizes="(max-width: 900px) 100vw, 40vw"
               />
+              <span className={s.imageBadge}>
+                <Icon name="shield" size={16} />
+                <span>
+                  <strong>Operação real</strong> · contenção em campo
+                </span>
+              </span>
             </div>
           </Split>
         </Container>
       </Section>
 
       {/* Soluções */}
-      <Section tone="card">
+      <Section tone="card" className={s.solutions}>
+        <BrandLinesArt className={s.solutionsArt} />
         <Container>
           <SectionHeading
             eyebrow="Nossas soluções"
@@ -157,7 +148,8 @@ export default function HomePage() {
       </Section>
 
       {/* Produtos */}
-      <Section tone="page">
+      <Section tone="page" className={s.products}>
+        <BrandRingsArt className={s.productsArt} />
         <Container>
           <div className={s.rowHead}>
             <SectionHeading
@@ -177,7 +169,9 @@ export default function HomePage() {
       </Section>
 
       {/* Operações reais */}
-      <Section tone="inverse">
+      <Wave from="var(--surface-page)" to="var(--hc-green-800)" />
+      <Section tone="inverse" className={s.cases}>
+        <BrandDotsArt className={s.casesArt} />
         <Container>
           <SectionHeading
             tone="light"
@@ -198,6 +192,8 @@ export default function HomePage() {
         </Container>
       </Section>
 
+      <Wave from="var(--hc-green-800)" to="var(--surface-page)" />
+
       {/* Por que HCLEAN */}
       <Section tone="page">
         <Container>
@@ -216,7 +212,8 @@ export default function HomePage() {
       </Section>
 
       {/* FAQ */}
-      <Section tone="card">
+      <Section tone="card" className={s.faqSection}>
+        <BrandWaveArt className={s.faqArt} />
         <Container narrow>
           <SectionHeading
             eyebrow="Dúvidas frequentes"

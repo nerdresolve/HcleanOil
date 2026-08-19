@@ -6,6 +6,7 @@ node_modules/
 dist/
 out/
 apps/backend/preview/
+apps/frontend/scripts/screenshots/
 *.tsbuildinfo
 
 # ambiente — nunca versionar credenciais SMTP

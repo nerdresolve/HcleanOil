@@ -47,6 +47,9 @@ export type IconName =
   | 'field'
   | 'support'
   | 'handshake'
+  | 'medal'
+  | 'users'
+  | 'ruler'
   | 'factory'
   | 'anchor'
   | 'flask'
@@ -78,7 +81,7 @@ export const categories: Category[] = [
     intro:
       'Fabricadas em lona reforçada com fios de poliéster revestidos de PVC, para contenção, direcionamento e controle de contaminantes.',
     icon: 'shield',
-    image: '/produtos/barreira-contencao-seafence.webp',
+    image: '/produtos/barreira-seafence.webp',
   },
   {
     slug: 'absorventes',
@@ -88,7 +91,7 @@ export const categories: Category[] = [
     intro:
       'Absorventes sintéticos e orgânicos para absorção e remoção de líquidos durante operações de resposta.',
     icon: 'droplets',
-    image: '/produtos/materiais-absorventes.webp',
+    image: '/produtos/absorventes-sinteticos.webp',
   },
   {
     slug: 'kits-de-emergencia',
@@ -108,7 +111,7 @@ export const categories: Category[] = [
     intro:
       'Tanques para armazenamento temporário e suporte às operações de resposta em terra e em terminais.',
     icon: 'tank',
-    image: '/produtos/kit-mobile-container.webp',
+    image: '/produtos/tanque-terrestre.webp',
   },
 ];
 
@@ -187,7 +190,7 @@ export const products: Product[] = [
       { label: 'Conexões', value: 'Alumínio naval ASTM' },
       { label: 'Seção padrão', value: '25 m' },
     ],
-    image: '/produtos/barreira-contencao-seafence.webp',
+    image: '/produtos/barreira-seafence.webp',
   },
   {
     slug: 'barreira-de-contencao-abfence',
@@ -219,7 +222,7 @@ export const products: Product[] = [
       { label: 'Aplicação', value: 'Longos períodos ou lançamento rápido' },
       { label: 'Dimensões', value: 'Fabricação sob medida' },
     ],
-    image: '/produtos/barreira-contencao-abfence.jpg',
+    image: '/produtos/barreira-abfence.jpg',
   },
 
   /* ------------------------------------------------- linhas de absorvente */
@@ -250,11 +253,11 @@ export const products: Product[] = [
       { label: 'Inflamabilidade', value: 'Não inflamável' },
       { label: 'Formatos', value: 'Cordão, manta, barreira em tiras, barreira flocada, rolo e travesseiro' },
     ],
-    image: '/produtos/manta-absorvente-branca.webp',
+    image: '/produtos/branca-manta.webp',
     formats: [
       {
         name: 'Cordão absorvente',
-        image: '/produtos/cordao-absorvente-branco.webp',
+        image: '/produtos/branca-cordao.webp',
         description:
           'Indicado para conter a propagação de líquidos, impedindo que se espalhem rapidamente. Basta isolar a área atingida circundando o produto derramado e usar a manta ou o travesseiro para absorver.',
         sizes: '0,76 m × 1,20 m · 0,76 m × 2,40 m · 0,76 m × 3,60 m',
@@ -263,7 +266,7 @@ export const products: Product[] = [
       },
       {
         name: 'Manta absorvente',
-        image: '/produtos/manta-absorvente-branca.webp',
+        image: '/produtos/branca-manta.webp',
         description:
           'Leve, de fácil manuseio e simples aplicação. Impregna-se com o produto derramado com precisão e rapidez: basta aplicá-la sobre a região afetada para a remoção imediata.',
         absorption: '10 vezes o próprio peso',
@@ -271,7 +274,7 @@ export const products: Product[] = [
       },
       {
         name: 'Barreira absorvente em tiras',
-        image: '/produtos/barreira-absorvente-flocada.webp',
+        image: '/produtos/branca-barreira-flocada.webp',
         description:
           'Formato em tira, do tipo espaguete, para permitir maior penetração de óleo. Utilizada em águas correntes, é indicada para óleos de maior viscosidade e possui engate rápido nas extremidades. Posicionada corretamente, impede a passagem do produto e evita a contaminação de outras áreas.',
         sizes: '5" × 3 m · 8" × 3 m',
@@ -280,7 +283,7 @@ export const products: Product[] = [
       },
       {
         name: 'Barreira absorvente flocada',
-        image: '/produtos/barreira-absorvente-flocada.webp',
+        image: '/produtos/branca-barreira-flocada.webp',
         description:
           'Barreira absorvente flocada para hidrocarbonetos, com dupla camada de contenção. Adequada para óleos e derivados de baixa viscosidade.',
         sizes: '5" × 3 m · 8" × 3 m',
@@ -289,7 +292,7 @@ export const products: Product[] = [
       },
       {
         name: 'Rolo absorvente',
-        image: '/produtos/rolo-absorvente-branco.webp',
+        image: '/produtos/branca-rolo.webp',
         description:
           'Indicado como passadeira em locais de trânsito, evitando a contaminação. Pode ser utilizado na limpeza de maquinários e na manutenção de equipamentos.',
         sizes: '48 m × 0,96 m · 96 m × 0,96 m',
@@ -298,7 +301,7 @@ export const products: Product[] = [
       },
       {
         name: 'Travesseiro absorvente',
-        image: '/produtos/travesseiro-absorvente-branco.webp',
+        image: '/produtos/branca-travesseiro.webp',
         description:
           'Absorve desde pequenas até grandes quantidades de líquidos. Indicado para casos de vazamento e de goteiras provocadas por equipamentos.',
         sizes: '0,23 × 0,23 × 0,05 m · 0,45 × 0,45 × 0,05 m',
@@ -333,11 +336,11 @@ export const products: Product[] = [
       { label: 'Inflamabilidade', value: 'Não inflamável' },
       { label: 'Formatos', value: 'Cordão, manta, rolo e travesseiro' },
     ],
-    image: '/produtos/manta-absorvente-cinza.webp',
+    image: '/produtos/cinza-manta.webp',
     formats: [
       {
         name: 'Cordão absorvente',
-        image: '/produtos/cordao-absorvente-cinza.webp',
+        image: '/produtos/cinza-cordao.webp',
         description:
           'Indicado para envolver preventivamente o maquinário e para conter a propagação de líquidos. Impede que o líquido se espalhe rapidamente: basta isolar a área atingida circundando o produto derramado.',
         sizes: '0,76 m × 1,20 m · 0,76 m × 2,40 m · 0,76 m × 3,60 m',
@@ -346,7 +349,7 @@ export const products: Product[] = [
       },
       {
         name: 'Manta absorvente',
-        image: '/produtos/manta-absorvente-cinza.webp',
+        image: '/produtos/cinza-manta.webp',
         description:
           'Indicada para limpeza e absorção de diversos tipos de produtos, tais como óleo, água, solventes e muitos outros.',
         absorption: '10 vezes o próprio peso',
@@ -354,7 +357,7 @@ export const products: Product[] = [
       },
       {
         name: 'Rolo absorvente',
-        image: '/produtos/rolo-absorvente-cinza.webp',
+        image: '/produtos/cinza-rolo.webp',
         description:
           'Indicado para proteger o piso. É ajustável ao tamanho e ao formato necessário e utilizado sem desperdício.',
         absorption: '10 vezes o próprio peso',
@@ -362,7 +365,7 @@ export const products: Product[] = [
       },
       {
         name: 'Travesseiro absorvente',
-        image: '/produtos/travesseiro-absorvente-cinza.webp',
+        image: '/produtos/cinza-travesseiro.webp',
         description:
           'Absorve desde pequenas até grandes quantidades de líquidos. Indicado para casos de vazamentos e goteiras, e para regiões que sofrem respingos.',
         sizes: '0,23 × 0,23 × 0,05 m · 0,45 × 0,45 × 0,05 m',
@@ -401,11 +404,11 @@ export const products: Product[] = [
       { label: 'Retenção', value: 'Retém líquidos permanentemente' },
       { label: 'Formatos', value: 'Cordão, manta, rolo e travesseiro' },
     ],
-    image: '/produtos/manta-absorvente-verde.webp',
+    image: '/produtos/verde-manta.webp',
     formats: [
       {
         name: 'Cordão absorvente',
-        image: '/produtos/cordao-absorvente-verde.webp',
+        image: '/produtos/verde-cordao.webp',
         description:
           'Indicado para derramamentos e contenções de ácidos, bases, tóxicos e produtos desconhecidos. Ideal para conter a propagação de líquidos: basta isolar a área atingida circundando o produto derramado.',
         sizes: '0,76 m × 1,20 m · 0,76 m × 2,40 m · 0,76 m × 3,60 m',
@@ -414,7 +417,7 @@ export const products: Product[] = [
       },
       {
         name: 'Manta absorvente',
-        image: '/produtos/manta-absorvente-verde.webp',
+        image: '/produtos/verde-manta.webp',
         description:
           'Indicada para derramamentos e contenções de ácidos, bases e produtos desconhecidos. Não se desfaz ao entrar em contato com líquidos mais agressivos e pode ser utilizada para limpeza de bancadas em laboratórios.',
         absorption: '10 vezes o próprio peso',
@@ -422,7 +425,7 @@ export const products: Product[] = [
       },
       {
         name: 'Rolo absorvente',
-        image: '/produtos/rolo-absorvente-verde.webp',
+        image: '/produtos/verde-rolo.webp',
         description:
           'Indicado para proteger o piso e prevenir acidentes com derrames ácidos. É ajustável ao tamanho e ao formato necessário e utilizado sem desperdício.',
         absorption: '10 vezes o próprio peso',
@@ -430,7 +433,7 @@ export const products: Product[] = [
       },
       {
         name: 'Travesseiro absorvente',
-        image: '/produtos/travesseiro-absorvente-verde.webp',
+        image: '/produtos/verde-travesseiro.webp',
         description:
           'Absorve desde pequenas até grandes quantidades de líquidos. Indicado para casos de vazamentos e goteiras de produtos agressivos.',
         sizes: '0,23 × 0,23 × 0,05 m · 0,45 × 0,45 × 0,05 m',
@@ -569,7 +572,7 @@ export const products: Product[] = [
       { label: 'Cores', value: 'Azul e laranja' },
       { label: 'Drenagem', value: 'Válvula de drenagem, se aplicável' },
     ],
-    image: '/produtos/kit-mobile-container.webp',
+    image: '/produtos/tanque-terrestre.webp',
   },
 ];
 

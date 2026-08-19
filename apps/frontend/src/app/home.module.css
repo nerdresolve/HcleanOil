@@ -1,24 +1,189 @@
-.heroImage,
-.sideImage {
-  border-radius: var(--radius-sm);
+/* ------------------------------------------------------ seção experiência */
+
+/* Onda da marca em marca-d'água atrás do bloco, para a seção não ficar um
+   retângulo de texto solto sobre cinza. */
+.experience {
+  position: relative;
   overflow: hidden;
 }
 
-.heroImage {
-  border: 1px solid var(--border-inverse);
-  background: var(--hc-green-700);
+/* Centralizado na vertical e sangrando pela direita: o anel sai pela borda
+   lateral, nunca cortado pelo topo da seção. */
+.experienceArt {
+  position: absolute;
+  top: 50%;
+  right: -14%;
+  width: 52%;
+  min-width: 420px;
+  transform: translateY(-50%);
+  opacity: 0.06;
+  pointer-events: none;
+  color: var(--hc-green-800);
+}
+
+.experienceArt svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* ------------------------------------------------------- outros ornamentos */
+
+.solutions,
+.products,
+.cases,
+.faqSection {
+  position: relative;
+  overflow: hidden;
+}
+
+/* O conteúdo sempre acima dos ornamentos de fundo. */
+.experience > :global(div:not([aria-hidden])),
+.solutions > :global(div:not([aria-hidden])),
+.products > :global(div:not([aria-hidden])),
+.cases > :global(div:not([aria-hidden])),
+.faqSection > :global(div:not([aria-hidden])) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ondas largas atravessando a base da faixa de soluções. */
+.solutionsArt {
+  position: absolute;
+  left: -6%;
+  bottom: -12%;
+  width: 70%;
+  opacity: 0.05;
+  pointer-events: none;
+  color: var(--hc-green-700);
+}
+
+/* Anéis no canto esquerdo da vitrine de produtos. */
+.productsArt {
+  position: absolute;
+  top: 8%;
+  left: -12%;
+  width: 34%;
+  min-width: 300px;
+  opacity: 0.055;
+  pointer-events: none;
+  color: var(--hc-green-800);
+}
+
+/* Textura de pontos no canto superior direito do bloco escuro. Fica acima da
+   linha dos cartões e esmaece para a esquerda, para não disputar com o texto. */
+.casesArt {
+  position: absolute;
+  top: -8%;
+  right: -3%;
+  width: 26%;
+  min-width: 220px;
+  opacity: 0.16;
+  pointer-events: none;
+  color: var(--hc-green-200);
+  mask-image: linear-gradient(255deg, #000 30%, transparent 78%);
+  -webkit-mask-image: linear-gradient(255deg, #000 30%, transparent 78%);
+}
+
+/* Anel discreto atrás do FAQ. */
+.faqArt {
+  position: absolute;
+  bottom: -22%;
+  left: -10%;
+  width: 38%;
+  min-width: 300px;
+  opacity: 0.05;
+  pointer-events: none;
+  color: var(--hc-green-700);
+}
+
+.solutionsArt svg,
+.productsArt svg,
+.casesArt svg,
+.faqArt svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .solutionsArt,
+  .productsArt,
+  .faqArt {
+    display: none;
+  }
+  .casesArt {
+    opacity: 0.1;
+  }
 }
 
 .sideImage {
+  position: relative;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
   border: 1px solid var(--border-subtle);
   background: var(--hc-grey-100);
+  box-shadow: var(--shadow-lg);
 }
 
-.heroImage img,
 .sideImage img {
   width: 100%;
   height: auto;
   display: block;
+}
+
+/* Selo sobreposto à foto: prova o dado sem ocupar mais uma linha de texto. */
+.imageBadge {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius-pill);
+  background: rgba(6, 26, 17, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(247, 247, 247, 0.16);
+  color: var(--text-inverse);
+  font: var(--fw-semibold) 13px/1.2 var(--font-display);
+}
+
+.imageBadge strong {
+  color: var(--hc-green-200);
+}
+
+/* Marcadores de destaque dentro do texto. */
+.highlights {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.highlight {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-pill);
+  background: var(--hc-white);
+  border: 1px solid var(--border-subtle);
+  font: var(--fw-medium) 13px/1 var(--font-display);
+  color: var(--text-strong);
+}
+
+.highlight svg {
+  color: var(--hc-green-500);
+}
+
+@media (max-width: 900px) {
+  .experienceArt {
+    display: none;
+  }
 }
 
 .rowHead {

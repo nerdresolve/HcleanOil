@@ -11,19 +11,14 @@ export function Header() {
       <Container>
         <div className={s.bar}>
           <Link href="/" className={s.brand} aria-label="HCLEAN — página inicial">
-            <Logo height={34} tone="light" />
+            <Logo height={38} tone="dark" />
           </Link>
 
           <NavLinks />
 
           <div className={s.actions}>
-            <span className={s.hideOnSmall}>
-              <ButtonLink href="/produtos" size="sm" variant="inverse-outline">
-                Produtos
-              </ButtonLink>
-            </span>
-            <ButtonLink href="/contato" size="sm">
-              Solicitar atendimento
+            <ButtonLink href="/contato" size="md">
+              Solicitar orçamento
             </ButtonLink>
           </div>
         </div>

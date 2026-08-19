@@ -1,9 +1,14 @@
+/* Cabeçalho branco fixo: a logo colorida respira e o hero escuro logo abaixo
+   ganha contraste, que é o efeito clean do site anterior. */
+/* Branco sólido, sem transparência: sobre o hero em vídeo qualquer véu deixa
+   o texto de trás atravessar e o menu vira sopa. */
 .header {
   position: sticky;
   top: 0;
-  z-index: 30;
-  background: var(--hc-green-800);
-  border-bottom: 1px solid var(--border-inverse);
+  z-index: 40;
+  background: var(--hc-white);
+  border-bottom: 1px solid var(--border-subtle);
+  box-shadow: 0 1px 3px rgba(9, 43, 27, 0.06);
 }
 
 .bar {
@@ -20,45 +25,68 @@
 
 .nav {
   display: flex;
-  gap: 28px;
+  gap: 32px;
+  margin-inline: auto;
 }
 
 .link {
-  padding-bottom: 4px;
-  border-bottom: 2px solid transparent;
+  position: relative;
+  padding-block: 6px;
   font: var(--fw-semibold) var(--fs-body-sm) / 1 var(--font-display);
-  color: var(--text-inverse-muted);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-body);
+  transition: color var(--dur-fast) var(--ease-standard);
+}
+
+/* Sublinhado que cresce a partir do centro — mais suave que a borda dura. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--hc-green-300);
+  transform: translateX(-50%);
+  transition: width var(--dur-base) var(--ease-out);
 }
 
 .link:hover {
-  color: var(--text-inverse);
+  color: var(--hc-green-700);
+}
+
+.link:hover::after,
+.linkActive::after {
+  width: 100%;
 }
 
 .linkActive {
-  border-bottom-color: var(--hc-green-300);
-  color: var(--text-inverse);
+  color: var(--hc-green-700);
 }
 
 .actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-left: auto;
+  flex: 0 0 auto;
 }
 
-/* No mobile a navegação vira uma faixa rolável abaixo da marca — sem menu
-   hambúrguer, que exigiria JS de cliente só para quatro links. */
+/* No mobile a navegação vira uma faixa rolável abaixo da marca — evita um
+   menu hambúrguer, que exigiria JS de cliente só para quatro links. */
 @media (max-width: 900px) {
   .bar {
     flex-wrap: wrap;
     height: auto;
-    gap: 16px;
+    gap: 14px;
     padding-block: 14px;
   }
   .nav {
     order: 3;
     width: 100%;
-    gap: 20px;
+    margin-inline: 0;
+    gap: 22px;
     overflow-x: auto;
     padding-bottom: 2px;
     scrollbar-width: none;
@@ -67,6 +95,7 @@
     display: none;
   }
   .actions {
+    margin-left: auto;
     gap: 8px;
   }
 }

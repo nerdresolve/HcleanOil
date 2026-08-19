@@ -94,7 +94,7 @@
 .card {
   background: var(--surface-card);
   border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-xl);
   padding: 28px;
 }
 
@@ -115,10 +115,10 @@
   align-items: center;
   align-self: flex-start;
   gap: 6px;
-  min-height: 24px;
-  padding: 4px 9px;
+  min-height: 26px;
+  padding: 5px 12px;
   border: 1px solid var(--hc-grey-200);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-pill);
   background: var(--hc-grey-100);
   color: var(--hc-grey-600);
   font: var(--type-eyebrow);

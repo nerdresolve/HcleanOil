@@ -58,6 +58,27 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <path d="M3 8v6l6 5 3-2 3 2 6-5V8" />
     </>
   ),
+  medal: (
+    <>
+      <path d="M8 3l2.5 5M16 3l-2.5 5" />
+      <circle cx="12" cy="14.5" r="6" />
+      <path d="M12 11.5l1.2 2.4 2.6.4-1.9 1.8.4 2.6-2.3-1.2-2.3 1.2.4-2.6-1.9-1.8 2.6-.4z" />
+    </>
+  ),
+  users: (
+    <>
+      <circle cx="9" cy="8" r="3.2" />
+      <path d="M2.5 20a6.5 6.5 0 0113 0" />
+      <path d="M16 5.3a3.2 3.2 0 010 5.4" />
+      <path d="M18 14.2a6.5 6.5 0 013.5 5.8" />
+    </>
+  ),
+  ruler: (
+    <>
+      <rect x="2" y="8" width="20" height="8" rx="1.5" />
+      <path d="M7 8v3M12 8v4M17 8v3" />
+    </>
+  ),
   factory: (
     <>
       <path d="M3 20h18" />

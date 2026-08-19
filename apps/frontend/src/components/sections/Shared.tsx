@@ -6,6 +6,10 @@ import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/data/site';
 import s from './Shared.module.css';
 
+/* Contador para ids únicos de <defs> quando o mesmo ornamento aparece duas
+   vezes na página. */
+let seq = 0;
+
 /* ------------------------------------------------------------------- hero */
 
 /** Ondas decorativas do topo — mesmas curvas do design system. */
@@ -71,6 +75,123 @@ export const Actions = ({ children }: { children: ReactNode }) => (
   <div className={s.actions}>{children}</div>
 );
 
+/* -------------------------------------------------------------- ornamento */
+
+/**
+ * Ornamentos de marca — versões em traço do símbolo, para preencher fundos sem
+ * competir com o conteúdo. Todos herdam `currentColor`, então tom e opacidade
+ * ficam no CSS de quem usa.
+ *
+ * O viewBox tem folga em volta do desenho, de modo que a peça possa sangrar
+ * pela borda da seção sem parecer cortada no meio do traço.
+ */
+
+/** Anel com as três ondas. Peça principal, para cantos amplos. */
+export function BrandWaveArt({ className }: { className?: string }) {
+  return (
+    <div className={className} aria-hidden="true">
+      <svg viewBox="0 0 640 640" fill="none">
+        <circle cx="320" cy="320" r="286" stroke="currentColor" strokeWidth="9" />
+        {[0, 36, 72].map((dy, i) => (
+          <path
+            key={dy}
+            d={`M58 ${300 + dy} C168 ${222 + dy}, 288 ${222 + dy}, 398 ${288 + dy} C472 ${333 + dy}, 536 ${343 + dy}, 584 ${310 + dy}`}
+            stroke="currentColor"
+            strokeWidth={11 - i * 2}
+            strokeLinecap="round"
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+/** Só as ondas, largas e paralelas — boa para faixas horizontais. */
+export function BrandLinesArt({ className }: { className?: string }) {
+  return (
+    <div className={className} aria-hidden="true">
+      <svg viewBox="0 0 900 320" fill="none" preserveAspectRatio="none">
+        {[0, 40, 80, 120, 160].map((dy, i) => (
+          <path
+            key={dy}
+            d={`M-40 ${90 + dy} C160 ${20 + dy}, 340 ${20 + dy}, 520 ${86 + dy} C660 ${137 + dy}, 800 ${146 + dy}, 940 ${104 + dy}`}
+            stroke="currentColor"
+            strokeWidth={i % 2 === 0 ? 9 : 4}
+            strokeLinecap="round"
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+/** Anéis concêntricos, referência ao alcance da barreira em cerco. */
+export function BrandRingsArt({ className }: { className?: string }) {
+  return (
+    <div className={className} aria-hidden="true">
+      <svg viewBox="0 0 520 520" fill="none">
+        {[250, 196, 142, 88, 40].map((r, i) => (
+          <circle
+            key={r}
+            cx="260"
+            cy="260"
+            r={r}
+            stroke="currentColor"
+            strokeWidth={i === 0 ? 8 : 3}
+            strokeDasharray={i % 2 ? '14 18' : undefined}
+          />
+        ))}
+      </svg>
+    </div>
+  );
+}
+
+/** Malha de pontos, textura discreta para blocos escuros. */
+export function BrandDotsArt({ className }: { className?: string }) {
+  const id = `hc-dots-${++seq}`;
+  return (
+    <div className={className} aria-hidden="true">
+      <svg viewBox="0 0 400 400" fill="none">
+        <defs>
+          <pattern id={id} width="26" height="26" patternUnits="userSpaceOnUse">
+            <circle cx="3" cy="3" r="2.4" fill="currentColor" />
+          </pattern>
+        </defs>
+        <rect width="400" height="400" fill={`url(#${id})`} />
+      </svg>
+    </div>
+  );
+}
+
+/* ------------------------------------------------------------------ wave */
+
+/**
+ * Transição em onda entre duas faixas de cor.
+ *
+ * `from` é a cor da seção ACIMA e `to` a da seção ABAIXO. A faixa é pintada
+ * com `from` e a curva desenhada em `to` fecha o vão até a próxima seção — a
+ * curva sempre toca a base do quadro, senão sobra uma tira da cor de cima
+ * embaixo da onda.
+ */
+export function Wave({
+  from = 'var(--hc-green-800)',
+  to = 'var(--surface-page)',
+}: {
+  from?: string;
+  to?: string;
+}) {
+  return (
+    <div className={s.wave} style={{ background: from }} aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path
+          d="M0,52 C240,110 480,120 720,96 C960,72 1200,18 1440,44 L1440,120 L0,120 Z"
+          fill={to}
+        />
+      </svg>
+    </div>
+  );
+}
+
 /* ------------------------------------------------------------ media frame */
 
 /**
@@ -97,13 +218,19 @@ export function MediaFrame({
 
 /* ----------------------------------------------------------------- split */
 
+/**
+ * Duas colunas. `reverse` só muda a proporção — a ordem visual continua a do
+ * HTML, então quem escreve a página decide o que vem primeiro.
+ */
 export const Split = ({
   children,
   reverse,
 }: {
   children: ReactNode;
   reverse?: boolean;
-}) => <div className={reverse ? s.splitReverse : s.split}>{children}</div>;
+}) => (
+  <div className={reverse ? `${s.split} ${s.splitReverse}` : s.split}>{children}</div>
+);
 
 export const Prose = ({ children }: { children: ReactNode }) => (
   <div className={s.prose}>{children}</div>
@@ -193,18 +320,7 @@ export function CTABanner({
         </svg>
       </div>
       <div className={s.ctaCopy}>
-        {eyebrow ? (
-          <span
-            style={{
-              font: 'var(--type-eyebrow)',
-              letterSpacing: 'var(--ls-eyebrow)',
-              textTransform: 'uppercase',
-              color: 'var(--hc-green-300)',
-            }}
-          >
-            {eyebrow}
-          </span>
-        ) : null}
+        {eyebrow ? <span className={s.ctaEyebrow}>{eyebrow}</span> : null}
         <h2 className={s.ctaTitle}>{title}</h2>
         {text ? <p className={s.ctaText}>{text}</p> : null}
       </div>
