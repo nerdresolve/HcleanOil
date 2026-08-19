@@ -1,0 +1,19 @@
+#!/bin/sh
+# Bloqueia atribuicao de co-autoria e assinaturas de ferramenta na mensagem.
+#
+# O repositorio e publico e o historico e permanente: um trailer destes passa
+# despercebido no commit e fica visivel para sempre na pagina do GitHub.
+msg_file="$1"
+
+if grep -qiE '^[[:space:]]*Co-Authored-By:' "$msg_file"; then
+  echo "commit bloqueado: mensagem contem trailer Co-Authored-By." >&2
+  echo "Remova a linha e tente de novo." >&2
+  exit 1
+fi
+
+if grep -qiE 'Generated with|noreply@anthropic|claude\.com/claude-code|🤖' "$msg_file"; then
+  echo "commit bloqueado: mensagem contem assinatura de ferramenta." >&2
+  exit 1
+fi
+
+exit 0

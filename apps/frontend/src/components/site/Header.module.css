@@ -1,0 +1,78 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--hc-green-800);
+  border-bottom: 1px solid var(--border-inverse);
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  height: var(--header-h);
+}
+
+.brand {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+.nav {
+  display: flex;
+  gap: 28px;
+}
+
+.link {
+  padding-bottom: 4px;
+  border-bottom: 2px solid transparent;
+  font: var(--fw-semibold) var(--fs-body-sm) / 1 var(--font-display);
+  color: var(--text-inverse-muted);
+}
+
+.link:hover {
+  color: var(--text-inverse);
+}
+
+.linkActive {
+  border-bottom-color: var(--hc-green-300);
+  color: var(--text-inverse);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-left: auto;
+}
+
+/* No mobile a navegação vira uma faixa rolável abaixo da marca — sem menu
+   hambúrguer, que exigiria JS de cliente só para quatro links. */
+@media (max-width: 900px) {
+  .bar {
+    flex-wrap: wrap;
+    height: auto;
+    gap: 16px;
+    padding-block: 14px;
+  }
+  .nav {
+    order: 3;
+    width: 100%;
+    gap: 20px;
+    overflow-x: auto;
+    padding-bottom: 2px;
+    scrollbar-width: none;
+  }
+  .nav::-webkit-scrollbar {
+    display: none;
+  }
+  .actions {
+    gap: 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .hideOnSmall {
+    display: none;
+  }
+}

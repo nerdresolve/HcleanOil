@@ -1,0 +1,13 @@
+node_modules
+dist
+preview
+propostas
+# A senha SMTP nunca entra na imagem: chega por env_file em tempo de execucao.
+.env
+.env.local
+.env.*.local
+Dockerfile
+.dockerignore
+*.log
+*.png
+Proposta_*.pdf

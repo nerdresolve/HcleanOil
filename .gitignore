@@ -1,0 +1,22 @@
+# dependências
+node_modules/
+
+# build
+.next/
+dist/
+out/
+apps/backend/preview/
+*.tsbuildinfo
+
+# ambiente — nunca versionar credenciais SMTP
+.env
+.env.local
+.env.*.local
+
+# logs
+*.log
+npm-debug.log*
+
+# sistema
+.DS_Store
+Thumbs.db

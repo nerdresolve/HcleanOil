@@ -1,0 +1,102 @@
+/* Posicionamento dos ornamentos de marca.
+   As peças em si estão em Shared.tsx; aqui só o enquadramento.
+
+   Regras que valem para todas: sangram por uma borda lateral (nunca cortadas
+   pelo topo), alternam de lado entre seções vizinhas e ficam abaixo do
+   conteúdo. */
+
+.host {
+  position: relative;
+  overflow: hidden;
+}
+
+/* O conteúdo sempre acima da marca-d'água. */
+.host > :global(div:not([aria-hidden])) {
+  position: relative;
+  z-index: 1;
+}
+
+.art {
+  position: absolute;
+  pointer-events: none;
+  color: var(--hc-green-800);
+  opacity: 0.06;
+}
+
+.art svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Sobre faixa escura, a marca precisa clarear em vez de escurecer. */
+.onDark {
+  color: var(--hc-green-200);
+  opacity: 0.14;
+}
+
+/* ------------------------------------------------------------ posições --- */
+
+.right {
+  top: 50%;
+  right: -14%;
+  width: 46%;
+  min-width: 380px;
+  transform: translateY(-50%);
+}
+
+.left {
+  top: 50%;
+  left: -16%;
+  width: 46%;
+  min-width: 380px;
+  transform: translateY(-50%);
+}
+
+.topRight {
+  top: -10%;
+  right: -6%;
+  width: 30%;
+  min-width: 250px;
+}
+
+.topLeft {
+  top: -10%;
+  left: -8%;
+  width: 30%;
+  min-width: 250px;
+}
+
+.bottomRight {
+  right: -10%;
+  bottom: -18%;
+  width: 60%;
+}
+
+.bottomLeft {
+  left: -10%;
+  bottom: -18%;
+  width: 60%;
+}
+
+/* Malha de pontos: esmaece para dentro, para não disputar com o texto. */
+.fadeIn {
+  mask-image: linear-gradient(255deg, #000 30%, transparent 78%);
+  -webkit-mask-image: linear-gradient(255deg, #000 30%, transparent 78%);
+}
+
+.fadeInLeft {
+  mask-image: linear-gradient(105deg, #000 30%, transparent 78%);
+  -webkit-mask-image: linear-gradient(105deg, #000 30%, transparent 78%);
+}
+
+/* No mobile a peça toma a tela inteira sem acrescentar nada: some. */
+@media (max-width: 900px) {
+  .art {
+    display: none;
+  }
+  .keepOnMobile {
+    display: block;
+    opacity: 0.09;
+  }
+}

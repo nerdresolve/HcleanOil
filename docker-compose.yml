@@ -1,0 +1,76 @@
+# Publicação de hclean.nerdresolve.com.
+#
+#   docker compose up -d --build     sobe tudo
+#   docker compose logs -f           acompanha
+#   docker compose down              derruba
+#
+# `restart: unless-stopped` é o que mantém o site no ar: o Docker religa os
+# containers quando eles quebram e quando o próprio Docker inicia — inclusive
+# depois de reiniciar a máquina. A exceção é o container ter sido parado à mão,
+# caso em que ele fica parado mesmo (é o "unless-stopped").
+#
+# Para isso valer após um boot, o Docker Desktop precisa estar marcado para
+# iniciar com o Windows (Settings > General > Start Docker Desktop when you
+# sign in).
+
+services:
+  # ------------------------------------------------------------- site
+  frontend:
+    build:
+      context: ./apps/frontend
+      args:
+        # Entra no bundle em tempo de build: o navegador do visitante é quem
+        # chama a API, então a URL precisa ser a pública, não "backend:4000".
+        NEXT_PUBLIC_API_URL: https://hclean.nerdresolve.com
+    restart: unless-stopped
+    expose:
+      - '3000'
+    networks: [hclean]
+
+  # -------------------------------------------------------------- API
+  backend:
+    build:
+      context: ./apps/backend
+    restart: unless-stopped
+    # Credenciais ficam no host e são lidas na subida — nunca entram na
+    # imagem, que é o que permite publicá-la sem vazar a senha SMTP.
+    env_file:
+      - ./apps/backend/.env
+    environment:
+      # Dentro do container o site é servido pelo túnel, não por localhost.
+      CORS_ORIGINS: https://hclean.nerdresolve.com
+      PROPOSTAS_DIR: /app/propostas
+    volumes:
+      # A numeração das propostas não pode reiniciar a cada deploy.
+      - propostas:/app/propostas
+    expose:
+      - '4000'
+    networks: [hclean]
+
+  # ----------------------------------------------------------- túnel
+  cloudflared:
+    image: cloudflare/cloudflared:2026.8.2
+    restart: unless-stopped
+    # `--config` porque o roteamento vive no repositório, não no painel.
+    # `--no-autoupdate`: quem decide a versão é a tag da imagem; um autoupdate
+    # reiniciaria o processo no meio de uma requisição.
+    command: tunnel --no-autoupdate --config /etc/cloudflared/config.yml run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?defina TUNNEL_TOKEN no arquivo .env da raiz}
+    volumes:
+      - ./infra/cloudflared/config.yml:/etc/cloudflared/config.yml:ro
+    # Sobe depois que site e API estiverem saudáveis, senão os primeiros
+    # acessos pegam 502 enquanto o Next ainda inicia.
+    depends_on:
+      frontend:
+        condition: service_healthy
+      backend:
+        condition: service_healthy
+    networks: [hclean]
+
+volumes:
+  propostas:
+
+networks:
+  hclean:
+    driver: bridge

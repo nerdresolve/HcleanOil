@@ -1,0 +1,83 @@
+.applications {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px 40px;
+  margin: 40px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.application {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-subtle);
+  font: var(--type-body);
+  color: var(--text-body);
+}
+
+@media (max-width: 720px) {
+  .applications {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------------ specs */
+
+.specs {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  font: var(--type-body-sm);
+}
+
+.specs th,
+.specs td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.specs th {
+  width: 40%;
+  font: var(--type-body-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--text-muted);
+}
+
+.specs td {
+  font: var(--type-mono);
+  color: var(--text-strong);
+}
+
+/* -------------------------------------------------------------- final cta */
+
+.finalCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  text-align: center;
+}
+
+.finalEyebrow {
+  font: var(--type-eyebrow);
+  letter-spacing: var(--ls-eyebrow);
+  text-transform: uppercase;
+  color: var(--hc-green-300);
+}
+
+.finalTitle {
+  margin: 0;
+  font: var(--type-h2);
+  letter-spacing: var(--ls-heading);
+  color: var(--text-inverse);
+}
+
+.finalText {
+  margin: 0 0 8px;
+  max-width: 560px;
+  font: var(--type-body);
+  color: var(--text-inverse-muted);
+}

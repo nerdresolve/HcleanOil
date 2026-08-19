@@ -1,0 +1,24 @@
+# Roteamento do túnel hclean.nerdresolve.com.
+#
+# Diferente do config em ~/.cloudflared, aqui os destinos não são "localhost":
+# dentro do Compose cada container é um host, e localhost apontaria para o
+# próprio cloudflared. Os nomes abaixo são os dos serviços em
+# docker-compose.yml, que o DNS interno do Docker resolve.
+#
+# Sem `tunnel:` nem `credentials-file:` — o container é autenticado pelo token
+# em TUNNEL_TOKEN, que já identifica qual túnel é.
+
+ingress:
+  # API do formulário de contato. Precisa vir antes da regra do site: a
+  # primeira que casar vence, e a do site casa com qualquer caminho.
+  - hostname: hclean.nerdresolve.com
+    path: ^/api/.*
+    service: http://backend:4000
+
+  # Site institucional.
+  - hostname: hclean.nerdresolve.com
+    service: http://frontend:3000
+
+  # Exigido pelo cloudflared: toda configuração termina numa regra sem
+  # hostname, que responde ao que não casou com nada acima.
+  - service: http_status:404
