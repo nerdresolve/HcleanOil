@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import localFont from 'next/font/local';
 import { Header } from '@/components/site/Header';
 import { Footer } from '@/components/site/Footer';
+import { QuoteProvider } from '@/components/quote/QuoteProvider';
 import { site } from '@/data/site';
 import '@/styles/globals.css';
 
@@ -88,9 +89,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
-        <Header />
-        <main id="conteudo">{children}</main>
-        <Footer />
+        {/* O pop-up de orçamento vive aqui, de modo que qualquer CTA da página
+            abra o mesmo formulário, já com o produto pré-selecionado. */}
+        <QuoteProvider>
+          <Header />
+          <main id="conteudo">{children}</main>
+          <Footer />
+        </QuoteProvider>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

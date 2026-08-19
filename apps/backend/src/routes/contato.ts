@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import { contactSchema } from '../lib/schema.js';
+import { contactSchema, extractItems } from '../lib/schema.js';
 import { sendMail } from '../lib/mailer.js';
 import { env } from '../lib/env.js';
 import { leadNotification, leadConfirmation } from '../emails/templates.js';
@@ -46,6 +46,7 @@ contatoRouter.post('/contato', limiter, async (req, res) => {
 
   const notification = leadNotification({
     ...data,
+    items: extractItems(data),
     receivedAt: formatDate(new Date()),
   });
 

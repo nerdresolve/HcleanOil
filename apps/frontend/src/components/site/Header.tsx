@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Container } from '@/components/ui/Layout';
-import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 import { Logo } from '@/components/ui/Logo';
 import { NavLinks } from './NavLinks';
 import s from './Header.module.css';
@@ -17,9 +17,7 @@ export function Header() {
           <NavLinks />
 
           <div className={s.actions}>
-            <ButtonLink href="/contato" size="md">
-              Solicitar orçamento
-            </ButtonLink>
+            <QuoteButton size="md">Solicitar orçamento</QuoteButton>
           </div>
         </div>
       </Container>

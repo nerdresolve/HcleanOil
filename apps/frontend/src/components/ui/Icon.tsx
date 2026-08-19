@@ -58,6 +58,19 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <path d="M3 8v6l6 5 3-2 3 2 6-5V8" />
     </>
   ),
+  close: (
+    <>
+      <path d="M6 6l12 12" />
+      <path d="M18 6L6 18" />
+    </>
+  ),
+  alert: (
+    <>
+      <path d="M12 4.5L2.8 20h18.4L12 4.5z" />
+      <path d="M12 10v4" />
+      <path d="M12 17.2v.2" />
+    </>
+  ),
   medal: (
     <>
       <path d="M8 3l2.5 5M16 3l-2.5 5" />

@@ -8,7 +8,7 @@ import {
   escapeHtml,
   colors,
 } from './layout.js';
-import type { ContactPayload } from '../lib/schema.js';
+import type { ContactPayload, QuoteItem } from '../lib/schema.js';
 
 const { FONT, TEXT, MUTED, GREEN_800, GREEN_300 } = colors;
 
@@ -35,7 +35,9 @@ function signature(): string {
 /* 1. Notificação interna — o lead que chega para a equipe comercial.        */
 /* ------------------------------------------------------------------------ */
 
-export function leadNotification(data: ContactPayload & { receivedAt: string }) {
+export function leadNotification(
+  data: ContactPayload & { receivedAt: string; items?: QuoteItem[] },
+) {
   const rows = [
     { label: 'Nome', value: escapeHtml(data.nome) },
     { label: 'Empresa', value: escapeHtml(data.empresa) },
@@ -58,8 +60,16 @@ export function leadNotification(data: ContactPayload & { receivedAt: string }) 
 
   const mensagem = data.mensagem?.trim()
     ? `${divider()}
-       ${eyebrow('Necessidade descrita')}
+       ${eyebrow('Observações')}
        <div style="padding:16px 18px;background-color:#F7F9F8;border-left:3px solid ${GREEN_300};font-family:${FONT};font-size:14px;line-height:1.65;color:${TEXT};white-space:pre-wrap;">${escapeHtml(data.mensagem.trim())}</div>`
+    : '';
+
+  /* Quantidades pedidas: metragem, unidades por formato, capacidades de kit,
+     dimensões do tanque. É o que a equipe precisa para montar a proposta. */
+  const itens = data.items?.length
+    ? `${divider()}
+       ${eyebrow('Quantidades solicitadas')}
+       ${dataTable(data.items.map((i) => ({ label: i.label, value: escapeHtml(i.value) })))}`
     : '';
 
   const body = `
@@ -67,6 +77,7 @@ export function leadNotification(data: ContactPayload & { receivedAt: string }) 
     ${h1('Solicitação de atendimento')}
     ${p(`Uma nova solicitação foi enviada pelo formulário de contato do site.`, `color:${MUTED};margin-bottom:22px;`)}
     ${dataTable(rows)}
+    ${itens}
     ${mensagem}
     ${divider()}
     ${p(
@@ -88,7 +99,11 @@ export function leadNotification(data: ContactPayload & { receivedAt: string }) 
       data.produto ? `Produto de interesse: ${data.produto}` : null,
       `Recebido em: ${data.receivedAt}`,
       '',
-      data.mensagem?.trim() ? `Necessidade:\n${data.mensagem.trim()}` : null,
+      data.items?.length
+        ? 'Quantidades solicitadas:\n' +
+          data.items.map((i) => `- ${i.label}: ${i.value}`).join('\n')
+        : null,
+      data.mensagem?.trim() ? `Observações:\n${data.mensagem.trim()}` : null,
     ]
       .filter(Boolean)
       .join('\n'),

@@ -47,6 +47,8 @@ export type IconName =
   | 'field'
   | 'support'
   | 'handshake'
+  | 'close'
+  | 'alert'
   | 'medal'
   | 'users'
   | 'ruler'

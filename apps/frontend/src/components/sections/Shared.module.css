@@ -82,13 +82,14 @@
 
 /* --------------------------------------------------------- wave divider */
 
-/* Onda que fecha as faixas escuras. Fica no fluxo, colada na seção seguinte,
-   para o corte reto entre blocos sumir. */
+/* Onda entre duas faixas. Sem margem negativa e com display:block no SVG, para
+   não sobrar linha de fundo nem meio pixel entre a onda e a seção seguinte. */
 .wave {
   display: block;
   width: 100%;
-  height: 72px;
-  margin-bottom: -1px;
+  height: 96px;
+  line-height: 0;
+  font-size: 0;
   pointer-events: none;
 }
 
@@ -100,7 +101,7 @@
 
 @media (max-width: 640px) {
   .wave {
-    height: 44px;
+    height: 52px;
   }
 }
 

@@ -3,10 +3,6 @@
 .dialog {
   width: min(560px, calc(100vw - 32px));
   max-height: min(88svh, 860px);
-  /* O navegador centraliza o <dialog> com `margin: auto`, mas o reset global
-     (`* { margin: 0 }`) zera isso e joga a caixa para o canto superior
-     esquerdo. Restaurar aqui devolve a centralização. */
-  margin: auto;
   padding: 0;
   border: 0;
   border-radius: var(--radius-xl);
@@ -14,29 +10,6 @@
   color: var(--text-body);
   box-shadow: 0 30px 80px rgba(6, 26, 17, 0.32);
   overflow: hidden;
-  flex-direction: column;
-}
-
-/* Só vira coluna quando aberto: `display: flex` incondicional venceria o
-   `display: none` que o navegador aplica ao <dialog> fechado, e a caixa
-   apareceria sempre. */
-.dialog[open] {
-  display: flex;
-}
-
-/* O <form> (ou a tela de sucesso) ocupa a caixa inteira e distribui em coluna:
-   cabeçalho e rodapé fixos, corpo rolando entre eles. */
-.dialog > form,
-.dialog > div {
-  display: flex;
-  flex-direction: column;
-  min-height: 0;
-  flex: 1;
-}
-
-.head,
-.footer {
-  flex: 0 0 auto;
 }
 
 .dialog::backdrop {
@@ -117,16 +90,10 @@
 
 /* -------------------------------------------------------------------- body */
 
-/* O corpo ocupa o que sobra entre cabeçalho e rodapé e rola por conta própria.
-   Antes era `max-height: calc(88svh - 190px)` — um chute da altura dos dois
-   fixos, que errava quando eles cresciam e empurrava o botão de enviar para
-   fora da tela. `min-height: 0` é o que permite um filho flex encolher abaixo
-   do próprio conteúdo; sem isso ele não rola. */
 .body {
-  flex: 1;
-  min-height: 0;
   padding: 22px 28px 26px;
   overflow-y: auto;
+  max-height: calc(88svh - 190px);
 }
 
 .grid {
@@ -201,98 +168,6 @@
   color: var(--hc-danger);
 }
 
-/* ---------------------------------------------------------------- pedido */
-
-.picker {
-  position: relative;
-}
-
-/* Cartão de um produto já adicionado ao pedido. A borda esquerda em verde
-   distingue o que já está no pedido do que ainda é escolha no seletor. */
-.cartItem {
-  border: 1px solid var(--border-subtle);
-  border-left: 3px solid var(--hc-green-300);
-  border-radius: var(--radius-lg);
-  background: var(--surface-sunken);
-  overflow: hidden;
-  animation: cartIn 160ms ease-out;
-}
-
-@keyframes cartIn {
-  from {
-    opacity: 0;
-    transform: translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-/* Quem prefere menos movimento não perde nada: o cartão só aparece. */
-@media (prefers-reduced-motion: reduce) {
-  .cartItem {
-    animation: none;
-  }
-}
-
-.cartHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 11px 12px 11px 14px;
-  border-bottom: 1px solid var(--border-subtle);
-  background: var(--hc-white);
-}
-
-.cartName {
-  font: var(--fw-semibold) var(--fs-body-sm) / 1.3 var(--font-display);
-  color: var(--text-strong);
-}
-
-.cartRemove {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  flex: 0 0 auto;
-  border: 1px solid transparent;
-  border-radius: var(--radius-sm);
-  background: transparent;
-  color: var(--text-muted);
-  cursor: pointer;
-  transition: background 120ms, color 120ms, border-color 120ms;
-}
-
-.cartRemove:hover {
-  background: var(--hc-white);
-  border-color: var(--border-subtle);
-  color: var(--hc-danger);
-}
-
-.cartRemove:focus-visible {
-  outline: 2px solid var(--hc-green-300);
-  outline-offset: 2px;
-}
-
-.cartBody {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 12px 14px 14px;
-}
-
-/* No toque o alvo precisa de 44px; o ícone continua com 30px de caixa
-   visível, mas a área clicável cresce. */
-@media (max-width: 900px) {
-  .cartRemove {
-    width: 44px;
-    height: 44px;
-  }
-}
-
 /* ------------------------------------------------------ variantes/quantidade */
 
 .options {
@@ -330,27 +205,10 @@
 }
 
 .optionHead input {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
   accent-color: var(--hc-green-300);
   flex: 0 0 auto;
-}
-
-/* No toque, a caixa em si tem 18px, mas o rótulo inteiro é clicável e mede
-   mais de 44px de altura — é ele que recebe o dedo. */
-@media (max-width: 900px) {
-  .optionHead {
-    min-height: 48px;
-  }
-  .consent {
-    min-height: 44px;
-    align-items: center;
-  }
-  .consent input {
-    width: 20px;
-    height: 20px;
-    margin-top: 0;
-  }
 }
 
 .optionBody {
@@ -527,16 +385,6 @@
 @media (min-width: 560px) {
   .twoCol {
     grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width: 900px) {
-  /* O X é o escape do formulário; no toque precisa dos 44px. */
-  .close {
-    width: 44px;
-    height: 44px;
-    top: 10px;
-    right: 10px;
   }
 }
 
