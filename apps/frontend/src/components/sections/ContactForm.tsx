@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
-import { products } from '@/data/site';
+import { categories, products } from '@/data/site';
 import s from './ContactForm.module.css';
 
 type Status = 'idle' | 'sending' | 'sent' | 'error';
@@ -140,10 +140,16 @@ export function ContactForm({ defaultProduct }: { defaultProduct?: string }) {
           defaultValue={defaultProduct ?? ''}
         >
           <option value="">Selecione (opcional)</option>
-          {products.map((p) => (
-            <option key={p.slug} value={p.name}>
-              {p.name}
-            </option>
+          {categories.map((c) => (
+            <optgroup key={c.slug} label={c.name}>
+              {products
+                .filter((p) => p.category === c.slug)
+                .map((p) => (
+                  <option key={p.slug} value={p.name}>
+                    {p.name}
+                  </option>
+                ))}
+            </optgroup>
           ))}
         </select>
       </div>

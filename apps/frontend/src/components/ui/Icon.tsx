@@ -58,6 +58,28 @@ const PATHS: Record<IconName, React.ReactNode> = {
       <path d="M3 8v6l6 5 3-2 3 2 6-5V8" />
     </>
   ),
+  factory: (
+    <>
+      <path d="M3 20h18" />
+      <path d="M3 20V10l5 3V10l5 3V7l5 3v10" />
+      <path d="M7 20v-3M12 20v-3M17 20v-3" />
+    </>
+  ),
+  anchor: (
+    <>
+      <circle cx="12" cy="5" r="2.5" />
+      <path d="M12 7.5V21" />
+      <path d="M7 11H17" />
+      <path d="M4 15a8 8 0 0016 0" />
+    </>
+  ),
+  flask: (
+    <>
+      <path d="M9 3h6" />
+      <path d="M10 3v6l-5 8.5A2 2 0 006.7 21h10.6a2 2 0 001.7-3.5L14 9V3" />
+      <path d="M7.5 15h9" />
+    </>
+  ),
   'arrow-right': (
     <>
       <path d="M5 12h14" />

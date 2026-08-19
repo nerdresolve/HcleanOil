@@ -17,22 +17,22 @@
 }
 
 .thumb {
-  aspect-ratio: 4 / 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-  text-align: center;
   background: var(--hc-grey-100);
-  background-image: repeating-linear-gradient(
-    135deg,
-    rgba(9, 43, 27, 0.05) 0 2px,
-    transparent 2px 10px
-  );
   border-bottom: 1px solid var(--border-subtle);
-  color: var(--text-faint);
-  font: var(--type-body-sm);
-  font-size: 13px;
+  overflow: hidden;
+}
+
+.thumb img {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.card:hover .thumb img {
+  transform: scale(1.03);
 }
 
 .body {

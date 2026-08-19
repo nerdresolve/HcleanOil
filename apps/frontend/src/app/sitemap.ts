@@ -7,7 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = [
     { path: '', priority: 1 },
     { path: '/produtos', priority: 0.9 },
-    { path: '/sobre', priority: 0.7 },
+    { path: '/sobre', priority: 0.8 },
     { path: '/contato', priority: 0.8 },
   ].map((r) => ({
     url: `${site.url}${r.path}`,

@@ -96,17 +96,35 @@ Outlook e ao Gmail. Rode `npm run email:preview` e abra os arquivos em
   recebe `200` e é descartada em silêncio, sem revelar que foi detectada.
 - CORS restrito às origens em `CORS_ORIGINS`.
 
+## Conteúdo migrado do site anterior
+
+O conteúdo veio de `hcleanoil.com.br` (WordPress + Elementor), preservando os
+dados técnicos reais de fábrica: gramaturas, dimensões, taxas de absorção e
+composições.
+
+Duas correções deliberadas em relação ao site antigo:
+
+- **Superlativos removidos.** O site anterior usava "OS MELHORES DO MERCADO" e
+  "FORNECEDOR N° 1 EM PROTEÇÃO AMBIENTAL". Ficaram de fora — a copy sustenta só
+  o verificável: mais de 18 anos, 500 mil metros de barreira, operações reais
+  com nome (Paranaguá, Navio Haidar, REDUC, Golden Miller).
+- **Contradição sobre reuso.** As fichas diziam "pode ser reutilizado" e o FAQ
+  dizia o contrário. Confirmado que são descartáveis; o texto de reuso saiu das
+  características.
+
+O catálogo segue a estrutura real: 3 linhas de absorvente (branca, cinza,
+verde) × 6 formatos cada, mais turfa orgânica, 2 barreiras, 2 kits e o tanque.
+
 ## Pendências
 
-O que falta depende de material que ainda não existe no projeto:
-
-- **Fotos.** Todas as imagens são placeholders (`MediaFrame`) com o `alt` já
-  descrito. Substituir por `next/image`.
-- **Especificações técnicas.** `specs` está vazio em todos os produtos e a
-  seção "Características" some enquanto assim for — preferível a publicar
-  número inventado. Preencher em `src/data/site.ts` com os dados de fábrica.
-- **Logos de clientes/órgãos/certificados** na página Sobre. É a seção de maior
-  peso comercial; hoje são cinco espaços reservados.
-- **Logo oficial.** O símbolo em `src/components/ui/Logo.tsx` e o PNG do e-mail
-  foram redesenhados a partir do design system. Trocar pelo arquivo oficial.
-- **CNPJ** no rodapé, se for para constar.
+- **Fotos de operação.** Só existe uma real (`operacao-cerco-barreira.webp`).
+  As demais são fotos de produto em estúdio.
+- **Imagens duplicadas.** "Barreira em tiras" e "barreira flocada" dividem a
+  mesma foto — era a única disponível no site antigo.
+- **Turfa orgânica**: a foto é da embalagem, não do material.
+- **Kit SOPEP por capacidade.** O texto cita 50 L, 100 L, 200 L e 1.000 L, mas
+  há uma única página. Vale separar se cada capacidade tiver ficha própria.
+- **CNPJ e endereço** no rodapé, se for para constar.
+- **Depoimentos.** O site antigo tinha a seção com texto de exemplo
+  ("Insira aqui o depoimento do cliente") — não migrei. Se houver depoimentos
+  reais, é a seção de maior peso comercial a acrescentar.

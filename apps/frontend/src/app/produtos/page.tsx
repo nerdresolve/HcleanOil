@@ -11,13 +11,13 @@ import {
   CTABanner,
 } from '@/components/sections/Shared';
 import { ProductCard } from '@/components/sections/ProductCard';
-import { categories, productsByCategory, site } from '@/data/site';
+import { categories, productsByCategory } from '@/data/site';
 import s from './produtos.module.css';
 
 export const metadata: Metadata = {
   title: 'Produtos',
   description:
-    'Conheça o portfólio HCLEAN: barreiras de contenção, absorventes, kits de emergência, tanques e soluções para atendimento a derramamentos.',
+    'Barreiras de contenção, três linhas de material absorvente, kits SOPEP e de primeiro atendimento e tanques para armazenamento temporário.',
   alternates: { canonical: '/produtos' },
 };
 
@@ -30,8 +30,8 @@ export default function ProdutosPage() {
         <HeroCopy>
           <HeroTitle>Equipamentos para resposta a emergências ambientais</HeroTitle>
           <HeroLead>
-            Conheça nosso portfólio de barreiras de contenção, absorventes, kits de
-            emergência, tanques e soluções para atendimento a derramamentos.
+            Conheça nosso portfólio de barreiras de contenção, materiais absorventes,
+            kits de emergência e tanques para atendimento a derramamentos.
           </HeroLead>
           <Actions>
             <ButtonLink href="/contato" size="lg" iconRight="arrow-right">
@@ -46,10 +46,8 @@ export default function ProdutosPage() {
           <SectionHeading
             eyebrow="Introdução"
             title="A solução certa para cada cenário operacional"
-            description="Cada emergência apresenta características diferentes. Por isso, a HCLEAN trabalha com um portfólio desenvolvido para diferentes etapas da resposta ambiental. Explore nossas soluções e encontre o equipamento adequado à sua necessidade."
+            description="Cada emergência apresenta características diferentes. Por isso, a HCLEAN trabalha com um portfólio desenvolvido para diferentes etapas da resposta ambiental."
           />
-
-          {/* Índice das categorias — atalho para quem chega buscando um tipo. */}
           <nav className={s.jump} aria-label="Categorias">
             {categories.map((c) => (
               <a key={c.slug} href={`#${c.slug}`} className={s.jumpLink}>
@@ -74,7 +72,7 @@ export default function ProdutosPage() {
                 <h2 className={s.categoryTitle}>{category.name}</h2>
                 <p className={s.categoryIntro}>{category.intro}</p>
               </div>
-              <Grid cols={4}>
+              <Grid cols={3}>
                 {items.map((p) => (
                   <ProductCard key={p.slug} product={p} />
                 ))}

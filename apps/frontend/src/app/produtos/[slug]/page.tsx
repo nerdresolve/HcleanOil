@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Container, Section, SectionHeading, Grid, Badge } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
@@ -10,7 +11,6 @@ import {
   HeroTitle,
   HeroLead,
   Actions,
-  MediaFrame,
   Split,
   Prose,
   Breadcrumbs,
@@ -28,7 +28,7 @@ import s from './produto.module.css';
 
 type Params = { params: Promise<{ slug: string }> };
 
-/** Todas as páginas de produto são geradas no build — HTML estático, LCP baixo. */
+/** Todas as páginas de produto saem prontas do build — HTML estático. */
 export function generateStaticParams() {
   return products.map((p) => ({ slug: p.slug }));
 }
@@ -47,6 +47,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
       title: `${product.name} | ${site.name}`,
       description: product.lead,
       url: `/produtos/${product.slug}`,
+      images: [{ url: product.image }],
     },
   };
 }
@@ -58,16 +59,21 @@ export default async function ProdutoPage({ params }: Params) {
 
   const category = findCategory(product.category);
   const related = relatedProducts(product);
-  const hasSpecs = product.specs.length > 0;
 
   const productSchema = {
     '@context': 'https://schema.org',
     '@type': 'Product',
     name: product.name,
-    description: product.about,
+    description: product.lead,
     category: category?.name,
+    image: `${site.url}${product.image}`,
     brand: { '@type': 'Brand', name: site.name },
     manufacturer: { '@type': 'Organization', name: site.legalName },
+    additionalProperty: product.specs.map((sp) => ({
+      '@type': 'PropertyValue',
+      name: sp.label,
+      value: sp.value,
+    })),
   };
 
   return (
@@ -95,7 +101,16 @@ export default async function ProdutoPage({ params }: Params) {
               </ButtonLink>
             </Actions>
           </HeroCopy>
-          <MediaFrame tone="dark" label={product.name} />
+          <div className={s.heroImage}>
+            <Image
+              src={product.image}
+              alt={product.name}
+              width={620}
+              height={465}
+              priority
+              sizes="(max-width: 900px) 100vw, 45vw"
+            />
+          </div>
         </HeroSplit>
       </Hero>
 
@@ -104,19 +119,79 @@ export default async function ProdutoPage({ params }: Params) {
         <Container>
           <Split>
             <Prose>
-              <SectionHeading
-                eyebrow="Sobre o produto"
-                title="Controle e contenção para operações de resposta"
-              />
-              <p>{product.about}</p>
+              <SectionHeading eyebrow="Sobre o produto" title="Descrição técnica" />
+              {product.about.map((par) => (
+                <p key={par.slice(0, 40)}>{par}</p>
+              ))}
             </Prose>
-            <MediaFrame label={`${product.name} em operação`} />
+            <div className={s.sideCard}>
+              <span className={s.sideTitle}>Características</span>
+              <ul className={s.featureList}>
+                {product.features.map((f) => (
+                  <li key={f}>
+                    <Icon name="check" size={17} strokeWidth={2.25} color="var(--hc-green-600)" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </Split>
         </Container>
       </Section>
 
+      {/* Formatos disponíveis — só as linhas de absorvente têm. */}
+      {product.formats?.length ? (
+        <Section tone="card">
+          <Container>
+            <SectionHeading
+              eyebrow="Formatos disponíveis"
+              title="Escolha o formato adequado à operação"
+              description="A mesma linha em diferentes formatos, para contenção do perímetro, absorção de superfície ou atendimento pontual."
+            />
+            <div className={s.formats}>
+              {product.formats.map((f) => (
+                <article key={f.name} className={s.format}>
+                  <div className={s.formatImage}>
+                    <Image
+                      src={f.image}
+                      alt={`${f.name} — ${product.name}`}
+                      width={420}
+                      height={315}
+                      sizes="(max-width: 900px) 100vw, 33vw"
+                    />
+                  </div>
+                  <div className={s.formatBody}>
+                    <h3 className={s.formatName}>{f.name}</h3>
+                    <p className={s.formatText}>{f.description}</p>
+                    <dl className={s.formatMeta}>
+                      {f.sizes ? (
+                        <>
+                          <dt>Tamanhos</dt>
+                          <dd>{f.sizes}</dd>
+                        </>
+                      ) : null}
+                      {f.absorption ? (
+                        <>
+                          <dt>Absorção</dt>
+                          <dd>{f.absorption}</dd>
+                        </>
+                      ) : null}
+                    </dl>
+                    <ul className={s.formatFeatures}>
+                      {f.features.map((x) => (
+                        <li key={x}>{x}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </Container>
+        </Section>
+      ) : null}
+
       {/* Aplicações */}
-      <Section tone="card">
+      <Section tone={product.formats?.length ? 'page' : 'card'}>
         <Container>
           <SectionHeading eyebrow="Aplicações" title="Onde utilizar" />
           <ul className={s.applications}>
@@ -130,27 +205,24 @@ export default async function ProdutoPage({ params }: Params) {
         </Container>
       </Section>
 
-      {/* Características — só aparece quando há dados reais de fábrica. */}
-      {hasSpecs ? (
-        <Section tone="page">
-          <Container>
-            <SectionHeading eyebrow="Características" title="Projetada para a operação" />
-            <table className={s.specs}>
-              <tbody>
-                {product.specs.map((row) => (
-                  <tr key={row.label}>
-                    <th scope="row">{row.label}</th>
-                    <td>{row.value}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Container>
-        </Section>
-      ) : null}
+      {/* Especificações */}
+      <Section tone={product.formats?.length ? 'card' : 'page'}>
+        <Container>
+          <SectionHeading eyebrow="Especificações" title="Dados técnicos" />
+          <table className={s.specs}>
+            <tbody>
+              {product.specs.map((row) => (
+                <tr key={row.label}>
+                  <th scope="row">{row.label}</th>
+                  <td>{row.value}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </Container>
+      </Section>
 
-      {/* CTA intermediário */}
-      <Section tone={hasSpecs ? 'card' : 'page'}>
+      <Section tone="page">
         <Container>
           <CTABanner
             eyebrow="Atendimento técnico"
@@ -162,14 +234,14 @@ export default async function ProdutoPage({ params }: Params) {
       </Section>
 
       {/* Produtos relacionados */}
-      <Section tone="page">
+      <Section tone="card">
         <Container>
           <SectionHeading
             eyebrow="Produtos relacionados"
             title="Outras soluções que podem complementar sua operação"
           />
           <div style={{ marginTop: 40 }}>
-            <Grid cols={4}>
+            <Grid cols={3}>
               {related.map((p) => (
                 <ProductCard key={p.slug} product={p} />
               ))}
@@ -178,23 +250,6 @@ export default async function ProdutoPage({ params }: Params) {
           <div style={{ marginTop: 40 }}>
             <ButtonLink href="/produtos" variant="outline" iconRight="arrow-right">
               Conhecer todos os produtos
-            </ButtonLink>
-          </div>
-        </Container>
-      </Section>
-
-      {/* CTA final */}
-      <Section tone="inverse">
-        <Container narrow>
-          <div className={s.finalCta}>
-            <span className={s.finalEyebrow}>Contato</span>
-            <h2 className={s.finalTitle}>Solicite informações sobre este produto</h2>
-            <p className={s.finalText}>
-              Preencha o formulário e nossa equipe entrará em contato para entender sua
-              necessidade.
-            </p>
-            <ButtonLink href="/contato" size="lg" iconRight="arrow-right">
-              Solicitar atendimento
             </ButtonLink>
           </div>
         </Container>

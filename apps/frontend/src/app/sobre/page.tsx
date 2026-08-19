@@ -1,24 +1,23 @@
 import type { Metadata } from 'next';
-import { Container, Section, SectionHeading, Grid, Card, Badge } from '@/components/ui/Layout';
-import { Icon } from '@/components/ui/Icon';
+import Image from 'next/image';
+import { Container, Section, SectionHeading, Grid, Badge } from '@/components/ui/Layout';
 import {
   Hero,
   HeroCopy,
   HeroTitle,
   HeroLead,
-  MediaFrame,
   Split,
   Prose,
   Stat,
   CTABanner,
 } from '@/components/sections/Shared';
-import { proofPoints, site } from '@/data/site';
+import { caseStudies, proofPoints, site } from '@/data/site';
 import s from './sobre.module.css';
 
 export const metadata: Metadata = {
-  title: 'Sobre a HCLEAN',
+  title: 'Quem somos',
   description:
-    'Há mais de 18 anos a HCLEAN fornece equipamentos para resposta a emergências ambientais, com atuação em operações reais de contenção de derramamentos no Brasil.',
+    'A HCLEAN nasceu em 2004, após o acidente com o navio Vicuña em Paranaguá, e há mais de 18 anos fabrica equipamentos para resposta a emergências ambientais no Brasil.',
   alternates: { canonical: '/sobre' },
 };
 
@@ -27,97 +26,61 @@ export default function SobrePage() {
     <>
       <Hero>
         <HeroCopy>
-          <Badge tone="inverse">Referência nacional</Badge>
-          <HeroTitle>Experiência construída em mais de 18 anos de atuação</HeroTitle>
+          <Badge tone="inverse">Desde 2004</Badge>
+          <HeroTitle>Mais de 18 anos fabricando proteção ambiental</HeroTitle>
           <HeroLead>
-            A HCLEAN fornece equipamentos e soluções para resposta a emergências
-            ambientais, apoiando empresas e equipes operacionais em situações que exigem
-            preparo, rapidez e confiabilidade.
+            A HCLEAN fabrica equipamentos para resposta a emergências ambientais,
+            apoiando empresas e equipes operacionais em situações que exigem preparo,
+            rapidez e confiabilidade.
           </HeroLead>
         </HeroCopy>
       </Hero>
 
-      {/* Nossa história */}
+      {/* História */}
       <Section id="historia" tone="page">
         <Container>
           <Split>
             <Prose>
               <SectionHeading
                 eyebrow="Nossa história"
-                title="Uma trajetória construída no setor ambiental"
+                title="Uma empresa nascida de uma emergência real"
               />
               <p>
-                Há mais de 18 anos, a HCLEAN atua no desenvolvimento e fornecimento de
-                equipamentos voltados à resposta a emergências ambientais.
+                A HCLEAN foi criada após o acidente de 2004 em Paranaguá, onde o navio
+                chileno Vicuña explodiu em um terminal privado. Desde então, a empresa
+                fabrica materiais absorventes e barreiras de contenção voltados à
+                prevenção e à redução dos impactos ao meio ambiente.
               </p>
               <p>
-                Ao longo dessa trajetória, a empresa passou a fazer parte de operações
-                reais de contenção de derramamentos no Brasil, construindo conhecimento
-                sobre as necessidades práticas de equipes que atuam diretamente em campo.
+                Ainda naquela época foi firmada uma parceria com uma empresa líder em
+                proteção ambiental, fornecendo equipamentos para utilização em seus
+                serviços.
               </p>
               <p>
-                Essa experiência orienta nosso trabalho: oferecer soluções que façam
-                sentido para a realidade operacional de nossos clientes.
+                Dentre nossa linha de produtos e equipamentos, destacam-se os absorventes
+                sintéticos e naturais, as barreiras de contenção, os kits de emergência e
+                os tanques para armazenamento temporário.
               </p>
             </Prose>
-            <MediaFrame label="Trajetória da HCLEAN no setor ambiental" />
-          </Split>
-        </Container>
-      </Section>
-
-      {/* Experiência em campo */}
-      <Section tone="card">
-        <Container>
-          <Split reverse>
-            <MediaFrame label="Equipamentos em operação real de contenção" />
-            <Prose>
-              <SectionHeading
-                eyebrow="Experiência em campo"
-                title="Equipamentos presentes em operações reais"
+            <div className={s.image}>
+              <Image
+                src="/institucional/operacao-cerco-barreira.webp"
+                alt="Operação de cerco com barreira de contenção HCLEAN"
+                width={560}
+                height={420}
+                sizes="(max-width: 900px) 100vw, 40vw"
               />
-              <p>
-                Emergências ambientais exigem mais do que produtos disponíveis em
-                catálogo. Exigem equipamentos adequados, preparo e capacidade de resposta.
-              </p>
-              <p>
-                A HCLEAN fornece equipamentos utilizados em operações reais de contenção
-                de derramamentos no Brasil, aproximando sua experiência comercial das
-                necessidades de quem atua na resposta ambiental.
-              </p>
-            </Prose>
-          </Split>
-        </Container>
-      </Section>
-
-      {/* Parceria técnica */}
-      <Section id="parceria" tone="page">
-        <Container>
-          <Card tone="sunken" className={s.partnership}>
-            <span className={s.partnershipIcon}>
-              <Icon name="handshake" size={30} />
-            </span>
-            <div className={s.partnershipCopy}>
-              <span className={s.eyebrow}>Parceria técnica</span>
-              <h2 className={s.partnershipTitle}>Parceria com a Hidroclean</h2>
-              <p>
-                A HCLEAN é parceira técnica da Hidroclean, uma das empresas pioneiras no
-                Brasil no segmento de proteção ambiental.
-              </p>
-              <p>
-                Essa parceria fortalece nossa atuação e amplia nossa capacidade de
-                oferecer soluções voltadas às necessidades do setor.
-              </p>
             </div>
-          </Card>
+          </Split>
         </Container>
       </Section>
 
-      {/* Validações sociais */}
+      {/* Números */}
       <Section tone="inverse">
         <Container>
           <SectionHeading
             tone="light"
-            eyebrow="Validações"
+            eyebrow="Nossos números"
             title="Experiência que pode ser comprovada"
           />
           <div style={{ marginTop: 48 }}>
@@ -127,22 +90,59 @@ export default function SobrePage() {
               ))}
             </Grid>
           </div>
+        </Container>
+      </Section>
 
-          {/*
-            Faixa de logos: clientes, órgãos e certificados. Os quadros abaixo
-            são reservas — substituir por <Image> assim que os arquivos reais
-            forem fornecidos. É a seção com mais força comercial da página.
-          */}
-          <div className={s.logos}>
-            <span className={s.logosTitle}>Clientes, órgãos e certificações</span>
-            <div className={s.logosRow}>
-              {Array.from({ length: 5 }, (_, i) => (
-                <div key={i} className={s.logoSlot} aria-hidden="true">
-                  Logo
-                </div>
+      {/* Operações reais */}
+      <Section id="operacoes" tone="page">
+        <Container>
+          <SectionHeading
+            eyebrow="Experiência em campo"
+            title="Equipamentos presentes em operações reais"
+            description="Emergências ambientais exigem mais do que produtos disponíveis em catálogo. Exigem equipamentos adequados, preparo e capacidade de resposta."
+          />
+          <div style={{ marginTop: 48 }}>
+            <Grid cols={2}>
+              {caseStudies.map((c) => (
+                <article key={c.name} className={s.case}>
+                  <h3 className={s.caseName}>{c.name}</h3>
+                  <p className={s.caseText}>{c.text}</p>
+                </article>
               ))}
-            </div>
+            </Grid>
           </div>
+        </Container>
+      </Section>
+
+      {/* Fabricação */}
+      <Section tone="card">
+        <Container>
+          <Split reverse>
+            <div className={s.image}>
+              <Image
+                src="/produtos/materiais-absorventes.webp"
+                alt="Linhas de material absorvente fabricadas pela HCLEAN"
+                width={560}
+                height={560}
+                sizes="(max-width: 900px) 100vw, 40vw"
+              />
+            </div>
+            <Prose>
+              <SectionHeading
+                eyebrow="Fabricação nacional"
+                title="Equipamentos fabricados no Brasil"
+              />
+              <p>
+                Fabricamos barreiras de contenção sob medida, três linhas de material
+                absorvente para diferentes tipos de líquido, kits de emergência conforme
+                normas internacionais e tanques para armazenamento temporário.
+              </p>
+              <p>
+                A produção nacional permite atender medidas específicas de cada operação e
+                manter estoque para resposta rápida em todo o território brasileiro.
+              </p>
+            </Prose>
+          </Split>
         </Container>
       </Section>
 
