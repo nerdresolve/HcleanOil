@@ -11,14 +11,18 @@
  * o mesmo verde-esmeralda do lockup, não o verde-neon dos controles.
  */
 
-let seq = 0;
+import { useId } from 'react';
 
 type Tone = 'light' | 'dark';
 
-/** Verde da palavra: esmeralda no claro, quase branco no escuro. */
+/**
+ * Verde da palavra. No fundo claro é um esmeralda mais fechado que o do
+ * símbolo: o tom original (#2E9E6B) dava 3.4:1 sobre branco, abaixo do mínimo
+ * de 4.5:1 — e a marca é o primeiro texto da página.
+ */
 const WORD_COLOR: Record<Tone, string> = {
   light: '#F4F8F6',
-  dark: '#2E9E6B',
+  dark: '#1B7048',
 };
 
 /** Só o símbolo: anel com as ondas. */
@@ -31,7 +35,9 @@ export function LogoMark({
   tone?: Tone;
   className?: string;
 }) {
-  const uid = `hc-mark-${++seq}`;
+  /* useId dá o mesmo valor no servidor e no cliente; um contador de módulo
+     diverge entre os dois e quebra a hidratação. */
+  const uid = `hc-mark-${useId().replace(/:/g, '')}`;
   const ring = tone === 'light' ? 'rgba(247,247,247,.95)' : '#1F6B45';
 
   return (

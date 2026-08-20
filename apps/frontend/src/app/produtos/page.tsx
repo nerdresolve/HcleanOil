@@ -12,6 +12,7 @@ import {
   CTABanner,
 } from '@/components/sections/Shared';
 import { ProductCard } from '@/components/sections/ProductCard';
+import { Ornament, ornamentHost } from '@/components/sections/Ornament';
 import { categories, productsByCategory } from '@/data/site';
 import s from './produtos.module.css';
 
@@ -40,7 +41,8 @@ export default function ProdutosPage() {
         </HeroCopy>
       </Hero>
 
-      <Section tone="page" size="sm">
+      <Section tone="page" size="sm" className={ornamentHost}>
+        <Ornament shape="rings" place="topRight" />
         <Container>
           <SectionHeading
             eyebrow="Introdução"
@@ -65,7 +67,14 @@ export default function ProdutosPage() {
             key={category.slug}
             id={category.slug}
             tone={i % 2 === 0 ? 'card' : 'page'}
+            className={ornamentHost}
           >
+            {/* Alterna a peça e o lado a cada categoria, para a sequência de
+                faixas não repetir o mesmo canto. */}
+            <Ornament
+              shape={i % 2 === 0 ? 'lines' : 'wave'}
+              place={i % 2 === 0 ? 'bottomRight' : 'left'}
+            />
             <Container>
               <div className={s.categoryHead}>
                 <h2 className={s.categoryTitle}>{category.name}</h2>
@@ -81,7 +90,8 @@ export default function ProdutosPage() {
         );
       })}
 
-      <Section tone="page">
+      <Section tone="page" className={ornamentHost}>
+        <Ornament shape="dots" place="topLeft" fade="inLeft" />
         <Container>
           <CTABanner
             eyebrow="Atendimento"

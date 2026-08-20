@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { useId } from 'react';
 import type { ReactNode } from 'react';
 import { Container } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
@@ -6,10 +7,6 @@ import { QuoteButton } from '@/components/quote/QuoteButton';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/data/site';
 import s from './Shared.module.css';
-
-/* Contador para ids únicos de <defs> quando o mesmo ornamento aparece duas
-   vezes na página. */
-let seq = 0;
 
 /* ------------------------------------------------------------------- hero */
 
@@ -149,7 +146,9 @@ export function BrandRingsArt({ className }: { className?: string }) {
 
 /** Malha de pontos, textura discreta para blocos escuros. */
 export function BrandDotsArt({ className }: { className?: string }) {
-  const id = `hc-dots-${++seq}`;
+  /* useId dá o mesmo valor no servidor e no cliente; um contador de módulo
+     diverge entre os dois e quebra a hidratação. */
+  const id = `hc-dots-${useId().replace(/:/g, '')}`;
   return (
     <div className={className} aria-hidden="true">
       <svg viewBox="0 0 400 400" fill="none">

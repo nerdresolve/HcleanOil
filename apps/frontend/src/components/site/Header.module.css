@@ -88,8 +88,15 @@
     margin-inline: 0;
     gap: 22px;
     overflow-x: auto;
-    padding-bottom: 2px;
     scrollbar-width: none;
+  }
+  /* Alvo de toque de 44px, o mínimo recomendado — no desktop o link é menor
+     porque o mouse tem precisão que o dedo não tem. */
+  .link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-block: 0;
   }
   .nav::-webkit-scrollbar {
     display: none;

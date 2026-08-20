@@ -11,6 +11,7 @@ import {
   Stat,
   CTABanner,
 } from '@/components/sections/Shared';
+import { Ornament, ornamentHost } from '@/components/sections/Ornament';
 import { caseStudies, proofPoints, site } from '@/data/site';
 import s from './sobre.module.css';
 
@@ -37,7 +38,8 @@ export default function SobrePage() {
       </Hero>
 
       {/* História */}
-      <Section id="historia" tone="page">
+      <Section id="historia" tone="page" className={ornamentHost}>
+        <Ornament shape="wave" place="left" />
         <Container>
           <Split>
             <Prose>
@@ -76,7 +78,8 @@ export default function SobrePage() {
       </Section>
 
       {/* Números */}
-      <Section tone="inverse">
+      <Section tone="inverse" className={ornamentHost}>
+        <Ornament shape="dots" place="topRight" onDark fade="in" keepOnMobile />
         <Container>
           <SectionHeading
             tone="light"
@@ -94,7 +97,8 @@ export default function SobrePage() {
       </Section>
 
       {/* Operações reais */}
-      <Section id="operacoes" tone="page">
+      <Section id="operacoes" tone="page" className={ornamentHost}>
+        <Ornament shape="rings" place="topLeft" />
         <Container>
           <SectionHeading
             eyebrow="Experiência em campo"
@@ -115,7 +119,8 @@ export default function SobrePage() {
       </Section>
 
       {/* Fabricação */}
-      <Section tone="card">
+      <Section tone="card" className={ornamentHost}>
+        <Ornament shape="lines" place="bottomRight" />
         <Container>
           <Split reverse>
             <div className={s.image}>

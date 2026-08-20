@@ -347,6 +347,13 @@ function QuantityInput({ field, option }: { field: QuantityField; option: string
     );
   }
 
+  /* O nome do campo vira o rótulo da linha no e-mail. Quando a variante já diz
+     o que é ("Metragem desejada"), repetir o rótulo do campo só polui. */
+  const fieldName =
+    option.toLowerCase().includes(field.label.toLowerCase())
+      ? `${option} (${field.unit})`
+      : `${option} — ${field.label} (${field.unit})`;
+
   return (
     <div>
       <div className={s.qty}>
@@ -355,7 +362,7 @@ function QuantityInput({ field, option }: { field: QuantityField; option: string
           inputMode="numeric"
           min={field.min}
           step={field.step}
-          name={`${option} — ${field.label}`}
+          name={fieldName}
           placeholder={field.placeholder}
           aria-label={`${option} — ${field.label} em ${field.unit}`}
         />

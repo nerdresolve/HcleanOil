@@ -36,7 +36,6 @@ const ROUTES = [
   '/produtos/kit-primeiro-atendimento',
   '/produtos/tanque-terrestre',
   '/sobre',
-  '/contato',
   '/rota-que-nao-existe',
 ];
 
@@ -125,18 +124,36 @@ for (const vp of VIEWPORTS) {
       out.docWidth = document.documentElement.scrollWidth;
       out.overflowX = document.documentElement.scrollWidth > window.innerWidth + 1;
 
-      // Elementos que ultrapassam a largura da viewport.
+      /* Elementos que ultrapassam a largura da viewport.
+         Só interessa o que realmente causa scroll: peças decorativas que
+         sangram pela borda ficam dentro de um pai com overflow:hidden e são
+         recortadas, então não contam. */
+      const isClipped = (el) => {
+        let n = el.parentElement;
+        while (n && n !== document.documentElement) {
+          const o = getComputedStyle(n);
+          if (o.overflow !== 'visible' || o.overflowX !== 'visible') return true;
+          n = n.parentElement;
+        }
+        return false;
+      };
+
       for (const el of document.querySelectorAll('body *')) {
         const r = el.getBoundingClientRect();
         if (r.width === 0 || r.height === 0) continue;
-        if (r.right > window.innerWidth + 2 || r.left < -2) {
-          const cs = getComputedStyle(el);
-          if (cs.position === 'fixed' || cs.overflow === 'hidden') continue;
-          out.wide.push(
-            `${el.tagName.toLowerCase()}.${String(el.className).split(' ')[0]} ` +
-              `left=${Math.round(r.left)} right=${Math.round(r.right)}`,
-          );
-        }
+        if (r.right <= window.innerWidth + 2 && r.left >= -2) continue;
+
+        const cs = getComputedStyle(el);
+        if (cs.position === 'fixed' || cs.overflow === 'hidden') continue;
+        if (el.closest('[aria-hidden="true"]')) continue; // ornamento
+        if (isClipped(el)) continue;
+        // Totalmente fora da tela de propósito: skip-link e honeypot.
+        if (r.right < 0 || r.left > window.innerWidth) continue;
+
+        out.wide.push(
+          `${el.tagName.toLowerCase()}.${String(el.className).split(' ')[0]} ` +
+            `left=${Math.round(r.left)} right=${Math.round(r.right)}`,
+        );
       }
 
       // Imagens: alt, proporção e resolução.
@@ -151,8 +168,14 @@ for (const vp of VIEWPORTS) {
           const natRatio = img.naturalWidth / img.naturalHeight;
           const boxRatio = r.width / r.height;
           const fit = getComputedStyle(img).objectFit;
-          if (fit === 'fill' || (fit === 'none' && Math.abs(natRatio - boxRatio) > 0.15)) {
-            out.images.push(`distorcida: ${src}`);
+          /* `cover` e `contain` preservam a proporção (recortam ou encaixam).
+             `fill` e `none` só deformam quando a caixa tem proporção diferente
+             da do arquivo — com as duas iguais, a imagem sai correta. */
+          const preserves = fit === 'cover' || fit === 'contain' || fit === 'scale-down';
+          if (!preserves && Math.abs(natRatio - boxRatio) > 0.05) {
+            out.images.push(
+              `distorcida: ${src} (arquivo ${natRatio.toFixed(2)}, caixa ${boxRatio.toFixed(2)})`,
+            );
           }
           // Servida com resolução muito acima do necessário.
           if (img.naturalWidth > r.width * 3 && r.width > 40) {

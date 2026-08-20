@@ -56,6 +56,13 @@ export function leadNotification(
   if (data.produto) {
     rows.push({ label: 'Produto de interesse', value: escapeHtml(data.produto) });
   }
+
+  /* Quantidades entram como linhas da mesma tabela, logo abaixo do produto:
+     metragem, unidades por formato, capacidades de kit, dimensões do tanque. */
+  for (const item of data.items ?? []) {
+    rows.push({ label: item.label, value: escapeHtml(item.value) });
+  }
+
   rows.push({ label: 'Recebido em', value: escapeHtml(data.receivedAt) });
 
   const mensagem = data.mensagem?.trim()
@@ -64,20 +71,12 @@ export function leadNotification(
        <div style="padding:16px 18px;background-color:#F7F9F8;border-left:3px solid ${GREEN_300};font-family:${FONT};font-size:14px;line-height:1.65;color:${TEXT};white-space:pre-wrap;">${escapeHtml(data.mensagem.trim())}</div>`
     : '';
 
-  /* Quantidades pedidas: metragem, unidades por formato, capacidades de kit,
-     dimensões do tanque. É o que a equipe precisa para montar a proposta. */
-  const itens = data.items?.length
-    ? `${divider()}
-       ${eyebrow('Quantidades solicitadas')}
-       ${dataTable(data.items.map((i) => ({ label: i.label, value: escapeHtml(i.value) })))}`
-    : '';
 
   const body = `
     ${eyebrow('Nova solicitação pelo site')}
     ${h1('Solicitação de atendimento')}
     ${p(`Uma nova solicitação foi enviada pelo formulário de contato do site.`, `color:${MUTED};margin-bottom:22px;`)}
     ${dataTable(rows)}
-    ${itens}
     ${mensagem}
     ${divider()}
     ${p(
@@ -97,12 +96,9 @@ export function leadNotification(
       `E-mail: ${data.email}`,
       data.telefone ? `Telefone: ${data.telefone}` : null,
       data.produto ? `Produto de interesse: ${data.produto}` : null,
+      ...(data.items ?? []).map((i) => `${i.label}: ${i.value}`),
       `Recebido em: ${data.receivedAt}`,
       '',
-      data.items?.length
-        ? 'Quantidades solicitadas:\n' +
-          data.items.map((i) => `- ${i.label}: ${i.value}`).join('\n')
-        : null,
       data.mensagem?.trim() ? `Observações:\n${data.mensagem.trim()}` : null,
     ]
       .filter(Boolean)

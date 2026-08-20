@@ -338,6 +338,15 @@
   color: inherit;
 }
 
+/* No toque, cada elo precisa de área clicável decente. */
+@media (max-width: 900px) {
+  .crumbs a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+  }
+}
+
 .crumbs a:hover {
   color: var(--hc-green-300);
 }

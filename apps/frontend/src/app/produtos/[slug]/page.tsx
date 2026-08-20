@@ -18,6 +18,7 @@ import {
   CTABanner,
 } from '@/components/sections/Shared';
 import { ProductCard } from '@/components/sections/ProductCard';
+import { Ornament, ornamentHost } from '@/components/sections/Ornament';
 import {
   findCategory,
   findProduct,
@@ -112,7 +113,8 @@ export default async function ProdutoPage({ params }: Params) {
       </Hero>
 
       {/* Sobre o produto */}
-      <Section tone="page">
+      <Section tone="page" className={ornamentHost}>
+        <Ornament shape="wave" place="right" />
         <Container>
           <Split>
             <Prose>
@@ -231,7 +233,8 @@ export default async function ProdutoPage({ params }: Params) {
       </Section>
 
       {/* Produtos relacionados */}
-      <Section tone="card">
+      <Section tone="card" className={ornamentHost}>
+        <Ornament shape="lines" place="bottomLeft" />
         <Container>
           <SectionHeading
             eyebrow="Produtos relacionados"
