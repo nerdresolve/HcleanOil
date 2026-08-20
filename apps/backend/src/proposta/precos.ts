@@ -1,9 +1,9 @@
 /**
  * Tabela de preços da HCLEAN.
  *
- * Este arquivo é a fonte da verdade dos valores usados pelo gerador de
- * propostas. As anotações comerciais que sustentam cada decisão ficam fora do
- * versionamento.
+ * Fonte da verdade: PRECOS.md na raiz do repositório, que registra a tabela do
+ * cliente e as decisões que resolveram as ambiguidades. Ao mudar um valor
+ * aqui, atualize lá — e vice-versa.
  *
  * As chaves espelham os nomes que o formulário do site envia, para que o
  * pedido vire orçamento sem tradução manual.

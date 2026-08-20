@@ -194,7 +194,7 @@ export const quoteProducts: QuoteProduct[] = [
       { id: 'sopep-50', label: 'Kit SOPEP 50 L', fields: [unidades('sopep-50-qtd')] },
       { id: 'sopep-100', label: 'Kit SOPEP 100 L', fields: [unidades('sopep-100-qtd')] },
       { id: 'sopep-200', label: 'Kit SOPEP 200 L', fields: [unidades('sopep-200-qtd')] },
-      { id: 'sopep-1000', label: 'Kit SOPEP 1.000 L', fields: [unidades('sopep-1000-qtd')] },
+      /* O de 1.000 L saiu: não consta na tabela de preços e não é vendido. */
     ],
   },
   {

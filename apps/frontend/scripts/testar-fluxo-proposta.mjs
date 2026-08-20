@@ -41,7 +41,7 @@ await dialog.waitFor({ state: 'visible' });
 await dialog.locator('#q-nome').fill('Ana Souza');
 await dialog.locator('#q-empresa').fill('Empresa Exemplo');
 await dialog.locator('#q-email').fill(EMAIL);
-await dialog.locator('#q-telefone').fill('(21) 99999-0000');
+await dialog.locator('#q-telefone').fill('(11) 90000-0000');
 await dialog.locator('#q-estado').selectOption('RJ');
 await page.waitForTimeout(300);
 

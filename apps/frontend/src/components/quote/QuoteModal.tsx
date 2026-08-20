@@ -12,6 +12,13 @@ type Status = 'idle' | 'sending' | 'sent' | 'error';
 
 const ENDPOINT = process.env.NEXT_PUBLIC_API_URL ?? 'http://localhost:4000';
 
+/** Unidades federativas, para o estado de entrega. */
+const UFS = [
+  'AC', 'AL', 'AM', 'AP', 'BA', 'CE', 'DF', 'ES', 'GO', 'MA', 'MG', 'MS',
+  'MT', 'PA', 'PB', 'PE', 'PI', 'PR', 'RJ', 'RN', 'RO', 'RR', 'RS', 'SC',
+  'SE', 'SP', 'TO',
+];
+
 type Props = {
   open: boolean;
   onClose: () => void;
@@ -217,6 +224,28 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
                   autoComplete="tel"
                   placeholder="Insira seu telefone com DDD"
                 />
+              </div>
+
+              {/* O estado define o frete: CIF no Sudeste a partir de R$ 1.000,
+                  FOB no resto. Sem ele a proposta não sai calculada. */}
+              <div className={s.field}>
+                <label className={s.label} htmlFor="q-estado">
+                  Estado de entrega <span className={s.required}>*</span>
+                </label>
+                <select
+                  className={s.select}
+                  id="q-estado"
+                  name="estado"
+                  required
+                  defaultValue=""
+                >
+                  <option value="">Selecione</option>
+                  {UFS.map((uf) => (
+                    <option key={uf} value={uf}>
+                      {uf}
+                    </option>
+                  ))}
+                </select>
               </div>
 
               <div className={s.field}>

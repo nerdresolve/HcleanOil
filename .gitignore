@@ -6,6 +6,10 @@ node_modules/
 dist/
 out/
 apps/backend/preview/
+# Propostas geradas e o contador de numeracao sao dados de execucao
+apps/backend/propostas/
+apps/backend/Proposta_*.pdf
+apps/backend/*.png
 apps/frontend/scripts/screenshots/
 *.tsbuildinfo
 

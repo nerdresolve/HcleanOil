@@ -11,6 +11,12 @@ const schema = z.object({
 
   SMTP_HOST: z.string().min(1, 'SMTP_HOST é obrigatório'),
   SMTP_PORT: z.coerce.number().default(587),
+  /* TLS implícito (465) ou STARTTLS (587). Vazio segue a porta, mas dá para
+     forçar: em redes com inspeção de TLS a 465 é cortada e só a 587 passa. */
+  SMTP_SECURE: z
+    .enum(['true', 'false'])
+    .optional()
+    .transform((v) => (v === undefined ? undefined : v === 'true')),
   SMTP_USER: z.string().min(1, 'SMTP_USER é obrigatório'),
   SMTP_PASS: z.string().min(1, 'SMTP_PASS é obrigatório'),
 
@@ -26,6 +32,29 @@ const schema = z.object({
     .enum(['true', 'false'])
     .default('true')
     .transform((v) => v === 'true'),
+
+  /**
+   * Gera e envia a proposta em PDF logo após a confirmação.
+   *
+   * Quando o pedido tem item sem preço de tabela (hoje só o tanque), a
+   * proposta vai apenas para a equipe, que completa os valores à mão.
+   */
+  ENVIAR_PROPOSTA: z
+    .enum(['true', 'false'])
+    .default('false')
+    .transform((v) => v === 'true'),
+
+  /** Onde salvar o contador de numeração das propostas. */
+  PROPOSTAS_DIR: z.string().default('propostas'),
+
+  /**
+   * Número da última proposta emitida manualmente, para a numeração
+   * automática continuar de onde parou em vez de recomeçar do 1.
+   */
+  PROPOSTA_INICIAL: z.coerce.number().default(0),
+
+  /** Prazo de entrega exibido nas condições da proposta. */
+  PRAZO_ENTREGA: z.string().default('a combinar'),
 
   /** Origens liberadas no CORS, separadas por vírgula. */
   CORS_ORIGINS: z

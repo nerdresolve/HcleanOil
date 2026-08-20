@@ -11,7 +11,7 @@ export function getTransporter(): Transporter {
     host: env.SMTP_HOST,
     port: env.SMTP_PORT,
     // 465 usa TLS implícito; nas demais portas o STARTTLS é negociado.
-    secure: env.SMTP_PORT === 465,
+    secure: env.SMTP_SECURE ?? env.SMTP_PORT === 465,
     auth: { user: env.SMTP_USER, pass: env.SMTP_PASS },
   });
 
@@ -20,24 +20,36 @@ export function getTransporter(): Transporter {
 
 type SendArgs = {
   to: string;
+  cc?: string;
   subject: string;
   html: string;
   text: string;
   replyTo?: string;
+  /** Anexos além da marca — a proposta em PDF, por exemplo. */
+  anexos?: { filename: string; content: Buffer }[];
 };
 
-export async function sendMail({ to, subject, html, text, replyTo }: SendArgs) {
+export async function sendMail({
+  to,
+  cc,
+  subject,
+  html,
+  text,
+  replyTo,
+  anexos = [],
+}: SendArgs) {
   const transport = getTransporter();
 
   return transport.sendMail({
     from: `"${env.MAIL_FROM_NAME}" <${env.MAIL_FROM}>`,
     to,
+    cc,
     replyTo,
     subject,
     text,
     html,
     // A marca do cabeçalho viaja junto; sem isso o cid não resolve.
-    attachments: [logoAttachment],
+    attachments: [logoAttachment, ...anexos],
   });
 }
 

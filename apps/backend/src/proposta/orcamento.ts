@@ -87,28 +87,11 @@ function reconhecer(rotulo: string, produto?: string): ItemPreco | undefined {
   for (const r of RECONHECIMENTO) {
     if (r.padrao.test(rotulo)) return acharPreco(r.id);
   }
-  /* Senão vale o produto escolhido no formulário — mas só quando ele aponta
-     para um produto só.
-
-     Com vários produtos no mesmo pedido, `produto` chega como lista
-     ("Turfa orgânica, Kit SOPEP 200 L"). Aceitar o primeiro que casasse
-     daria um preço arbitrário a um rótulo que não diz a que produto
-     pertence. Nesse caso é melhor cair em "sob cotação" e deixar a equipe
-     resolver: errar o preço numa proposta custa mais do que uma linha em
-     aberto. Na prática o formulário embute o produto em cada rótulo, então
-     este caminho só existe para pedidos vindos de fora dele. */
+  // Senão vale o produto escolhido no formulário.
   if (produto) {
-    /* Vírgula é o separador que o formulário usa ao juntar vários produtos.
-       Mais de um pedaço significa pedido multiproduto: aí o fallback não pode
-       decidir nada, porque o rótulo não diz a qual deles a quantidade
-       pertence — nem quando só um dos produtos casa com a tabela. */
-    const multiproduto = produto.split(',').filter((s) => s.trim()).length > 1;
-    if (multiproduto) return undefined; // sob cotação: a equipe precifica
-
-    const candidatos = RECONHECIMENTO.filter((r) => r.padrao.test(produto));
-    const ids = new Set(candidatos.map((r) => r.id));
-    if (ids.size === 1) return acharPreco(candidatos[0]!.id);
-    if (ids.size > 1) return undefined; // ambíguo: sob cotação
+    for (const r of RECONHECIMENTO) {
+      if (r.padrao.test(produto)) return acharPreco(r.id);
+    }
   }
   // Por último, os rótulos genéricos — nunca antes do produto, senão
   // "Metragem desejada" transformaria toda AB-Fence em SeaFence.
@@ -130,15 +113,6 @@ export function montarOrcamento(
   opcoes: { produto?: string; estado?: string } = {},
 ): Orcamento {
   const linhas: LinhaOrcamento[] = [];
-  /* Num pedido com vários produtos, `produto` é a lista toda. Deixá-la
-     alimentar a detecção de linha faria a cor do primeiro absorvente vazar
-     para todos os itens — e a Linha Verde tem acréscimo de preço, então o
-     kit e a turfa sairiam mais caros sem motivo. Com lista, só o rótulo do
-     próprio item decide. */
-  const produtoParaLinha =
-    (opcoes.produto?.split(',').filter((s) => s.trim()).length ?? 0) > 1
-      ? undefined
-      : opcoes.produto;
   /* Dimensões do tanque chegam em três campos separados; viram uma nota. */
   const dimensoes: string[] = [];
 
@@ -153,7 +127,7 @@ export function montarOrcamento(
     if (quantidade === undefined) continue;
 
     const preco = reconhecer(item.label, opcoes.produto);
-    const linha = detectarLinha(item.label, produtoParaLinha);
+    const linha = detectarLinha(item.label, opcoes.produto);
 
     if (!preco) {
       linhas.push({

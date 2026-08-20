@@ -10,6 +10,9 @@ export const contactSchema = z
     empresa: z.string().trim().min(2, 'Informe o nome da empresa.').max(160),
     email: z.string().trim().email('Informe um e-mail válido.').max(180),
     telefone: z.string().trim().max(40).optional().or(z.literal('')),
+    /* Estado de entrega — define o frete: CIF no Sudeste a partir de
+       R$ 1.000, FOB no resto. */
+    estado: z.string().trim().max(40).optional().or(z.literal('')),
     produto: z.string().trim().max(160).optional().or(z.literal('')),
     mensagem: z.string().trim().max(4000).optional().or(z.literal('')),
     consentimento: z.union([z.literal('on'), z.boolean(), z.undefined()]).optional(),
@@ -35,6 +38,7 @@ const KNOWN = new Set([
   'empresa',
   'email',
   'telefone',
+  'estado',
   'produto',
   'mensagem',
   'consentimento',
