@@ -14,7 +14,7 @@ import {
   BrandDotsArt,
   CTABanner,
 } from '@/components/sections/Shared';
-import { VideoHero } from '@/components/sections/VideoHero';
+import { Hero } from '@/components/sections/HeroBanner';
 import { ProductCard } from '@/components/sections/ProductCard';
 import { categories, caseStudies, faq, pillars, products, site } from '@/data/site';
 import s from './home.module.css';
@@ -24,16 +24,6 @@ export const metadata: Metadata = {
   description: site.description,
   alternates: { canonical: '/' },
 };
-
-/**
- * Vídeo de fundo do hero.
- *
- * Coloque `hero.mp4` (e opcionalmente `hero.webm`) em `public/video/` e troque
- * para `{ mp4: '/video/hero.mp4', webm: '/video/hero.webm' }`. Enquanto for
- * `undefined`, o hero mostra só o poster — que já é a foto real da operação,
- * então a página nunca fica quebrada esperando o arquivo.
- */
-const HERO_VIDEO: { mp4?: string; webm?: string } | undefined = undefined;
 
 /** Números exibidos dentro do hero, como no site anterior. */
 const heroStats = [
@@ -57,13 +47,12 @@ const faqSchema = {
 export default function HomePage() {
   return (
     <>
-      <VideoHero
+      <Hero
         title="Equipamentos de proteção ambiental"
         titleAccent="com qualidade comprovada"
         lead="Durabilidade, resistência e qualidade que garantem agilidade, segurança e conformidade ambiental no seu dia a dia operacional."
-        poster="/video/hero-poster.webp"
-        posterAlt="Barreira de contenção HCLEAN cercando uma área durante operação de resposta"
-        video={HERO_VIDEO}
+        image="/institucional/hero.webp"
+        imageAlt="Barreira de contenção HCLEAN cercando uma área durante operação de resposta"
         stats={heroStats}
         primary={{ quote: true, label: 'Fale com um especialista' }}
         secondary={{ href: '/produtos', label: 'Conheça nossos produtos' }}

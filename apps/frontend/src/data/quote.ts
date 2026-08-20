@@ -62,15 +62,24 @@ const metrosLineares = (name = 'metros'): QuantityField => ({
   hint: 'Metro linear. Fabricamos sob medida; a seção padrão é de 25 m.',
 });
 
-const unidades = (name = 'unidades', hint?: string): QuantityField => ({
+/**
+ * Quantidade em unidades, com pedido mínimo.
+ *
+ * Os mínimos por formato foram confirmados com a fábrica: cordão e travesseiro
+ * a partir de 10, rolo a partir de 1, turfa a partir de 10.
+ */
+const unidades = (
+  name: string,
+  { min = 1, hint }: { min?: number; hint?: string } = {},
+): QuantityField => ({
   kind: 'number',
   name,
   label: 'Quantidade',
   unit: 'un',
-  min: 1,
+  min,
   step: 1,
-  placeholder: 'Ex.: 10',
-  hint,
+  placeholder: `Ex.: ${min > 1 ? min * 2 : 10}`,
+  hint: hint ?? (min > 1 ? `Pedido mínimo de ${min} unidades.` : undefined),
 });
 
 /** Manta é fornecida em pacote fechado de 200 unidades. */
@@ -85,13 +94,25 @@ const mantaPacote = (name: string): QuantityField => ({
   hint: 'Pacote fechado de 200 unidades — informe múltiplos de 200.',
 });
 
-/** Os seis formatos das linhas de absorvente, com a manta em pacote. */
+/** Os seis formatos das linhas de absorvente, cada um com seu mínimo. */
 const formatosAbsorvente = (prefix: string, comBarreiras: boolean): QuoteOption[] => {
   const base: QuoteOption[] = [
-    { id: `${prefix}-cordao`, label: 'Cordão absorvente', fields: [unidades(`${prefix}-cordao-qtd`)] },
+    {
+      id: `${prefix}-cordao`,
+      label: 'Cordão absorvente',
+      fields: [unidades(`${prefix}-cordao-qtd`, { min: 10 })],
+    },
     { id: `${prefix}-manta`, label: 'Manta absorvente', fields: [mantaPacote(`${prefix}-manta-qtd`)] },
-    { id: `${prefix}-rolo`, label: 'Rolo absorvente', fields: [unidades(`${prefix}-rolo-qtd`)] },
-    { id: `${prefix}-travesseiro`, label: 'Travesseiro absorvente', fields: [unidades(`${prefix}-travesseiro-qtd`)] },
+    {
+      id: `${prefix}-rolo`,
+      label: 'Rolo absorvente',
+      fields: [unidades(`${prefix}-rolo-qtd`, { min: 1 })],
+    },
+    {
+      id: `${prefix}-travesseiro`,
+      label: 'Travesseiro absorvente',
+      fields: [unidades(`${prefix}-travesseiro-qtd`, { min: 10 })],
+    },
   ];
 
   if (comBarreiras) {
@@ -101,12 +122,12 @@ const formatosAbsorvente = (prefix: string, comBarreiras: boolean): QuoteOption[
       {
         id: `${prefix}-barreira-tiras`,
         label: 'Barreira absorvente em tiras',
-        fields: [unidades(`${prefix}-tiras-qtd`)],
+        fields: [unidades(`${prefix}-tiras-qtd`, { min: 10 })],
       },
       {
         id: `${prefix}-barreira-flocada`,
         label: 'Barreira absorvente flocada',
-        fields: [unidades(`${prefix}-flocada-qtd`)],
+        fields: [unidades(`${prefix}-flocada-qtd`, { min: 10 })],
       },
     );
   }
@@ -157,16 +178,10 @@ export const quoteProducts: QuoteProduct[] = [
         id: 'turfa',
         label: 'Quantidade',
         fields: [
-          {
-            kind: 'number',
-            name: 'turfa-kg',
-            label: 'Peso',
-            unit: 'kg',
-            min: 1,
-            step: 1,
-            placeholder: 'Ex.: 500',
-            hint: '1 kg absorve até 12 litros de óleo.',
-          },
+          unidades('turfa-qtd', {
+            min: 10,
+            hint: 'Pedido mínimo de 10 unidades. 1 kg absorve até 12 litros de óleo.',
+          }),
         ],
       },
     ],
@@ -190,10 +205,9 @@ export const quoteProducts: QuoteProduct[] = [
         id: 'primeiro-atendimento',
         label: 'Quantidade',
         fields: [
-          unidades(
-            'primeiro-atendimento-qtd',
-            'A composição pode ser personalizada conforme o produto a conter.',
-          ),
+          unidades('primeiro-atendimento-qtd', {
+            hint: 'A composição pode ser personalizada conforme o produto a conter.',
+          }),
         ],
       },
     ],

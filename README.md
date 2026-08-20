@@ -28,10 +28,10 @@ Decisões que sustentam o SEO:
 - **CSS Modules + custom properties**, sem CSS-in-JS. Nenhum JS de estilo chega
   ao cliente; os tokens em `src/styles/tokens.css` são cópia fiel do design
   system.
-- **Server Components por padrão.** Só `NavLinks` (link ativo) e `ContactForm`
-  (envio) rodam no cliente.
-- **`next/font`** auto-hospeda Archivo, Public Sans e IBM Plex Mono no build —
-  sem requisição ao Google Fonts e sem layout shift.
+- **Server Components por padrão.** Só `NavLinks` (link ativo) e o pop-up de
+  orçamento rodam no cliente.
+- **`next/font`** auto-hospeda a Exo 2 no build, em WOFF2 — sem requisição ao
+  Google Fonts e sem layout shift.
 - **Ícones SVG inline** desenhados no projeto, em vez de biblioteca.
 - `sitemap.xml`, `robots.txt`, canonical, Open Graph e JSON-LD
   (`Organization` e `Product`) já configurados.
@@ -49,6 +49,7 @@ npm run build && npm start     # produção
 | O que | Arquivo |
 | --- | --- |
 | Copy, produtos, categorias, contato | `src/data/site.ts` |
+| Quantidades e mínimos do orçamento | `src/data/quote.ts` |
 | Cores, tipografia, espaçamento | `src/styles/tokens.css` |
 | Cabeçalho / rodapé | `src/components/site/` |
 | Blocos reaproveitados (hero, CTA, cards) | `src/components/sections/` |
@@ -59,7 +60,8 @@ página, o card, o sitemap e os "produtos relacionados".
 ## Backend
 
 API Express com uma rota: `POST /api/contato`. Valida com Zod, envia a
-notificação do lead por SMTP e responde ao formulário.
+notificação do lead por SMTP e responde ao formulário. As quantidades pedidas
+viajam em campos dinâmicos e entram na tabela do e-mail.
 
 ```bash
 cd apps/backend
@@ -117,14 +119,5 @@ verde) × 6 formatos cada, mais turfa orgânica, 2 barreiras, 2 kits e o tanque.
 
 ## Pendências
 
-- **Fotos de operação.** Só existe uma real (`operacao-cerco-barreira.webp`).
-  As demais são fotos de produto em estúdio.
-- **Imagens duplicadas.** "Barreira em tiras" e "barreira flocada" dividem a
-  mesma foto — era a única disponível no site antigo.
-- **Turfa orgânica**: a foto é da embalagem, não do material.
-- **Kit SOPEP por capacidade.** O texto cita 50 L, 100 L, 200 L e 1.000 L, mas
-  há uma única página. Vale separar se cada capacidade tiver ficha própria.
-- **CNPJ e endereço** no rodapé, se for para constar.
-- **Depoimentos.** O site antigo tinha a seção com texto de exemplo
-  ("Insira aqui o depoimento do cliente") — não migrei. Se houver depoimentos
-  reais, é a seção de maior peso comercial a acrescentar.
+Ver [TAREFAS.md](TAREFAS.md) — SMTP de produção, fotos que faltam e conteúdo
+pendente, com o que já foi decidido e o que ainda depende do cliente.
