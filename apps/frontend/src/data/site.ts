@@ -281,7 +281,7 @@ export const products: Product[] = [
       },
       {
         name: 'Barreira absorvente em tiras',
-        image: '/produtos/branca-barreira-flocada.webp',
+        image: '/produtos/branca-barreira-tiras.webp',
         description:
           'Formato em tira, do tipo espaguete, para permitir maior penetração de óleo. Utilizada em águas correntes, é indicada para óleos de maior viscosidade e possui engate rápido nas extremidades. Posicionada corretamente, impede a passagem do produto e evita a contaminação de outras áreas.',
         sizes: '5" × 3 m · 8" × 3 m',
