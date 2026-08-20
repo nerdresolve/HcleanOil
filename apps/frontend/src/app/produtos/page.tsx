@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { Container, Section, SectionHeading, Grid } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
-import { Icon } from '@/components/ui/Icon';
 import { QuoteButton } from '@/components/quote/QuoteButton';
 import {
   Hero,
@@ -13,7 +11,7 @@ import {
   Breadcrumbs,
   CTABanner,
 } from '@/components/sections/Shared';
-import { ProductCard } from '@/components/sections/ProductCard';
+import { ProductCard, FormatoCard } from '@/components/sections/ProductCard';
 import { Ornament, ornamentHost } from '@/components/sections/Ornament';
 import { categories, productsByCategory } from '@/data/site';
 import { formatos } from '@/data/formatos';
@@ -104,23 +102,12 @@ export default function ProdutosPage() {
             title="Prefere procurar pelo tipo de peça?"
             description="Os absorventes existem em seis formatos, cada um para uma etapa da resposta. Veja o formato lado a lado nas três linhas e escolha pela substância da sua operação."
           />
-          <div className={s.formats}>
-            {formatos.map((f) => (
-              <Link
-                key={f.slug}
-                href={`/produtos/formato/${f.slug}`}
-                className={s.format}
-              >
-                <span className={s.formatName}>{f.name}</span>
-                <span className={s.formatLead}>{f.lead}</span>
-                <span className={s.formatMeta}>
-                  {f.variants.length === 1
-                    ? 'Linha Branca'
-                    : `${f.variants.length} linhas`}
-                  <Icon name="arrow-right" size={15} strokeWidth={2} />
-                </span>
-              </Link>
-            ))}
+          <div style={{ marginTop: 44 }}>
+            <Grid cols={3}>
+              {formatos.map((f) => (
+                <FormatoCard key={f.slug} formato={f} />
+              ))}
+            </Grid>
           </div>
         </Container>
       </Section>

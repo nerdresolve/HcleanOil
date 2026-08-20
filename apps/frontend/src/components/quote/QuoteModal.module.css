@@ -3,6 +3,10 @@
 .dialog {
   width: min(560px, calc(100vw - 32px));
   max-height: min(88svh, 860px);
+  /* O navegador centraliza o <dialog> com `margin: auto`, mas o reset global
+     (`* { margin: 0 }`) zera isso e joga a caixa para o canto superior
+     esquerdo. Restaurar aqui devolve a centralização. */
+  margin: auto;
   padding: 0;
   border: 0;
   border-radius: var(--radius-xl);
@@ -10,6 +14,29 @@
   color: var(--text-body);
   box-shadow: 0 30px 80px rgba(6, 26, 17, 0.32);
   overflow: hidden;
+  flex-direction: column;
+}
+
+/* Só vira coluna quando aberto: `display: flex` incondicional venceria o
+   `display: none` que o navegador aplica ao <dialog> fechado, e a caixa
+   apareceria sempre. */
+.dialog[open] {
+  display: flex;
+}
+
+/* O <form> (ou a tela de sucesso) ocupa a caixa inteira e distribui em coluna:
+   cabeçalho e rodapé fixos, corpo rolando entre eles. */
+.dialog > form,
+.dialog > div {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  flex: 1;
+}
+
+.head,
+.footer {
+  flex: 0 0 auto;
 }
 
 .dialog::backdrop {
@@ -90,10 +117,16 @@
 
 /* -------------------------------------------------------------------- body */
 
+/* O corpo ocupa o que sobra entre cabeçalho e rodapé e rola por conta própria.
+   Antes era `max-height: calc(88svh - 190px)` — um chute da altura dos dois
+   fixos, que errava quando eles cresciam e empurrava o botão de enviar para
+   fora da tela. `min-height: 0` é o que permite um filho flex encolher abaixo
+   do próprio conteúdo; sem isso ele não rola. */
 .body {
+  flex: 1;
+  min-height: 0;
   padding: 22px 28px 26px;
   overflow-y: auto;
-  max-height: calc(88svh - 190px);
 }
 
 .grid {

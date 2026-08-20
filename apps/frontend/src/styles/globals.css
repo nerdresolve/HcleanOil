@@ -6,7 +6,9 @@
   box-sizing: border-box;
 }
 
-* {
+/* `dialog` fica de fora: o navegador o centraliza com `margin: auto`, e zerar
+   isso joga a caixa para o canto superior esquerdo. */
+*:not(dialog) {
   margin: 0;
 }
 
