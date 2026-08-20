@@ -65,6 +65,15 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
+
+    /* `noValidate` desliga o balão do navegador para podermos mostrar o erro
+       no visual do site — mas a checagem ainda precisa acontecer aqui, senão
+       um envio vazio viaja até a API só para voltar 400. */
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
     const data = Object.fromEntries(new FormData(form));
 
     /* O <select> guarda o slug para casar com a configuração de quantidades;

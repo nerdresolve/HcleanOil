@@ -16,8 +16,6 @@ const ROUTES = [
   '/produtos/barreira-de-contencao-seafence',
   '/produtos/linha-branca',
   '/produtos/kit-sopep',
-  '/produtos/formato/cordao-absorvente',
-  '/produtos/formato/barreira-absorvente-flocada',
   '/sobre',
 ];
 

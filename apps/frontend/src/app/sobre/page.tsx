@@ -18,7 +18,7 @@ import s from './sobre.module.css';
 export const metadata: Metadata = {
   title: 'Quem somos',
   description:
-    'A HCLEAN nasceu em 2004, após o acidente com o navio Vicuña em Paranaguá, e há mais de 18 anos fabrica equipamentos para resposta a emergências ambientais no Brasil.',
+    'A HCLEAN nasceu em 2004, após o acidente com o navio Vicuña em Paranaguá, e fabrica equipamentos para resposta a emergências ambientais há mais de 18 anos.',
   alternates: { canonical: '/sobre' },
 };
 

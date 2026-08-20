@@ -18,8 +18,14 @@ export const site = {
   name: 'HCLEAN',
   legalName: 'HCLEAN Equipamentos Ambientais Ltda',
   tagline: 'Equipamentos de proteção ambiental com qualidade comprovada',
+  /**
+   * Título curto para a aba do navegador e o resultado de busca. O Google
+   * corta perto de 60 caracteres, e "HCLEAN — {tagline}" dava 68.
+   */
+  titleShort: 'Equipamentos de proteção ambiental',
+  /* Até 160 caracteres: o que passa disso o Google trunca com reticências. */
   description:
-    'Há mais de 18 anos a HCLEAN fabrica barreiras de contenção, materiais absorventes, kits de emergência e tanques para resposta a emergências ambientais em todo o Brasil.',
+    'Há mais de 18 anos fabricando barreiras de contenção, absorventes, kits de emergência e tanques para resposta a emergências ambientais no Brasil.',
   url: 'https://www.hcleanoil.com.br',
   contact: {
     email: 'contato@hcleanoil.com.br',

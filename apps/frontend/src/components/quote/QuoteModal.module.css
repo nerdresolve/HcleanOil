@@ -205,10 +205,27 @@
 }
 
 .optionHead input {
-  width: 17px;
-  height: 17px;
+  width: 18px;
+  height: 18px;
   accent-color: var(--hc-green-300);
   flex: 0 0 auto;
+}
+
+/* No toque, a caixa em si tem 18px, mas o rótulo inteiro é clicável e mede
+   mais de 44px de altura — é ele que recebe o dedo. */
+@media (max-width: 900px) {
+  .optionHead {
+    min-height: 48px;
+  }
+  .consent {
+    min-height: 44px;
+    align-items: center;
+  }
+  .consent input {
+    width: 20px;
+    height: 20px;
+    margin-top: 0;
+  }
 }
 
 .optionBody {
@@ -385,6 +402,16 @@
 @media (min-width: 560px) {
   .twoCol {
     grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 900px) {
+  /* O X é o escape do formulário; no toque precisa dos 44px. */
+  .close {
+    width: 44px;
+    height: 44px;
+    top: 10px;
+    right: 10px;
   }
 }
 

@@ -20,7 +20,7 @@ import { categories, caseStudies, faq, pillars, products, site } from '@/data/si
 import s from './home.module.css';
 
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.tagline}`,
+  title: `${site.name} — ${site.titleShort}`,
   description: site.description,
   alternates: { canonical: '/' },
 };

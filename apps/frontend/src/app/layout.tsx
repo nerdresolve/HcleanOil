@@ -6,20 +6,25 @@ import { QuoteProvider } from '@/components/quote/QuoteProvider';
 import { site } from '@/data/site';
 import '@/styles/globals.css';
 
-/* Exo 2 auto-hospedada a partir dos arquivos variáveis em src/fonts.
-   Um único arquivo cobre os pesos 100–900, e servir do próprio domínio evita
-   a conexão extra ao Google Fonts no caminho crítico. */
+/**
+ * Exo 2 auto-hospedada a partir do arquivo variável em src/fonts.
+ *
+ * Um único arquivo cobre os pesos 100–900, e servir do próprio domínio evita a
+ * conexão extra ao Google Fonts no caminho crítico.
+ *
+ * Em WOFF2, não TTF: a compressão específica para fontes corta 65% do peso
+ * (296 kB → 103 kB). Gerar com `node scripts/fonts-to-woff2.mjs`.
+ *
+ * A itálica não entra: o site não usa itálico em lugar nenhum, e carregá-la
+ * custava outros 107 kB no caminho crítico. Se algum texto precisar, é só
+ * acrescentar a entrada com `style: 'italic'`.
+ */
 const exo2 = localFont({
   src: [
     {
-      path: '../fonts/Exo2-VariableFont_wght.ttf',
+      path: '../fonts/Exo2-VariableFont_wght.woff2',
       weight: '100 900',
       style: 'normal',
-    },
-    {
-      path: '../fonts/Exo2-Italic-VariableFont_wght.ttf',
-      weight: '100 900',
-      style: 'italic',
     },
   ],
   display: 'swap',
@@ -29,7 +34,7 @@ const exo2 = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — ${site.tagline}`,
+    default: `${site.name} — ${site.titleShort}`,
     template: `%s | ${site.name}`,
   },
   description: site.description,
@@ -48,12 +53,12 @@ export const metadata: Metadata = {
     locale: 'pt_BR',
     url: site.url,
     siteName: site.name,
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} — ${site.titleShort}`,
     description: site.description,
   },
   twitter: {
     card: 'summary_large_image',
-    title: `${site.name} — ${site.tagline}`,
+    title: `${site.name} — ${site.titleShort}`,
     description: site.description,
   },
   robots: {
