@@ -152,7 +152,7 @@ export default function SobrePage() {
             eyebrow="Atendimento"
             title="Precisa de uma solução para sua operação?"
             text="Nossa equipe está preparada para entender sua necessidade e indicar os equipamentos mais adequados."
-            primary={{ href: '/contato', label: 'Solicitar atendimento' }}
+            primary={{ quote: true, label: 'Solicitar orçamento' }}
             secondary={{ href: '/produtos', label: 'Ver produtos' }}
           />
         </Container>

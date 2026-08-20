@@ -35,7 +35,6 @@ export const nav = [
   { href: '/', label: 'Início' },
   { href: '/produtos', label: 'Produtos' },
   { href: '/sobre', label: 'Quem somos' },
-  { href: '/contato', label: 'Contato' },
 ] as const;
 
 export type IconName =

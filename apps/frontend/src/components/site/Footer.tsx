@@ -2,10 +2,14 @@ import Link from 'next/link';
 import { Container } from '@/components/ui/Layout';
 import { Icon } from '@/components/ui/Icon';
 import { Logo } from '@/components/ui/Logo';
+import { QuoteLink } from '@/components/quote/QuoteLink';
 import { categories, site } from '@/data/site';
 import s from './Footer.module.css';
 
-const COLUMNS = [
+/** Um item de coluna navega (`href`) ou abre o pop-up de orçamento (`quote`). */
+type FooterLink = { label: string } & ({ href: string } | { quote: true });
+
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
   {
     title: 'Soluções',
     links: categories.map((c) => ({ href: `/produtos#${c.slug}`, label: c.name })),
@@ -21,8 +25,9 @@ const COLUMNS = [
   {
     title: 'Atendimento',
     links: [
-      { href: '/contato', label: 'Solicitar atendimento' },
-      { href: '/contato', label: 'Falar com um especialista' },
+      /* `quote` abre o pop-up de orçamento em vez de navegar. */
+      { quote: true, label: 'Solicitar orçamento' },
+      { quote: true, label: 'Falar com um especialista' },
       { href: '/produtos', label: 'Ver produtos' },
     ],
   },
@@ -69,11 +74,17 @@ export function Footer() {
           {COLUMNS.map((col) => (
             <div key={col.title} className={s.col}>
               <span className={s.colTitle}>{col.title}</span>
-              {col.links.map((l) => (
-                <Link key={l.label + l.href} href={l.href} className={s.colLink}>
-                  {l.label}
-                </Link>
-              ))}
+              {col.links.map((l) =>
+                'href' in l ? (
+                  <Link key={l.label} href={l.href} className={s.colLink}>
+                    {l.label}
+                  </Link>
+                ) : (
+                  <QuoteLink key={l.label} className={s.colLink}>
+                    {l.label}
+                  </QuoteLink>
+                ),
+              )}
             </div>
           ))}
         </div>

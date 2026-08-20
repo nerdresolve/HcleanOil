@@ -2,6 +2,7 @@ import Link from 'next/link';
 import type { ReactNode } from 'react';
 import { Container } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/data/site';
 import s from './Shared.module.css';
@@ -289,6 +290,10 @@ export function Stat({ value, label }: { value: string; label: string }) {
 
 /* ------------------------------------------------------------- cta banner */
 
+/**
+ * Faixa de chamada. A ação principal pode ser um link (`href`) ou o pop-up de
+ * orçamento (`quote`), que é o caso da maioria dos CTAs comerciais.
+ */
 export function CTABanner({
   eyebrow,
   title,
@@ -299,7 +304,7 @@ export function CTABanner({
   eyebrow?: string;
   title: string;
   text?: string;
-  primary: { href: string; label: string };
+  primary: { label: string } & ({ href: string } | { quote: true; productSlug?: string });
   secondary?: { href: string; label: string };
 }) {
   return (
@@ -325,9 +330,19 @@ export function CTABanner({
         {text ? <p className={s.ctaText}>{text}</p> : null}
       </div>
       <div className={s.ctaActions}>
-        <ButtonLink href={primary.href} size="lg" iconRight="arrow-right">
-          {primary.label}
-        </ButtonLink>
+        {'href' in primary ? (
+          <ButtonLink href={primary.href} size="lg" iconRight="arrow-right">
+            {primary.label}
+          </ButtonLink>
+        ) : (
+          <QuoteButton
+            size="lg"
+            iconRight="arrow-right"
+            productSlug={primary.productSlug}
+          >
+            {primary.label}
+          </QuoteButton>
+        )}
         {secondary ? (
           <ButtonLink href={secondary.href} size="lg" variant="inverse-outline">
             {secondary.label}

@@ -65,7 +65,7 @@ export default function HomePage() {
         posterAlt="Barreira de contenção HCLEAN cercando uma área durante operação de resposta"
         video={HERO_VIDEO}
         stats={heroStats}
-        primary={{ href: '/contato', label: 'Fale com um especialista' }}
+        primary={{ quote: true, label: 'Fale com um especialista' }}
         secondary={{ href: '/produtos', label: 'Conheça nossos produtos' }}
       />
 
@@ -241,7 +241,7 @@ export default function HomePage() {
             eyebrow="Atendimento técnico"
             title="Sua operação está preparada para uma emergência ambiental?"
             text="Conte com equipamentos adequados para contenção, absorção e atendimento. Fale com nossa equipe e encontre a solução mais adequada para sua operação."
-            primary={{ href: '/contato', label: 'Falar com um especialista' }}
+            primary={{ quote: true, label: 'Falar com um especialista' }}
             secondary={{ href: '/produtos', label: 'Ver produtos' }}
           />
         </Container>

@@ -1,5 +1,6 @@
 import { Container, Section, SectionHeading } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 
 export default function NotFound() {
   return (
@@ -15,9 +16,7 @@ export default function NotFound() {
           <ButtonLink href="/produtos" iconRight="arrow-right">
             Ver produtos
           </ButtonLink>
-          <ButtonLink href="/contato" variant="outline">
-            Solicitar atendimento
-          </ButtonLink>
+          <QuoteButton variant="outline">Solicitar orçamento</QuoteButton>
         </div>
       </Container>
     </Section>

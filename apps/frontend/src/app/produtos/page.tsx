@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Container, Section, SectionHeading, Grid } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 import {
   Hero,
   HeroCopy,
@@ -34,9 +35,7 @@ export default function ProdutosPage() {
             kits de emergência e tanques para atendimento a derramamentos.
           </HeroLead>
           <Actions>
-            <ButtonLink href="/contato" size="lg" iconRight="arrow-right">
-              Solicitar atendimento
-            </ButtonLink>
+            <QuoteButton size="lg" iconRight="arrow-right">Solicitar orçamento</QuoteButton>
           </Actions>
         </HeroCopy>
       </Hero>
@@ -88,7 +87,7 @@ export default function ProdutosPage() {
             eyebrow="Atendimento"
             title="Precisa de uma solução para sua operação?"
             text="Nossa equipe está preparada para entender sua necessidade e indicar os equipamentos mais adequados."
-            primary={{ href: '/contato', label: 'Solicitar atendimento' }}
+            primary={{ quote: true, label: 'Solicitar orçamento' }}
           />
         </Container>
       </Section>

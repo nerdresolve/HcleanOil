@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 import { Container } from '@/components/ui/Layout';
 import { Icon } from '@/components/ui/Icon';
 import type { IconName } from '@/data/site';
@@ -12,7 +13,8 @@ type Props = {
   /** Segunda linha do título, destacada em verde. */
   titleAccent?: string;
   lead: string;
-  primary: { href: string; label: string };
+  /** A ação principal pode navegar (`href`) ou abrir o pop-up (`quote`). */
+  primary: { label: string } & ({ href: string } | { quote: true });
   secondary?: { href: string; label: string };
   stats?: Stat[];
   /** Vídeo de fundo. Sem ele, o hero usa só o poster. */
@@ -103,9 +105,15 @@ export function VideoHero({
           ) : null}
 
           <div className={s.actions}>
-            <ButtonLink href={primary.href} size="lg" iconRight="arrow-right">
-              {primary.label}
-            </ButtonLink>
+            {'href' in primary ? (
+              <ButtonLink href={primary.href} size="lg" iconRight="arrow-right">
+                {primary.label}
+              </ButtonLink>
+            ) : (
+              <QuoteButton size="lg" iconRight="arrow-right">
+                {primary.label}
+              </QuoteButton>
+            )}
             {secondary ? (
               <ButtonLink href={secondary.href} size="lg" variant="inverse-outline">
                 {secondary.label}

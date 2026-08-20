@@ -8,6 +8,14 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  async redirects() {
+    return [
+      /* O formulário virou pop-up e a página deixou de existir, mas a URL
+         estava indexada e circula em assinaturas de e-mail. Redirect
+         permanente para a home preserva esse tráfego. */
+      { source: '/contato', destination: '/', permanent: true },
+    ];
+  },
   async headers() {
     return [
       {

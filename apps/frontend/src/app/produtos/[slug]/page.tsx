@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Container, Section, SectionHeading, Grid, Badge } from '@/components/ui/Layout';
 import { ButtonLink } from '@/components/ui/Button';
+import { QuoteButton } from '@/components/quote/QuoteButton';
 import { Icon } from '@/components/ui/Icon';
 import {
   Hero,
@@ -93,12 +94,8 @@ export default async function ProdutoPage({ params }: Params) {
             <HeroTitle>{product.name}</HeroTitle>
             <HeroLead>{product.lead}</HeroLead>
             <Actions>
-              <ButtonLink href="/contato" size="lg" iconRight="arrow-right">
-                Solicitar cotação
-              </ButtonLink>
-              <ButtonLink href="/contato" size="lg" variant="inverse-outline">
-                Falar com um especialista
-              </ButtonLink>
+              <QuoteButton size="lg" iconRight="arrow-right" productSlug={product.slug}>Solicitar cotação</QuoteButton>
+              <QuoteButton size="lg" variant="inverse-outline" productSlug={product.slug}>Falar com um especialista</QuoteButton>
             </Actions>
           </HeroCopy>
           <div className={s.heroImage}>
@@ -228,7 +225,7 @@ export default async function ProdutoPage({ params }: Params) {
             eyebrow="Atendimento técnico"
             title="Precisa definir qual solução atende sua operação?"
             text="Nossa equipe pode ajudar você a identificar o equipamento mais adequado para sua necessidade."
-            primary={{ href: '/contato', label: 'Falar com a equipe técnica' }}
+            primary={{ quote: true, productSlug: product.slug, label: 'Solicitar orçamento' }}
           />
         </Container>
       </Section>
