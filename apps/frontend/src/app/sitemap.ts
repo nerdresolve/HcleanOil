@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { products, site } from '@/data/site';
+import { formatos } from '@/data/formatos';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -22,5 +23,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticRoutes, ...productRoutes];
+  /* Páginas por formato: reúnem o mesmo item nas três linhas, para quem
+     procura "cordão absorvente" e não sabe o que é "linha branca". */
+  const formatRoutes = formatos.map((f) => ({
+    url: `${site.url}/produtos/formato/${f.slug}`,
+    lastModified: now,
+    changeFrequency: 'monthly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticRoutes, ...productRoutes, ...formatRoutes];
 }

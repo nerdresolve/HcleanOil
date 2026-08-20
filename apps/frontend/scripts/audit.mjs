@@ -35,6 +35,8 @@ const ROUTES = [
   '/produtos/kit-sopep',
   '/produtos/kit-primeiro-atendimento',
   '/produtos/tanque-terrestre',
+  '/produtos/formato/cordao-absorvente',
+  '/produtos/formato/barreira-absorvente-flocada',
   '/sobre',
   '/rota-que-nao-existe',
 ];
