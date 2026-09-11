@@ -24,6 +24,12 @@ apps/frontend/scripts/screenshots/
 *.key
 credentials.json
 
+# Design system de referencia: 1,8 MB de HTML exportado, que nada no projeto
+# importa. Versionado, respondia sozinho por 82% da barra de linguagens do
+# GitHub e fazia o repositorio parecer um projeto HTML. Fica no disco de quem
+# trabalha nele; os tokens que importam ja vivem em src/styles/tokens.css.
+hclean-designsystem.html
+
 # ----------------------------------------------- documentos internos do cliente
 # Tabela de precos, negociacoes em aberto e decisoes comerciais. O repositorio
 # e publico; estes arquivos ficam so no disco de quem trabalha no projeto.
