@@ -1,15 +1,18 @@
-[![HCLEAN: equipamentos para resposta a emergências ambientais](/nerdresolve/hcleanoil/raw/main/docs/brand/banner.svg)](/nerdresolve/hcleanoil/blob/main/docs/brand/banner.svg)
+<div align="center">
 
-# HCLEAN
+<img src="docs/brand/banner.svg" alt="HCLEAN: equipamentos para resposta a emergências ambientais" width="100%">
 
 Site institucional de uma fornecedora técnica B2B de equipamentos para resposta
-a emergências ambientais: barreiras de contenção, absorventes industriais e kits
-de atendimento.
+a emergências ambientais. O visitante monta o pedido num pop-up e recebe a
+proposta comercial em PDF, gerada na hora.
 
-O site funciona como plataforma de geração de leads, não como e-commerce. Os
-CTAs são "Solicitar atendimento", "Solicitar cotação" e "Falar com um
-especialista". O visitante monta o pedido num pop-up, e a API responde com uma
-proposta comercial em PDF gerada na hora.
+[![Licença](https://img.shields.io/badge/licen%C3%A7a-todos%20os%20direitos%20reservados-0e3d27)](LICENSE) ![Stack](https://img.shields.io/badge/Next.js%2016-React%2019-061a11) ![API](https://img.shields.io/badge/Express-Playwright-175034) ![Deploy](https://img.shields.io/badge/Docker-Cloudflare%20Tunnel-00bf63)
+
+**[Ver o site](https://hclean.nerdresolve.com)** · [As telas](#as-telas) · [O que resolve](#o-que-o-projeto-resolve) · [Publicação](#publicação) · [Licença](#licença)
+
+</div>
+
+---
 
 ```
 apps/
@@ -36,36 +39,39 @@ atrasar o envio.
 
 ## As telas
 
-Clique numa imagem para ver a página inteira.
-
-[![Home: hero em tela cheia com os números da operação](/nerdresolve/hcleanoil/raw/main/docs/telas/01-home-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/01-home.webp "ver a página inteira")
-
-O pop-up de orçamento funciona como um carrinho: cada produto escolhido vira um
+O pop-up de orçamento é o centro do projeto: cada produto escolhido vira um
 cartão com suas variantes e quantidades, e o seletor fica livre para o próximo.
 
-[![Pop-up de orçamento com dois produtos no mesmo pedido](/nerdresolve/hcleanoil/raw/main/docs/telas/07-orcamento-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/07-orcamento.webp "ver a página inteira")
+<div align="center">
+<img src="docs/telas/07-orcamento-card.webp" alt="Pop-up de orçamento com vários produtos no mesmo pedido" width="88%">
+</div>
 
-A vitrine reúne as três linhas de absorvente, as barreiras, os kits e o tanque.
+<table>
+<tr>
+<td width="50%"><a href="docs/telas/01-home.webp" title="ver a página inteira"><img src="docs/telas/01-home-card.webp" alt="Home do site"></a><br><sub><b>Home</b> · hero em tela cheia e os números da operação</sub></td>
+<td width="50%"><a href="docs/telas/02-produtos.webp" title="ver a página inteira"><img src="docs/telas/02-produtos-card.webp" alt="Vitrine de produtos"></a><br><sub><b>Produtos</b> · as três linhas, barreiras, kits e o tanque</sub></td>
+</tr>
+<tr>
+<td width="50%"><a href="docs/telas/03-produto.webp" title="ver a página inteira"><img src="docs/telas/03-produto-card.webp" alt="Página da Linha Branca"></a><br><sub><b>Produto</b> · dados técnicos de fábrica por linha</sub></td>
+<td width="50%"><a href="docs/telas/04-formato.webp" title="ver a página inteira"><img src="docs/telas/04-formato-card.webp" alt="Página por formato"></a><br><sub><b>Formato</b> · o mesmo formato nas três linhas, lado a lado</sub></td>
+</tr>
+<tr>
+<td width="50%"><a href="docs/telas/05-sobre.webp" title="ver a página inteira"><img src="docs/telas/05-sobre-card.webp" alt="Página institucional"></a><br><sub><b>Sobre</b> · a operação e a experiência da empresa</sub></td>
+<td width="50%"><a href="docs/telas/07-orcamento.webp" title="ver a página inteira"><img src="docs/telas/07-orcamento-card.webp" alt="Pop-up de orçamento"></a><br><sub><b>Orçamento</b> · vários produtos no mesmo pedido</sub></td>
+</tr>
+</table>
 
-[![Vitrine de produtos](/nerdresolve/hcleanoil/raw/main/docs/telas/02-produtos-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/02-produtos.webp "ver a página inteira")
+### No celular
 
-Cada linha tem página própria, com os dados técnicos de fábrica: gramaturas,
-dimensões, taxas de absorção e composições.
+O mesmo conteúdo se reorganiza em uma coluna, com os alvos de toque em 44px.
 
-[![Página de produto: Linha Branca](/nerdresolve/hcleanoil/raw/main/docs/telas/03-produto-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/03-produto.webp "ver a página inteira")
+<div align="center">
+<a href="docs/telas/06-mobile.webp" title="ver a página inteira"><img src="docs/telas/06-mobile-card.webp" alt="Home no telefone" width="320"></a>
+</div>
 
-As páginas por formato comparam o mesmo formato nas três linhas, lado a lado,
-em vez de repetir o texto de uma.
+---
 
-[![Página por formato: manta absorvente nas três linhas](/nerdresolve/hcleanoil/raw/main/docs/telas/04-formato-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/04-formato.webp "ver a página inteira")
-
-[![Página institucional](/nerdresolve/hcleanoil/raw/main/docs/telas/05-sobre-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/05-sobre.webp "ver a página inteira")
-
-No telefone o mesmo conteúdo se reorganiza em uma coluna, com os alvos de toque
-em 44px.
-
-[![Home no telefone](/nerdresolve/hcleanoil/raw/main/docs/telas/06-mobile-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/06-mobile.webp "ver a página inteira")
-
+---
 
 ## Frontend
 
@@ -103,6 +109,8 @@ npm run build && npm start     # produção
 
 Todo o catálogo vive em `src/data/site.ts`. Adicionar um produto ali já gera a
 página, o card, o sitemap e os "produtos relacionados".
+
+---
 
 ## Backend
 
@@ -159,6 +167,8 @@ recebe a confirmação não vê o endereço.
   descartada em silêncio, sem revelar que foi detectada.
 * CORS restrito às origens em `CORS_ORIGINS`.
 
+---
+
 ## Publicação
 
 Site, API e túnel sobem juntos em containers:
@@ -188,6 +198,8 @@ Credenciais nunca entram nas imagens. Chegam por `env_file` na subida, e os
 | Roteamento do túnel | `infra/cloudflared/config.yml` |
 | Variáveis da API | `apps/backend/.env` (fora do versionamento) |
 
+---
+
 ## Licença
 
 © 2026 NerdResolve. Todos os direitos reservados.
@@ -199,6 +211,6 @@ redistribuição. Ver [LICENSE](LICENSE).
 A marca, as fotografias e o conteúdo institucional da HCLEAN pertencem à
 titular e não são licenciados por este repositório.
 
-<p align="center">
-  <img src="/nerdresolve/hcleanoil/raw/main/apps/frontend/public/marca/hclean-simbolo.webp" width="72" alt="">
-</p>
+<div align="center">
+<img src="apps/frontend/public/marca/hclean-simbolo.webp" width="64" alt="">
+</div>
