@@ -1,5 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="HCLEAN: site institucional e gerador de propostas">
-  <title>HCLEAN: site institucional e gerador de propostas</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-label="HCLEAN: equipamentos para resposta a emergências ambientais">
+  <title>HCLEAN: equipamentos para resposta a emergências ambientais</title>
+
+  <!--
+    A marca vem do componente oficial do site (src/components/ui/Logo.tsx):
+    disco com duas ondas, a azul-petroleo ao fundo e a verde-menta a frente,
+    separadas por um fio branco, dentro de um anel. Os caminhos e os gradientes
+    sao os mesmos, so reescalados. Nao redesenhar: qualquer aproximacao
+    descaracteriza a marca do cliente.
+  -->
 
   <defs>
     <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
@@ -8,88 +16,102 @@
       <stop offset="100%" stop-color="#175034"/>
     </linearGradient>
 
-    <linearGradient id="verde" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#00bf63"/>
-      <stop offset="100%" stop-color="#6fd9a3"/>
+    <!-- Onda da frente: verde-menta descendo para esmeralda. -->
+    <linearGradient id="onda-frente" x1="0" y1="0.2" x2="1" y2="0.9">
+      <stop offset="0" stop-color="#7FD9AE"/>
+      <stop offset="0.45" stop-color="#42B383"/>
+      <stop offset="1" stop-color="#2C8F63"/>
     </linearGradient>
 
-    <!-- Vinheta que escurece as bordas e segura o olho no centro. -->
-    <radialGradient id="vinheta" cx="0.5" cy="0.45" r="0.75">
-      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
-      <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+    <!-- Onda de tras: verde profundo virando azul-petroleo. -->
+    <linearGradient id="onda-tras" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2F7D52"/>
+      <stop offset="0.5" stop-color="#2C7FA8"/>
+      <stop offset="1" stop-color="#4FA3CE"/>
+    </linearGradient>
+
+    <radialGradient id="halo" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="55%" stop-color="#00bf63" stop-opacity="0.20"/>
+      <stop offset="100%" stop-color="#00bf63" stop-opacity="0"/>
     </radialGradient>
 
-    <clipPath id="moldura">
-      <rect width="1280" height="320" rx="16"/>
-    </clipPath>
+    <radialGradient id="vinheta" cx="0.5" cy="0.42" r="0.78">
+      <stop offset="58%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.5"/>
+    </radialGradient>
+
+    <clipPath id="disco"><circle cx="100" cy="100" r="82"/></clipPath>
+    <clipPath id="moldura"><rect width="1280" height="400" rx="16"/></clipPath>
   </defs>
 
   <g clip-path="url(#moldura)">
-    <rect width="1280" height="320" fill="url(#fundo)"/>
+    <rect width="1280" height="400" fill="url(#fundo)"/>
 
-    <!-- Barreira de contencao: a curva e o produto que define a empresa. -->
-    <g fill="none" stroke-linecap="round" opacity="0.5">
-      <path d="M-40 236 C 200 196, 420 268, 660 226 S 1100 172, 1320 214"
-            stroke="#00bf63" stroke-opacity="0.28" stroke-width="2.5"/>
-      <path d="M-40 262 C 220 224, 440 292, 680 252 S 1120 200, 1320 240"
-            stroke="#6fd9a3" stroke-opacity="0.16" stroke-width="2"/>
+    <!-- Barreira de contencao: a curva que define o produto da empresa. -->
+    <g fill="none" opacity="0.45">
+      <path d="M-40 300 C 220 258, 470 332, 720 288 S 1120 232, 1330 276"
+            stroke="#00bf63" stroke-opacity="0.24" stroke-width="2.5"/>
+      <path d="M-40 330 C 240 288, 500 358, 750 314 S 1140 262, 1330 304"
+            stroke="#6fd9a3" stroke-opacity="0.14" stroke-width="2"/>
+    </g>
+    <g fill="#00bf63" opacity="0.28">
+      <circle cx="180" cy="286" r="4"/><circle cx="420" cy="308" r="4"/>
+      <circle cx="660" cy="298" r="4"/><circle cx="900" cy="262" r="4"/>
+      <circle cx="1140" cy="258" r="4"/>
     </g>
 
-    <!-- Flutuadores ao longo da barreira. -->
-    <g fill="#00bf63" opacity="0.3">
-      <circle cx="140" cy="222" r="4"/>
-      <circle cx="330" cy="238" r="4"/>
-      <circle cx="520" cy="246" r="4"/>
-      <circle cx="720" cy="222" r="4"/>
-      <circle cx="920" cy="200" r="4"/>
-      <circle cx="1120" cy="200" r="4"/>
+    <rect width="1280" height="400" fill="url(#vinheta)"/>
+
+    <!-- ================================================== marca, em destaque -->
+    <!-- Halo que descola o simbolo do fundo escuro. -->
+    <circle cx="248" cy="168" r="150" fill="url(#halo)"/>
+
+    <!-- Simbolo oficial: 200x200 do componente, levado a 224px. -->
+    <g transform="translate(136 56) scale(1.12)">
+      <circle cx="100" cy="100" r="87" fill="none" stroke="rgba(247,247,247,.95)" stroke-width="8"/>
+      <g clip-path="url(#disco)">
+        <path d="M10 126 C46 92, 86 92, 122 116 C148 133, 170 136, 192 122 L192 200 L10 200 Z"
+              fill="url(#onda-tras)"/>
+        <path d="M10 140 C46 106, 86 106, 122 130 C148 147, 170 150, 192 136
+                 L192 149 C170 163, 148 160, 122 143 C86 119, 46 119, 10 153 Z"
+              fill="rgba(255,255,255,.95)"/>
+        <path d="M10 154 C46 120, 86 120, 122 144 C148 161, 170 164, 192 150 L192 200 L10 200 Z"
+              fill="url(#onda-frente)"/>
+      </g>
     </g>
 
-    <rect width="1280" height="320" fill="url(#vinheta)"/>
+    <!-- Palavra: peso 600 e tracking 0.11em, como no lockup do site. -->
+    <text x="412" y="186"
+          font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
+          font-size="104" font-weight="600" fill="#F4F8F6" letter-spacing="11.4">HCLEAN</text>
 
-    <!-- Simbolo: onda contida por um circulo, como no logotipo. -->
-    <g transform="translate(96 122)">
-      <circle cx="36" cy="36" r="34" fill="none" stroke="url(#verde)" stroke-width="3"/>
-      <path d="M8 44 C 20 30, 32 54, 44 40 S 60 26, 66 34"
-            fill="none" stroke="#6fd9a3" stroke-width="3" stroke-linecap="round"/>
-      <path d="M12 54 C 26 44, 40 62, 56 50"
-            fill="none" stroke="#00bf63" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
-    </g>
-
-    <text x="196" y="150"
-          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
-          font-size="62" font-weight="700" fill="#ffffff" letter-spacing="10">HCLEAN</text>
-
-    <text x="200" y="192"
-          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
-          font-size="21" font-weight="500" fill="#6fd9a3" letter-spacing="0.5">
+    <text x="416" y="236"
+          font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
+          font-size="25" font-weight="500" fill="#6fd9a3" letter-spacing="0.4">
       Equipamentos para resposta a emergências ambientais
     </text>
 
-    <text x="200" y="224"
-          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
-          font-size="16" font-weight="400" fill="#d8f2e4" fill-opacity="0.72" letter-spacing="0.3">
+    <text x="416" y="272"
+          font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
+          font-size="17" font-weight="400" fill="#d8f2e4" fill-opacity="0.7">
       Site institucional, pop-up de orçamento e proposta comercial em PDF gerada na hora
     </text>
 
-    <!-- Pilha tecnica, alinhada a base. -->
-    <g font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1.2">
-      <g fill="#00bf63" fill-opacity="0.9">
-        <text x="200" y="272">NEXT.JS 16</text>
-        <text x="330" y="272">TYPESCRIPT</text>
-        <text x="470" y="272">EXPRESS</text>
-        <text x="580" y="272">PLAYWRIGHT</text>
-        <text x="720" y="272">DOCKER</text>
+    <g font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif" font-size="13"
+       font-weight="600" letter-spacing="1.3">
+      <g fill="#00bf63" fill-opacity="0.88">
+        <text x="416" y="324">NEXT.JS 16</text>
+        <text x="546" y="324">TYPESCRIPT</text>
+        <text x="686" y="324">EXPRESS</text>
+        <text x="796" y="324">PLAYWRIGHT</text>
+        <text x="936" y="324">DOCKER</text>
       </g>
       <g fill="#43775e">
-        <text x="311" y="272">·</text>
-        <text x="451" y="272">·</text>
-        <text x="561" y="272">·</text>
-        <text x="701" y="272">·</text>
+        <text x="527" y="324">·</text><text x="667" y="324">·</text>
+        <text x="777" y="324">·</text><text x="917" y="324">·</text>
       </g>
     </g>
 
-    <!-- Fio de luz no topo, que dá acabamento ao cartão. -->
-    <rect x="0" y="0" width="1280" height="3" fill="url(#verde)" opacity="0.85"/>
+    <rect x="0" y="0" width="1280" height="3" fill="#00bf63" opacity="0.85"/>
   </g>
 </svg>

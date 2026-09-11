@@ -71,8 +71,6 @@ O mesmo conteúdo se reorganiza em uma coluna, com os alvos de toque em 44px.
 
 ---
 
----
-
 ## Frontend
 
 Next.js com App Router. As páginas são geradas no build, incluindo as de
