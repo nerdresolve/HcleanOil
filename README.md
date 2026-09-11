@@ -1,3 +1,5 @@
+[![HCLEAN: equipamentos para resposta a emergências ambientais](/nerdresolve/hcleanoil/raw/main/docs/brand/banner.svg)](/nerdresolve/hcleanoil/blob/main/docs/brand/banner.svg)
+
 # HCLEAN
 
 Site institucional de uma fornecedora técnica B2B de equipamentos para resposta
@@ -31,6 +33,39 @@ Quando algum item do pedido não tem preço de tabela, a proposta não sai para 
 cliente. Ela vai apenas para a equipe, com alerta, para que alguém complete os
 valores à mão. Errar um preço numa proposta comercial custa mais caro do que
 atrasar o envio.
+
+## As telas
+
+Clique numa imagem para ver a página inteira.
+
+[![Home: hero em tela cheia com os números da operação](/nerdresolve/hcleanoil/raw/main/docs/telas/01-home-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/01-home.webp "ver a página inteira")
+
+O pop-up de orçamento funciona como um carrinho: cada produto escolhido vira um
+cartão com suas variantes e quantidades, e o seletor fica livre para o próximo.
+
+[![Pop-up de orçamento com dois produtos no mesmo pedido](/nerdresolve/hcleanoil/raw/main/docs/telas/07-orcamento-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/07-orcamento.webp "ver a página inteira")
+
+A vitrine reúne as três linhas de absorvente, as barreiras, os kits e o tanque.
+
+[![Vitrine de produtos](/nerdresolve/hcleanoil/raw/main/docs/telas/02-produtos-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/02-produtos.webp "ver a página inteira")
+
+Cada linha tem página própria, com os dados técnicos de fábrica: gramaturas,
+dimensões, taxas de absorção e composições.
+
+[![Página de produto: Linha Branca](/nerdresolve/hcleanoil/raw/main/docs/telas/03-produto-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/03-produto.webp "ver a página inteira")
+
+As páginas por formato comparam o mesmo formato nas três linhas, lado a lado,
+em vez de repetir o texto de uma.
+
+[![Página por formato: manta absorvente nas três linhas](/nerdresolve/hcleanoil/raw/main/docs/telas/04-formato-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/04-formato.webp "ver a página inteira")
+
+[![Página institucional](/nerdresolve/hcleanoil/raw/main/docs/telas/05-sobre-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/05-sobre.webp "ver a página inteira")
+
+No telefone o mesmo conteúdo se reorganiza em uma coluna, com os alvos de toque
+em 44px.
+
+[![Home no telefone](/nerdresolve/hcleanoil/raw/main/docs/telas/06-mobile-card.webp)](/nerdresolve/hcleanoil/blob/main/docs/telas/06-mobile.webp "ver a página inteira")
+
 
 ## Frontend
 
@@ -163,3 +198,7 @@ redistribuição. Ver [LICENSE](LICENSE).
 
 A marca, as fotografias e o conteúdo institucional da HCLEAN pertencem à
 titular e não são licenciados por este repositório.
+
+<p align="center">
+  <img src="/nerdresolve/hcleanoil/raw/main/apps/frontend/public/marca/hclean-simbolo.webp" width="72" alt="">
+</p>

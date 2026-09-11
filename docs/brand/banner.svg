@@ -1,0 +1,95 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320" role="img" aria-label="HCLEAN: site institucional e gerador de propostas">
+  <title>HCLEAN: site institucional e gerador de propostas</title>
+
+  <defs>
+    <linearGradient id="fundo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#061a11"/>
+      <stop offset="55%" stop-color="#0e3d27"/>
+      <stop offset="100%" stop-color="#175034"/>
+    </linearGradient>
+
+    <linearGradient id="verde" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#00bf63"/>
+      <stop offset="100%" stop-color="#6fd9a3"/>
+    </linearGradient>
+
+    <!-- Vinheta que escurece as bordas e segura o olho no centro. -->
+    <radialGradient id="vinheta" cx="0.5" cy="0.45" r="0.75">
+      <stop offset="60%" stop-color="#000" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000" stop-opacity="0.45"/>
+    </radialGradient>
+
+    <clipPath id="moldura">
+      <rect width="1280" height="320" rx="16"/>
+    </clipPath>
+  </defs>
+
+  <g clip-path="url(#moldura)">
+    <rect width="1280" height="320" fill="url(#fundo)"/>
+
+    <!-- Barreira de contencao: a curva e o produto que define a empresa. -->
+    <g fill="none" stroke-linecap="round" opacity="0.5">
+      <path d="M-40 236 C 200 196, 420 268, 660 226 S 1100 172, 1320 214"
+            stroke="#00bf63" stroke-opacity="0.28" stroke-width="2.5"/>
+      <path d="M-40 262 C 220 224, 440 292, 680 252 S 1120 200, 1320 240"
+            stroke="#6fd9a3" stroke-opacity="0.16" stroke-width="2"/>
+    </g>
+
+    <!-- Flutuadores ao longo da barreira. -->
+    <g fill="#00bf63" opacity="0.3">
+      <circle cx="140" cy="222" r="4"/>
+      <circle cx="330" cy="238" r="4"/>
+      <circle cx="520" cy="246" r="4"/>
+      <circle cx="720" cy="222" r="4"/>
+      <circle cx="920" cy="200" r="4"/>
+      <circle cx="1120" cy="200" r="4"/>
+    </g>
+
+    <rect width="1280" height="320" fill="url(#vinheta)"/>
+
+    <!-- Simbolo: onda contida por um circulo, como no logotipo. -->
+    <g transform="translate(96 122)">
+      <circle cx="36" cy="36" r="34" fill="none" stroke="url(#verde)" stroke-width="3"/>
+      <path d="M8 44 C 20 30, 32 54, 44 40 S 60 26, 66 34"
+            fill="none" stroke="#6fd9a3" stroke-width="3" stroke-linecap="round"/>
+      <path d="M12 54 C 26 44, 40 62, 56 50"
+            fill="none" stroke="#00bf63" stroke-width="2.5" stroke-linecap="round" opacity="0.75"/>
+    </g>
+
+    <text x="196" y="150"
+          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
+          font-size="62" font-weight="700" fill="#ffffff" letter-spacing="10">HCLEAN</text>
+
+    <text x="200" y="192"
+          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
+          font-size="21" font-weight="500" fill="#6fd9a3" letter-spacing="0.5">
+      Equipamentos para resposta a emergências ambientais
+    </text>
+
+    <text x="200" y="224"
+          font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif"
+          font-size="16" font-weight="400" fill="#d8f2e4" fill-opacity="0.72" letter-spacing="0.3">
+      Site institucional, pop-up de orçamento e proposta comercial em PDF gerada na hora
+    </text>
+
+    <!-- Pilha tecnica, alinhada a base. -->
+    <g font-family="'Exo 2', 'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" letter-spacing="1.2">
+      <g fill="#00bf63" fill-opacity="0.9">
+        <text x="200" y="272">NEXT.JS 16</text>
+        <text x="330" y="272">TYPESCRIPT</text>
+        <text x="470" y="272">EXPRESS</text>
+        <text x="580" y="272">PLAYWRIGHT</text>
+        <text x="720" y="272">DOCKER</text>
+      </g>
+      <g fill="#43775e">
+        <text x="311" y="272">·</text>
+        <text x="451" y="272">·</text>
+        <text x="561" y="272">·</text>
+        <text x="701" y="272">·</text>
+      </g>
+    </g>
+
+    <!-- Fio de luz no topo, que dá acabamento ao cartão. -->
+    <rect x="0" y="0" width="1280" height="3" fill="url(#verde)" opacity="0.85"/>
+  </g>
+</svg>
