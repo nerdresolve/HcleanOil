@@ -6,6 +6,7 @@ import { QuoteLink } from '@/components/quote/QuoteLink';
 import { categories, site } from '@/data/site';
 import s from './Footer.module.css';
 
+import NerdResolveBadge from './NerdResolveBadge';
 /** Um item de coluna navega (`href`) ou abre o pop-up de orçamento (`quote`). */
 type FooterLink = { label: string } & ({ href: string } | { quote: true });
 
@@ -96,6 +97,7 @@ export function Footer() {
             <span>{site.contact.hours}</span>
           </div>
         </Container>
+        <NerdResolveBadge />
       </footer>
     </>
   );

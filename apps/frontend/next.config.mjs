@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  /* Empacota o servidor com só as dependências que ele usa de fato. É o que
+     permite a imagem Docker rodar sem node_modules e sem o código-fonte. */
+  output: 'standalone',
   // O site é institucional e quase todo estático: gerar HTML no build deixa o
   // LCP no tempo de resposta do CDN, que é o que o Core Web Vitals mede.
   compress: true,

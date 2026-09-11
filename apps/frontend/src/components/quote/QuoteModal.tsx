@@ -25,16 +25,54 @@ type Props = {
   productSlug?: string;
 };
 
+/**
+ * Um produto já adicionado ao pedido, com as variantes marcadas.
+ *
+ * As quantidades não vivem aqui: continuam nos inputs, e o FormData as lê no
+ * envio. Guardar só a seleção evita duplicar estado — e mantém o valor
+ * digitado intacto quando o cliente adiciona outro produto.
+ */
+type CartEntry = {
+  slug: string;
+  name: string;
+  /** Ids das variantes marcadas. Variante única entra já marcada. */
+  options: string[];
+};
+
+/**
+ * Nome do campo enviado à API.
+ *
+ * O produto vai embutido no rótulo de propósito: no backend, o
+ * reconhecimento por rótulo tem prioridade sobre o produto do formulário
+ * (`reconhecer()` em proposta/orcamento.ts). Com vários produtos no mesmo
+ * pedido não existe mais "o produto" único, então cada linha precisa se
+ * identificar sozinha — senão manta e cordão cairiam no mesmo preço.
+ */
+function fieldName(product: string, option: string, label: string, unit: string) {
+  /* Quando a variante já repete o nome do produto ("Kit SOPEP 200 L" dentro
+     de "Kits SOPEP"), não duplica o prefixo. */
+  const base = option.toLowerCase().includes(product.toLowerCase())
+    ? option
+    : `${product} — ${option}`;
+  /* Se a variante já diz o que é ("Metragem desejada"), o rótulo do campo
+     seria redundante. */
+  return option.toLowerCase().includes(label.toLowerCase())
+    ? `${base} (${unit})`
+    : `${base} — ${label} (${unit})`;
+}
+
 export function QuoteModal({ open, onClose, productSlug }: Props) {
   const ref = useRef<HTMLDialogElement>(null);
-  const [slug, setSlug] = useState(productSlug ?? '');
-  const [picked, setPicked] = useState<Record<string, boolean>>({});
+  /* Produtos já adicionados ao pedido. Cada um guarda as variantes marcadas;
+     as quantidades ficam nos próprios inputs, lidas no envio pelo FormData. */
+  const [cart, setCart] = useState<CartEntry[]>([]);
+  /* Produto em foco no seletor — ainda não faz parte do pedido. */
+  const [slug, setSlug] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [message, setMessage] = useState('');
 
   const config = slug ? findQuoteProduct(slug) : undefined;
-  /* Variante única não precisa de caixa de seleção: já vem marcada. */
-  const singleOption = config?.options.length === 1 ? config.options[0] : undefined;
+  const alreadyInCart = cart.some((c) => c.slug === slug);
 
   /* Abre e fecha o <dialog> nativo em resposta à prop. showModal() é o que
      ativa a camada superior, o backdrop e a prisão de foco. */
@@ -45,11 +83,14 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
     if (!open && el.open) el.close();
   }, [open]);
 
-  /* Ao reabrir, volta ao estado inicial com o produto pedido. */
+  /* Ao reabrir, volta ao estado inicial. Quando o pop-up nasce de uma página
+     de produto, esse produto já entra no pedido — era o comportamento antigo
+     e continua sendo o esperado por quem clicou ali. */
   useEffect(() => {
     if (!open) return;
-    setSlug(productSlug ?? '');
-    setPicked({});
+    const inicial = productSlug ? entryFor(productSlug) : undefined;
+    setCart(inicial ? [inicial] : []);
+    setSlug('');
     setStatus('idle');
     setMessage('');
   }, [open, productSlug]);
@@ -64,9 +105,43 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
     };
   }, [open]);
 
-  function handleProductChange(next: string) {
-    setSlug(next);
-    setPicked({});
+  /** Monta a entrada do carrinho, já com a variante marcada quando é única. */
+  function entryFor(next: string): CartEntry | undefined {
+    const produto = products.find((p) => p.slug === next);
+    if (!produto) return undefined;
+    const cfg = findQuoteProduct(next);
+    return {
+      slug: next,
+      name: produto.name,
+      /* Variante única não tem o que escolher: já entra marcada. */
+      options: cfg?.options.length === 1 ? [cfg.options[0]!.id] : [],
+    };
+  }
+
+  function addProduct(next: string) {
+    const entry = entryFor(next);
+    if (!entry || cart.some((c) => c.slug === next)) return;
+    setCart((prev) => [...prev, entry]);
+    setSlug(''); // libera o seletor para o próximo produto
+  }
+
+  function removeProduct(next: string) {
+    setCart((prev) => prev.filter((c) => c.slug !== next));
+  }
+
+  function toggleOption(productSlugKey: string, optionId: string, on: boolean) {
+    setCart((prev) =>
+      prev.map((c) =>
+        c.slug === productSlugKey
+          ? {
+              ...c,
+              options: on
+                ? [...c.options, optionId]
+                : c.options.filter((o) => o !== optionId),
+            }
+          : c,
+      ),
+    );
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -83,10 +158,11 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
 
     const data = Object.fromEntries(new FormData(form));
 
-    /* O <select> guarda o slug para casar com a configuração de quantidades;
-       no e-mail o que importa é o nome legível. */
-    const chosen = products.find((p) => p.slug === data.produto);
-    if (chosen) data.produto = chosen.name;
+    /* `produto` continua existindo como texto legível — é o que aparece no
+       cabeçalho do e-mail e serve de fallback no reconhecimento do backend.
+       Com vários produtos vira uma lista; cada quantidade já carrega o nome
+       do seu produto no próprio rótulo. */
+    data.produto = cart.map((c) => c.name).join(', ');
 
     setStatus('sending');
     setMessage('');
@@ -248,68 +324,122 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
                 </select>
               </div>
 
+              {/* ------------------------------------------------ pedido */}
               <div className={s.field}>
                 <label className={s.label} htmlFor="q-produto">
-                  Produto de interesse
+                  Produtos de interesse
                 </label>
-                <select
-                  className={s.select}
-                  id="q-produto"
-                  name="produto"
-                  value={slug}
-                  onChange={(e) => handleProductChange(e.target.value)}
-                >
-                  <option value="">Selecione um produto</option>
-                  {products.map((p) => (
-                    <option key={p.slug} value={p.slug}>
-                      {p.name}
+                <div className={s.picker}>
+                  <select
+                    className={s.select}
+                    id="q-produto"
+                    value={slug}
+                    onChange={(e) => {
+                      /* Adiciona na hora da escolha: pedir um clique a mais
+                         em "Adicionar" seria um passo sem função. */
+                      if (e.target.value) addProduct(e.target.value);
+                    }}
+                  >
+                    <option value="">
+                      {cart.length ? 'Adicionar outro produto…' : 'Selecione um produto'}
                     </option>
-                  ))}
-                </select>
+                    {products.map((p) => (
+                      <option
+                        key={p.slug}
+                        value={p.slug}
+                        disabled={cart.some((c) => c.slug === p.slug)}
+                      >
+                        {p.name}
+                        {cart.some((c) => c.slug === p.slug) ? ' — já adicionado' : ''}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                {!cart.length ? (
+                  <p className={s.hint}>
+                    Você pode incluir quantos produtos precisar na mesma solicitação.
+                  </p>
+                ) : null}
               </div>
 
-              {/* Quantidades específicas do produto escolhido. */}
-              {config ? (
-                <div className={s.options}>
-                  {config.intro ? <p className={s.optionsIntro}>{config.intro}</p> : null}
+              {/* Um cartão por produto do pedido. */}
+              {cart.map((entry) => {
+                const cfg = findQuoteProduct(entry.slug);
+                const unica = cfg?.options.length === 1;
+                return (
+                  <div key={entry.slug} className={s.cartItem}>
+                    <div className={s.cartHead}>
+                      <span className={s.cartName}>{entry.name}</span>
+                      <button
+                        type="button"
+                        className={s.cartRemove}
+                        onClick={() => removeProduct(entry.slug)}
+                        aria-label={`Remover ${entry.name} do pedido`}
+                      >
+                        <Icon name="close" size={15} strokeWidth={2.2} />
+                      </button>
+                    </div>
 
-                  {config.options.map((opt) => {
-                    const active = singleOption ? true : Boolean(picked[opt.id]);
-                    return (
-                      <div key={opt.id} className={s.option}>
-                        {singleOption ? (
-                          <div className={s.optionHead} style={{ cursor: 'default' }}>
-                            {opt.label}
-                          </div>
-                        ) : (
-                          <label className={s.optionHead}>
-                            <input
-                              type="checkbox"
-                              name={`item:${opt.label}`}
-                              checked={active}
-                              onChange={(e) =>
-                                setPicked((prev) => ({
-                                  ...prev,
-                                  [opt.id]: e.target.checked,
-                                }))
-                              }
-                            />
-                            {opt.label}
-                          </label>
-                        )}
-
-                        {active ? (
-                          <div className={s.optionBody}>
-                            {opt.fields.map((f) => (
-                              <QuantityInput key={f.name} field={f} option={opt.label} />
-                            ))}
-                          </div>
+                    {cfg ? (
+                      <div className={s.cartBody}>
+                        {cfg.intro ? (
+                          <p className={s.optionsIntro}>{cfg.intro}</p>
                         ) : null}
+
+                        {cfg.options.map((opt) => {
+                          const active = unica || entry.options.includes(opt.id);
+                          return (
+                            <div key={opt.id} className={s.option}>
+                              {unica ? (
+                                <div
+                                  className={s.optionHead}
+                                  style={{ cursor: 'default' }}
+                                >
+                                  {opt.label}
+                                </div>
+                              ) : (
+                                <label className={s.optionHead}>
+                                  <input
+                                    type="checkbox"
+                                    name={`item:${entry.name} — ${opt.label}`}
+                                    checked={active}
+                                    onChange={(e) =>
+                                      toggleOption(entry.slug, opt.id, e.target.checked)
+                                    }
+                                  />
+                                  {opt.label}
+                                </label>
+                              )}
+
+                              {active ? (
+                                <div className={s.optionBody}>
+                                  {opt.fields.map((f) => (
+                                    <QuantityInput
+                                      key={f.name}
+                                      field={f}
+                                      product={entry.name}
+                                      option={opt.label}
+                                    />
+                                  ))}
+                                </div>
+                              ) : null}
+                            </div>
+                          );
+                        })}
                       </div>
-                    );
-                  })}
-                </div>
-              ) : null}
+                    ) : (
+                      /* Produto sem configuração de quantidade: entra no
+                         pedido mesmo assim, para a equipe cotar. */
+                      <div className={s.cartBody}>
+                        <p className={s.optionsIntro}>
+                          Nossa equipe entrará em contato para dimensionar a
+                          quantidade.
+                        </p>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
 
               <div className={s.field}>
                 <label className={s.label} htmlFor="q-mensagem">
@@ -357,7 +487,15 @@ export function QuoteModal({ open, onClose, productSlug }: Props) {
 /* ------------------------------------------------------------------ campos */
 
 /** Campo de quantidade: número com unidade, ou três medidas para o tanque. */
-function QuantityInput({ field, option }: { field: QuantityField; option: string }) {
+function QuantityInput({
+  field,
+  product,
+  option,
+}: {
+  field: QuantityField;
+  product: string;
+  option: string;
+}) {
   if (field.kind === 'dimensions') {
     return (
       <div>
@@ -374,7 +512,7 @@ function QuantityInput({ field, option }: { field: QuantityField; option: string
                 inputMode="decimal"
                 min="0"
                 step="0.01"
-                name={`${option} — ${d.label} (${field.unit})`}
+                name={fieldName(product, option, d.label, field.unit)}
                 placeholder={field.unit}
               />
             </label>
@@ -385,12 +523,9 @@ function QuantityInput({ field, option }: { field: QuantityField; option: string
     );
   }
 
-  /* O nome do campo vira o rótulo da linha no e-mail. Quando a variante já diz
-     o que é ("Metragem desejada"), repetir o rótulo do campo só polui. */
-  const fieldName =
-    option.toLowerCase().includes(field.label.toLowerCase())
-      ? `${option} (${field.unit})`
-      : `${option} — ${field.label} (${field.unit})`;
+  /* O nome do campo vira o rótulo da linha no e-mail — e é por ele que o
+     backend reconhece o produto quando o pedido tem vários. */
+  const name = fieldName(product, option, field.label, field.unit);
 
   return (
     <div>
@@ -400,9 +535,9 @@ function QuantityInput({ field, option }: { field: QuantityField; option: string
           inputMode="numeric"
           min={field.min}
           step={field.step}
-          name={fieldName}
+          name={name}
           placeholder={field.placeholder}
-          aria-label={`${option} — ${field.label} em ${field.unit}`}
+          aria-label={`${product} — ${option} — ${field.label} em ${field.unit}`}
         />
         <span className={s.qtyUnit}>{field.unit}</span>
       </div>

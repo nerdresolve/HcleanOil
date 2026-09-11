@@ -13,10 +13,23 @@ apps/backend/*.png
 apps/frontend/scripts/screenshots/
 *.tsbuildinfo
 
-# ambiente — nunca versionar credenciais SMTP
+# ------------------------------------------------------------------ segredos
+# Credenciais: SMTP, token do tunnel, chaves de API. Nunca versionar.
+# O padrao cobre qualquer sufixo (.env.local, .env.bak-pre-tunnel, .env.old):
+# um backup do .env carrega exatamente os mesmos segredos que o original.
 .env
-.env.local
-.env.*.local
+.env*
+!.env.example
+*.pem
+*.key
+credentials.json
+
+# ----------------------------------------------- documentos internos do cliente
+# Tabela de precos, negociacoes em aberto e decisoes comerciais. O repositorio
+# e publico; estes arquivos ficam so no disco de quem trabalha no projeto.
+PRECOS.md
+TAREFAS.md
+ESTUDO-PROPOSTA-AUTOMATICA.md
 
 # logs
 *.log
@@ -25,3 +38,8 @@ npm-debug.log*
 # sistema
 .DS_Store
 Thumbs.db
+
+# temporarios de desenvolvimento
+*.tmp.*
+*.bak
+*.bak-*

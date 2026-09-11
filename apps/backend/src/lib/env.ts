@@ -17,6 +17,22 @@ const schema = z.object({
     .enum(['true', 'false'])
     .optional()
     .transform((v) => (v === undefined ? undefined : v === 'true')),
+  /**
+   * Nome usado na validação do certificado TLS (SNI), quando difere de
+   * SMTP_HOST.
+   *
+   * Existe porque o apelido do servidor de e-mail pode estar atrás de um
+   * proxy que não encaminha SMTP. Nesse caso a conexão vai pelo endereço do
+   * servidor de e-mail, que não é proxeado, e o certificado continua sendo
+   * conferido contra o nome que ele realmente cobre. Sem isso a alternativa
+   * seria desligar a validação, o que exporia a senha a quem estivesse no
+   * caminho.
+   */
+  SMTP_SERVERNAME: z
+    .string()
+    .optional()
+    .transform((v) => (v?.trim() ? v.trim() : undefined)),
+
   SMTP_USER: z.string().min(1, 'SMTP_USER é obrigatório'),
   SMTP_PASS: z.string().min(1, 'SMTP_PASS é obrigatório'),
 
@@ -26,6 +42,18 @@ const schema = z.object({
 
   /** Caixa que recebe os leads do formulário. */
   MAIL_TO: z.string().email('MAIL_TO precisa ser um e-mail válido'),
+
+  /**
+   * Cópia oculta de tudo que sai: notificação, confirmação e proposta.
+   *
+   * Fica oculta de propósito — o cliente que recebe a confirmação não vê
+   * este endereço. Vazio ou ausente desliga a cópia.
+   */
+  MAIL_BCC: z
+    .string()
+    .optional()
+    .transform((v) => (v?.trim() ? v.trim() : undefined))
+    .pipe(z.string().email('MAIL_BCC precisa ser um e-mail válido').optional()),
 
   /** Envia confirmação para quem preencheu o formulário. */
   SEND_CONFIRMATION: z

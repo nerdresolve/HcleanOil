@@ -201,6 +201,98 @@
   color: var(--hc-danger);
 }
 
+/* ---------------------------------------------------------------- pedido */
+
+.picker {
+  position: relative;
+}
+
+/* Cartão de um produto já adicionado ao pedido. A borda esquerda em verde
+   distingue o que já está no pedido do que ainda é escolha no seletor. */
+.cartItem {
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--hc-green-300);
+  border-radius: var(--radius-lg);
+  background: var(--surface-sunken);
+  overflow: hidden;
+  animation: cartIn 160ms ease-out;
+}
+
+@keyframes cartIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Quem prefere menos movimento não perde nada: o cartão só aparece. */
+@media (prefers-reduced-motion: reduce) {
+  .cartItem {
+    animation: none;
+  }
+}
+
+.cartHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 11px 12px 11px 14px;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--hc-white);
+}
+
+.cartName {
+  font: var(--fw-semibold) var(--fs-body-sm) / 1.3 var(--font-display);
+  color: var(--text-strong);
+}
+
+.cartRemove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: background 120ms, color 120ms, border-color 120ms;
+}
+
+.cartRemove:hover {
+  background: var(--hc-white);
+  border-color: var(--border-subtle);
+  color: var(--hc-danger);
+}
+
+.cartRemove:focus-visible {
+  outline: 2px solid var(--hc-green-300);
+  outline-offset: 2px;
+}
+
+.cartBody {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px 14px 14px;
+}
+
+/* No toque o alvo precisa de 44px; o ícone continua com 30px de caixa
+   visível, mas a área clicável cresce. */
+@media (max-width: 900px) {
+  .cartRemove {
+    width: 44px;
+    height: 44px;
+  }
+}
+
 /* ------------------------------------------------------ variantes/quantidade */
 
 .options {

@@ -13,6 +13,12 @@ export function getTransporter(): Transporter {
     // 465 usa TLS implícito; nas demais portas o STARTTLS é negociado.
     secure: env.SMTP_SECURE ?? env.SMTP_PORT === 465,
     auth: { user: env.SMTP_USER, pass: env.SMTP_PASS },
+    /* Quando SMTP_HOST é um endereço que o certificado não cobre, o nome a
+       validar vem de SMTP_SERVERNAME. A verificação continua ligada: o que
+       muda é contra qual nome ela é feita, não se ela acontece. */
+    ...(env.SMTP_SERVERNAME
+      ? { tls: { servername: env.SMTP_SERVERNAME, rejectUnauthorized: true } }
+      : {}),
   });
 
   return transporter;
@@ -21,6 +27,8 @@ export function getTransporter(): Transporter {
 type SendArgs = {
   to: string;
   cc?: string;
+  /** Cópia oculta. Vazio quando MAIL_BCC não está configurado. */
+  bcc?: string;
   subject: string;
   html: string;
   text: string;
@@ -32,6 +40,7 @@ type SendArgs = {
 export async function sendMail({
   to,
   cc,
+  bcc = env.MAIL_BCC,
   subject,
   html,
   text,
@@ -44,6 +53,7 @@ export async function sendMail({
     from: `"${env.MAIL_FROM_NAME}" <${env.MAIL_FROM}>`,
     to,
     cc,
+    bcc,
     replyTo,
     subject,
     text,
