@@ -1,14 +1,14 @@
 <div align="center">
 
-<img src="docs/brand/banner.svg" alt="HCLEAN: equipamentos para resposta a emergências ambientais" width="100%">
+<img src="docs/brand/banner.svg" alt="HCLEAN: equipment for environmental emergency response" width="100%">
 
-Site institucional de uma fornecedora técnica B2B de equipamentos para resposta
-a emergências ambientais. O visitante monta o pedido num pop-up e recebe a
-proposta comercial em PDF, gerada na hora.
+Institutional site for a B2B technical supplier of equipment for environmental
+emergency response. The visitor builds an order in a pop-up and gets the
+commercial proposal as a PDF, generated on the spot.
 
-[![Licença](https://img.shields.io/badge/licen%C3%A7a-todos%20os%20direitos%20reservados-0e3d27)](LICENSE) ![Stack](https://img.shields.io/badge/Next.js%2016-React%2019-061a11) ![API](https://img.shields.io/badge/Express-Playwright-175034) ![Deploy](https://img.shields.io/badge/Docker-Cloudflare%20Tunnel-00bf63)
+[![License](https://img.shields.io/badge/license-all%20rights%20reserved-0e3d27)](LICENSE) ![Stack](https://img.shields.io/badge/Next.js%2016-React%2019-061a11) ![API](https://img.shields.io/badge/Express-Playwright-175034) ![Deploy](https://img.shields.io/badge/Docker-Cloudflare%20Tunnel-00bf63)
 
-**[Ver o site](https://hclean.nerdresolve.com)** · [As telas](#as-telas) · [O que resolve](#o-que-o-projeto-resolve) · [Publicação](#publicação) · [Licença](#licença)
+**[View the site](https://hclean.nerdresolve.com)** · [The screens](#the-screens) · [What it solves](#what-the-project-solves) · [Deployment](#deployment) · [License](#license)
 
 </div>
 
@@ -17,197 +17,200 @@ proposta comercial em PDF, gerada na hora.
 ```
 apps/
   frontend/   Next.js 16 (App Router) + TypeScript
-  backend/    API Express que recebe o formulário e gera a proposta
-infra/        configuração do túnel de publicação
+  backend/    Express API that takes the form and generates the proposal
+infra/        deployment tunnel configuration
 ```
 
-## O que o projeto resolve
+## What the project solves
 
-A operação anterior era manual: o lead chegava por e-mail, alguém abria uma
-planilha, montava a proposta no Word e devolvia em PDF. O gargalo estava nas
-horas entre o pedido e a resposta.
+The previous process was manual: a lead came in by email, somebody opened a
+spreadsheet, put the proposal together in Word and sent it back as a PDF. The
+bottleneck was the hours between the request and the answer.
 
-Aqui o caminho inteiro é automático. O formulário coleta produto, variante e
-quantidade; a API valida, calcula o orçamento com a tabela de preços, renderiza
-o PDF e dispara três mensagens: notificação interna, confirmação para quem
-preencheu e a proposta com o anexo.
+Here the whole path is automatic. The form collects product, variant and
+quantity; the API validates, prices the quote against the price table, renders
+the PDF and fires three messages: an internal notification, a confirmation to
+whoever filled the form in, and the proposal with the attachment.
 
-Quando algum item do pedido não tem preço de tabela, a proposta não sai para o
-cliente. Ela vai apenas para a equipe, com alerta, para que alguém complete os
-valores à mão. Errar um preço numa proposta comercial custa mais caro do que
-atrasar o envio.
+When an item on the order has no list price, the proposal does not go out to
+the customer. It goes only to the team, flagged, so somebody can fill the
+figures in by hand. Getting a price wrong on a commercial proposal costs more
+than sending it late.
 
-## As telas
+## The screens
 
-O pop-up de orçamento é o centro do projeto: cada produto escolhido vira um
-cartão com suas variantes e quantidades, e o seletor fica livre para o próximo.
+The quote pop-up is the heart of the project: each product picked becomes a
+card with its variants and quantities, and the selector stays free for the
+next one.
 
 <div align="center">
-<img src="docs/telas/07-orcamento-card.webp" alt="Pop-up de orçamento com vários produtos no mesmo pedido" width="88%">
+<img src="docs/telas/07-orcamento-card.webp" alt="Quote pop-up with several products in one order" width="88%">
 </div>
 
 <table>
 <tr>
-<td width="50%"><a href="docs/telas/01-home.webp" title="ver a página inteira"><img src="docs/telas/01-home-card.webp" alt="Home do site"></a><br><sub><b>Home</b> · hero em tela cheia e os números da operação</sub></td>
-<td width="50%"><a href="docs/telas/02-produtos.webp" title="ver a página inteira"><img src="docs/telas/02-produtos-card.webp" alt="Vitrine de produtos"></a><br><sub><b>Produtos</b> · as três linhas, barreiras, kits e o tanque</sub></td>
+<td width="50%"><a href="docs/telas/01-home.webp" title="view the full page"><img src="docs/telas/01-home-card.webp" alt="Site home page"></a><br><sub><b>Home</b> · full-screen hero and the numbers behind the operation</sub></td>
+<td width="50%"><a href="docs/telas/02-produtos.webp" title="view the full page"><img src="docs/telas/02-produtos-card.webp" alt="Product showcase"></a><br><sub><b>Products</b> · the three lines: booms, kits and the tank</sub></td>
 </tr>
 <tr>
-<td width="50%"><a href="docs/telas/03-produto.webp" title="ver a página inteira"><img src="docs/telas/03-produto-card.webp" alt="Página da Linha Branca"></a><br><sub><b>Produto</b> · dados técnicos de fábrica por linha</sub></td>
-<td width="50%"><a href="docs/telas/04-formato.webp" title="ver a página inteira"><img src="docs/telas/04-formato-card.webp" alt="Página por formato"></a><br><sub><b>Formato</b> · o mesmo formato nas três linhas, lado a lado</sub></td>
+<td width="50%"><a href="docs/telas/03-produto.webp" title="view the full page"><img src="docs/telas/03-produto-card.webp" alt="Linha Branca product page"></a><br><sub><b>Product</b> · factory technical data per line</sub></td>
+<td width="50%"><a href="docs/telas/04-formato.webp" title="view the full page"><img src="docs/telas/04-formato-card.webp" alt="Page by format"></a><br><sub><b>Format</b> · the same format across the three lines, side by side</sub></td>
 </tr>
 <tr>
-<td width="50%"><a href="docs/telas/05-sobre.webp" title="ver a página inteira"><img src="docs/telas/05-sobre-card.webp" alt="Página institucional"></a><br><sub><b>Sobre</b> · a operação e a experiência da empresa</sub></td>
-<td width="50%"><a href="docs/telas/07-orcamento.webp" title="ver a página inteira"><img src="docs/telas/07-orcamento-card.webp" alt="Pop-up de orçamento"></a><br><sub><b>Orçamento</b> · vários produtos no mesmo pedido</sub></td>
+<td width="50%"><a href="docs/telas/05-sobre.webp" title="view the full page"><img src="docs/telas/05-sobre-card.webp" alt="About page"></a><br><sub><b>About</b> · the operation and the company's track record</sub></td>
+<td width="50%"><a href="docs/telas/07-orcamento.webp" title="view the full page"><img src="docs/telas/07-orcamento-card.webp" alt="Quote pop-up"></a><br><sub><b>Quote</b> · several products in one order</sub></td>
 </tr>
 </table>
 
-### No celular
+### On the phone
 
-O mesmo conteúdo se reorganiza em uma coluna, com os alvos de toque em 44px.
+The same content reflows into a single column, with 44px touch targets.
 
 <div align="center">
-<a href="docs/telas/06-mobile.webp" title="ver a página inteira"><img src="docs/telas/06-mobile-card.webp" alt="Home no telefone" width="320"></a>
+<a href="docs/telas/06-mobile.webp" title="view the full page"><img src="docs/telas/06-mobile-card.webp" alt="Home on a phone" width="320"></a>
 </div>
 
 ---
 
 ## Frontend
 
-Next.js com App Router. As páginas são geradas no build, incluindo as de
-produto, o que mantém o LCP no tempo de resposta do CDN.
+Next.js with the App Router. Pages are generated at build time, product pages
+included, which keeps the LCP down to the CDN's response time.
 
-Decisões que sustentam o SEO e a performance:
+Decisions that hold the SEO and the performance up:
 
-* **CSS Modules com custom properties**, sem CSS-in-JS. Nenhum JavaScript de
-  estilo chega ao cliente.
-* **Server Components por padrão.** Só o link ativo da navegação e o pop-up de
-  orçamento rodam no cliente.
-* **`next/font`** auto-hospeda a tipografia em WOFF2 no build, sem requisição
-  externa e sem layout shift.
-* **Ícones SVG inline** desenhados no projeto, em vez de biblioteca.
-* `sitemap.xml`, `robots.txt`, canonical, Open Graph e JSON-LD já configurados.
+* **CSS Modules with custom properties**, no CSS-in-JS. No styling JavaScript
+  reaches the client.
+* **Server Components by default.** Only the active navigation link and the
+  quote pop-up run on the client.
+* **`next/font`** self-hosts the typography as WOFF2 at build time, with no
+  external request and no layout shift.
+* **Inline SVG icons** drawn in the project, instead of a library.
+* `sitemap.xml`, `robots.txt`, canonical, Open Graph and JSON-LD already set up.
 
 ```bash
 cd apps/frontend
 npm install
-cp .env.example .env.local     # aponte NEXT_PUBLIC_API_URL para a API
+cp .env.example .env.local     # point NEXT_PUBLIC_API_URL at the API
 npm run dev                    # http://localhost:3000
-npm run build && npm start     # produção
+npm run build && npm start     # production
 ```
 
-### Onde mexer
+### Where to make changes
 
-| O que | Arquivo |
+| What | File |
 | --- | --- |
-| Copy, produtos, categorias, contato | `src/data/site.ts` |
-| Quantidades e mínimos do orçamento | `src/data/quote.ts` |
-| Cores, tipografia, espaçamento | `src/styles/tokens.css` |
-| Cabeçalho e rodapé | `src/components/site/` |
-| Blocos reaproveitados | `src/components/sections/` |
+| Copy, products, categories, contact | `src/data/site.ts` |
+| Quote quantities and minimums | `src/data/quote.ts` |
+| Colors, typography, spacing | `src/styles/tokens.css` |
+| Header and footer | `src/components/site/` |
+| Reused blocks | `src/components/sections/` |
 
-Todo o catálogo vive em `src/data/site.ts`. Adicionar um produto ali já gera a
-página, o card, o sitemap e os "produtos relacionados".
+The whole catalog lives in `src/data/site.ts`. Adding a product there already
+generates the page, the card, the sitemap entry and the "related products".
 
 ---
 
 ## Backend
 
-API Express com uma rota: `POST /api/contato`. Valida com Zod, monta o
-orçamento, gera o PDF e envia por SMTP.
+An Express API with a single route: `POST /api/contato`. It validates with Zod,
+assembles the quote, generates the PDF and sends it over SMTP.
 
 ```bash
 cd apps/backend
 npm install
-cp .env.example .env           # preencha as credenciais SMTP
+cp .env.example .env           # fill in the SMTP credentials
 npm run dev                    # http://localhost:4000
-npm run email:preview          # gera os e-mails em preview/ para conferir
+npm run email:preview          # renders the emails into preview/ for review
 ```
 
-### Pedido com vários produtos
+### Orders with several products
 
-O pop-up funciona como um carrinho: cada produto escolhido vira um cartão com
-suas variantes e quantidades, e o seletor fica livre para o próximo. As
-quantidades já digitadas não se perdem ao adicionar outro item.
+The pop-up works like a cart: each product picked becomes a card with its
+variants and quantities, and the selector stays free for the next one.
+Quantities already typed in are not lost when another item is added.
 
-Cada campo de quantidade carrega o nome do produto no próprio rótulo. É isso que
-permite ao backend precificar linha a linha quando o pedido mistura produtos
-diferentes, cada um com sua tabela.
+Each quantity field carries the product name in its own label. That is what
+lets the backend price line by line when an order mixes different products,
+each with its own table.
 
-### Proposta em PDF
+### PDF proposal
 
-O PDF é renderizado num Chromium headless via Playwright, a partir de HTML. Isso
-substituiu a dependência de Word do processo anterior: o mesmo binário roda em
-Windows e Linux, sem interface, sem licença.
+The PDF is rendered in a headless Chromium through Playwright, from HTML. That
+replaced the previous process's dependency on Word: the same binary runs on
+Windows and Linux, with no interface and no license.
 
-A numeração é sequencial por ano e fica num contador em disco, montado como
-volume para sobreviver a um novo deploy.
+Numbering is sequential per year and lives in a counter on disk, mounted as a
+volume so it survives a new deploy.
 
 ### SMTP
 
-Dois e-mails saem por solicitação, mais a proposta:
+Two emails go out per request, plus the proposal:
 
-1. **Notificação interna** com os dados do lead em tabela, e `Reply-To`
-   apontando para quem preencheu, de modo que responder no cliente de e-mail já
-   fala com o cliente.
-2. **Confirmação** para quem preencheu. Desligue com `SEND_CONFIRMATION=false`.
+1. **Internal notification** with the lead's data in a table, and `Reply-To`
+   pointing at whoever filled the form in, so replying from the mail client
+   talks to the customer directly.
+2. **Confirmation** to whoever filled the form in. Turn it off with
+   `SEND_CONFIRMATION=false`.
 
-Ambos usam a identidade visual da marca, montada em tabelas com estilo inline
-para sobreviver ao Outlook e ao Gmail.
+Both use the brand's visual identity, laid out in tables with inline styles so
+they survive Outlook and Gmail.
 
-`MAIL_BCC` põe uma cópia oculta em tudo que sai. Fica oculta de verdade: quem
-recebe a confirmação não vê o endereço.
+`MAIL_BCC` puts a blind copy on everything that goes out. It stays genuinely
+blind: whoever gets the confirmation does not see the address.
 
-### Proteções
+### Protections
 
-* Validação de todos os campos com mensagens em português.
-* Rate limit de 5 envios por IP a cada 15 minutos.
-* Honeypot: campo escondido que só robô preenche. A requisição recebe `200` e é
-  descartada em silêncio, sem revelar que foi detectada.
-* CORS restrito às origens em `CORS_ORIGINS`.
+* Validation of every field, with messages in Portuguese (the site's audience
+  is Brazilian).
+* Rate limit of 5 submissions per IP every 15 minutes.
+* Honeypot: a hidden field only a bot fills in. The request gets a `200` and is
+  dropped silently, without revealing that it was caught.
+* CORS restricted to the origins in `CORS_ORIGINS`.
 
 ---
 
-## Publicação
+## Deployment
 
-Site, API e túnel sobem juntos em containers:
+Site, API and tunnel come up together in containers:
 
 ```bash
-docker compose up -d --build     # sobe tudo
-docker compose ps                # estado e saúde
-docker compose logs -f backend   # acompanha a API
-docker compose down              # derruba
+docker compose up -d --build     # bring everything up
+docker compose ps                # state and health
+docker compose logs -f backend   # follow the API
+docker compose down              # tear down
 ```
 
-`restart: unless-stopped` mantém o site no ar: o Docker religa os containers
-quando eles quebram e quando o próprio Docker inicia, inclusive depois de
-reiniciar a máquina. Um container parado à mão continua parado, que é o que o
-"unless-stopped" significa.
+`restart: unless-stopped` keeps the site online: Docker brings the containers
+back when they crash and when Docker itself starts, including after a machine
+reboot. A container stopped by hand stays stopped, which is what
+"unless-stopped" means.
 
-O backend usa a imagem oficial do Playwright, e não uma Node enxuta, porque a
-proposta é renderizada num Chromium. A tag precisa casar com a versão da
-biblioteca no `package.json`.
+The backend uses the official Playwright image rather than a slim Node one,
+because the proposal is rendered in a Chromium. The tag has to match the
+library version in `package.json`.
 
-Credenciais nunca entram nas imagens. Chegam por `env_file` na subida, e os
-`.dockerignore` excluem os arquivos de ambiente.
+Credentials never go into the images. They arrive through `env_file` at
+startup, and the `.dockerignore` files exclude the environment files.
 
-| O que | Onde |
+| What | Where |
 | --- | --- |
-| Serviços e política de restart | `docker-compose.yml` |
-| Roteamento do túnel | `infra/cloudflared/config.yml` |
-| Variáveis da API | `apps/backend/.env` (fora do versionamento) |
+| Services and restart policy | `docker-compose.yml` |
+| Tunnel routing | `infra/cloudflared/config.yml` |
+| API variables | `apps/backend/.env` (not version-controlled) |
 
 ---
 
-## Licença
+## License
 
-© 2026 NerdResolve. Todos os direitos reservados.
+© 2026 NerdResolve. All rights reserved.
 
-O repositório é público para avaliação técnica e demonstração de portfólio. O
-código pode ser lido e estudado; não há licença de uso, cópia ou
-redistribuição. Ver [LICENSE](LICENSE).
+The repository is public for technical review and portfolio purposes. The code
+may be read and studied; no license to use, copy or redistribute is granted.
+See [LICENSE](LICENSE).
 
-A marca, as fotografias e o conteúdo institucional da HCLEAN pertencem à
-titular e não são licenciados por este repositório.
+The HCLEAN brand, photography and institutional content belong to their owner
+and are not licensed by this repository.
 
 <div align="center">
 <img src="apps/frontend/public/marca/hclean-simbolo.webp" width="64" alt="">

@@ -1,12 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-label="HCLEAN: equipamentos para resposta a emergências ambientais">
-  <title>HCLEAN: equipamentos para resposta a emergências ambientais</title>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 400" width="1280" height="400" role="img" aria-label="HCLEAN: equipment for environmental emergency response">
+  <title>HCLEAN: equipment for environmental emergency response</title>
 
   <!--
-    A marca vem do componente oficial do site (src/components/ui/Logo.tsx):
-    disco com duas ondas, a azul-petroleo ao fundo e a verde-menta a frente,
-    separadas por um fio branco, dentro de um anel. Os caminhos e os gradientes
-    sao os mesmos, so reescalados. Nao redesenhar: qualquer aproximacao
-    descaracteriza a marca do cliente.
+    The mark comes from the site's official component
+    (src/components/ui/Logo.tsx): a disc with two waves, the petrol blue behind
+    and the mint green in front, separated by a white thread, inside a ring.
+    The paths and the gradients are the same, only rescaled. Do not redraw it:
+    any approximation distorts the client's brand.
   -->
 
   <defs>
@@ -16,14 +16,14 @@
       <stop offset="100%" stop-color="#175034"/>
     </linearGradient>
 
-    <!-- Onda da frente: verde-menta descendo para esmeralda. -->
+    <!-- Front wave: mint green fading down into emerald. -->
     <linearGradient id="onda-frente" x1="0" y1="0.2" x2="1" y2="0.9">
       <stop offset="0" stop-color="#7FD9AE"/>
       <stop offset="0.45" stop-color="#42B383"/>
       <stop offset="1" stop-color="#2C8F63"/>
     </linearGradient>
 
-    <!-- Onda de tras: verde profundo virando azul-petroleo. -->
+    <!-- Back wave: deep green turning into petrol blue. -->
     <linearGradient id="onda-tras" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#2F7D52"/>
       <stop offset="0.5" stop-color="#2C7FA8"/>
@@ -47,7 +47,7 @@
   <g clip-path="url(#moldura)">
     <rect width="1280" height="400" fill="url(#fundo)"/>
 
-    <!-- Barreira de contencao: a curva que define o produto da empresa. -->
+    <!-- Containment boom: the curve that defines the company's product. -->
     <g fill="none" opacity="0.45">
       <path d="M-40 300 C 220 258, 470 332, 720 288 S 1120 232, 1330 276"
             stroke="#00bf63" stroke-opacity="0.24" stroke-width="2.5"/>
@@ -62,11 +62,11 @@
 
     <rect width="1280" height="400" fill="url(#vinheta)"/>
 
-    <!-- ================================================== marca, em destaque -->
-    <!-- Halo que descola o simbolo do fundo escuro. -->
+    <!-- ================================================== brand, front and center -->
+    <!-- Halo that lifts the symbol off the dark background. -->
     <circle cx="248" cy="168" r="150" fill="url(#halo)"/>
 
-    <!-- Simbolo oficial: 200x200 do componente, levado a 224px. -->
+    <!-- Official symbol: the component's 200x200, scaled up to 224px. -->
     <g transform="translate(136 56) scale(1.12)">
       <circle cx="100" cy="100" r="87" fill="none" stroke="rgba(247,247,247,.95)" stroke-width="8"/>
       <g clip-path="url(#disco)">
@@ -80,7 +80,7 @@
       </g>
     </g>
 
-    <!-- Palavra: peso 600 e tracking 0.11em, como no lockup do site. -->
+    <!-- Wordmark: weight 600 and 0.11em tracking, as in the site's lockup. -->
     <text x="412" y="186"
           font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
           font-size="104" font-weight="600" fill="#F4F8F6" letter-spacing="11.4">HCLEAN</text>
@@ -88,13 +88,13 @@
     <text x="416" y="236"
           font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
           font-size="25" font-weight="500" fill="#6fd9a3" letter-spacing="0.4">
-      Equipamentos para resposta a emergências ambientais
+      Equipment for environmental emergency response
     </text>
 
     <text x="416" y="272"
           font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif"
           font-size="17" font-weight="400" fill="#d8f2e4" fill-opacity="0.7">
-      Site institucional, pop-up de orçamento e proposta comercial em PDF gerada na hora
+      Institutional site, quote pop-up and a commercial PDF proposal generated on the spot
     </text>
 
     <g font-family="'Exo 2', 'Helvetica Neue', Arial, sans-serif" font-size="13"
